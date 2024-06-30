@@ -61,7 +61,7 @@ export type AllCountriesResponse =
   | GeneralApiProblem;
 
 export type CountryDetailsItem = {
-  name?: Name;
+  name: Name;
   tld?: string[];
   cca2?: string;
   ccn3?: string;
@@ -157,9 +157,9 @@ export type Maps = {
 };
 
 export type Name = {
-  common?: string;
-  official?: string;
-  nativeName?: NativeName;
+  common: string;
+  official: string;
+  nativeName: NativeName;
 };
 
 export type NativeName = {
