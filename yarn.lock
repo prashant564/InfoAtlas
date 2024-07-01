@@ -7674,8 +7674,10 @@ __metadata:
     prettier: 2.8.8
     react: 18.2.0
     react-native: 0.74.2
+    react-native-bars: ^2.4.3
     react-native-bootsplash: ^5.5.3
     react-native-gesture-handler: ^2.14.0
+    react-native-linear-gradient: ^2.8.3
     react-native-paper: ^5.12.3
     react-native-reanimated: ^3.6.0
     react-native-reanimated-skeleton: ^1.5.1
@@ -9505,6 +9507,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-bars@npm:^2.4.3":
+  version: 2.4.3
+  resolution: "react-native-bars@npm:2.4.3"
+  peerDependencies:
+    react: ">=18.1.0"
+    react-native: ">=0.70.0"
+  checksum: 2a432fc7f63b644c693cc44d8a12e75e17f785b9d8b49242cf62dff787d22e50e586b9c45985f286c870ae443124c216aa59b1dae908a58767b430b2d61b201c
+  languageName: node
+  linkType: hard
+
 "react-native-bootsplash@npm:^5.5.3":
   version: 5.5.3
   resolution: "react-native-bootsplash@npm:5.5.3"
@@ -9537,6 +9549,16 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 70da4fc51d92899591aadf03396a8e0b78223fbe71da5b10e76232058c1ef5943d54c1dd8da815d5b6a8b41f259ea9d50457680e2ef7878c88d7396771170ae3
+  languageName: node
+  linkType: hard
+
+"react-native-linear-gradient@npm:^2.8.3":
+  version: 2.8.3
+  resolution: "react-native-linear-gradient@npm:2.8.3"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: f980d324e551bbc475c6406bdc5250a08242020cbe653412fa169bbdf51e28a502e225de105b4d696d6a1a1b733d44782469020f4936d8b3ce0e2c78e51cf58f
   languageName: node
   linkType: hard
 

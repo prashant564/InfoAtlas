@@ -1,38 +1,79 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
  *
+ * Generated with the TypeScript template
+ * https://github.com/react-native-community/react-native-template-typescript
+ *
  * @format
  */
 
-import {useAppBoundStore} from '@store/mainStore';
-import React, {useEffect} from 'react';
-import {SafeAreaView, StatusBar, Text, useColorScheme} from 'react-native';
+import React, {useEffect, useState, useRef} from 'react';
+import {Provider as PaperProvider} from 'react-native-paper';
+import RNBootSplash from 'react-native-bootsplash';
+import {
+  SafeAreaProvider,
+  initialWindowMetrics,
+} from 'react-native-safe-area-context';
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+import {ThemeContext, Theme} from '@utils/ThemeContext';
+import {load, save} from '@utils/storageUtils';
+import * as storage from '@utils/storageUtils';
 
-  const {__fetchAllCountriesDetails, allCountryDetailsList} = useAppBoundStore(
-    state => ({
-      __fetchAllCountriesDetails: state.__fetchAllCountriesDetails,
-      allCountryDetailsList: state.allCountryDetailsList,
-    }),
+import {
+  useBackButtonHandler,
+  RootNavigator,
+  canExit,
+  useNavigationPersistence,
+} from '@navigation';
+
+import {SplashScreen} from '@screens';
+
+import {CombinedDarkTheme, CombinedDefaultTheme} from '@themes';
+
+export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
+
+const App = () => {
+  const openedOnce = useRef(false);
+  const [appReadyStatus, setAppReadyStatus] = useState<-1 | 0 | 1>(0);
+  const [appInitCallsError, setAppInitCallsError] = useState<-1 | 0 | 1>(-1);
+
+  useBackButtonHandler(canExit);
+  const {onNavigationStateChange} = useNavigationPersistence(
+    storage,
+    NAVIGATION_PERSISTENCE_KEY,
   );
 
   useEffect(() => {
-    __fetchAllCountriesDetails();
+    load('openedOnce').then(res => {
+      if (res === 'true') {
+        openedOnce.current = true;
+      }
+    });
   }, []);
 
-  return (
-    <SafeAreaView>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={'white'}
-      />
-      <Text>{`${JSON.stringify(allCountryDetailsList)}`}</Text>
-    </SafeAreaView>
-  );
-}
+  //   if (appReadyStatus === 1) {
+  //     return <RootNavigator onStateChange={onNavigationStateChange} />;
+  //   }
 
-export default App;
+  //   return <SplashScreen />;
+  return <RootNavigator onStateChange={onNavigationStateChange} />;
+};
+
+const ProvidedApp = () => {
+  const [themeMode, setThemeMode] = useState(Theme.Dark);
+  const appTheme =
+    themeMode === Theme.Light ? CombinedDefaultTheme : CombinedDarkTheme;
+
+  return (
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      <ThemeContext.Provider value={{themeMode, setThemeMode}}>
+        <PaperProvider theme={appTheme}>
+          <App />
+        </PaperProvider>
+      </ThemeContext.Provider>
+    </SafeAreaProvider>
+  );
+};
+
+export default ProvidedApp;
