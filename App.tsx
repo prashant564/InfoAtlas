@@ -41,6 +41,8 @@ const App = () => {
   );
 
   useEffect(() => {
+    RNBootSplash.hide({fade: true});
+
     load('openedOnce').then(res => {
       if (res === 'true') {
         openedOnce.current = true;
