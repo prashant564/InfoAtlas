@@ -9,6 +9,7 @@ export interface TextNewProps {
    */
   children?: ReactNode;
 
+  type?: 'primary' | 'secondary';
   /**
    * Text which is looked up via i18n.
    */
@@ -37,4 +38,12 @@ export interface TextNewProps {
    * An optional style override useful for padding & margin.
    */
   fontSize?: number | FontSizes;
+  /**
+   * An optional style override for marginTop
+   */
+  mt?: number;
+  /**
+   * An optional style override for marginBottom
+   */
+  mb?: number;
 }

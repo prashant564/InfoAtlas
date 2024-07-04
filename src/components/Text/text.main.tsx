@@ -12,7 +12,10 @@ export type TextProps = TextNewProps &
 const Text = ({
   text,
   children,
+  type = 'primary',
   style: styleOverride = {},
+  mt,
+  mb,
   ...rest
 }: TextProps) => {
   const {theme} = useAppTheme();
@@ -23,12 +26,17 @@ const Text = ({
   };
 
   const textColorPreset = {
-    color: theme.colors.text,
+    color: type === 'primary' ? theme.colors.text : theme.colors.secondaryText,
   };
+
+  const marginTopPresets = mt !== undefined ? {marginTop: mt} : {};
+  const marginBottomPresets = mb !== undefined ? {marginBottom: mt} : {};
 
   const textStyle = StyleSheet.flatten([
     textColorPreset,
     letterSpacingPreset,
+    marginTopPresets,
+    marginBottomPresets,
     styleOverride,
   ]);
 

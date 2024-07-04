@@ -17,7 +17,7 @@ import {
 } from 'react-native-safe-area-context';
 
 import {ThemeContext, Theme} from '@utils/ThemeContext';
-import {load, save} from '@utils/storageUtils';
+import {load} from '@utils/storageUtils';
 import * as storage from '@utils/storageUtils';
 
 import {
@@ -27,16 +27,12 @@ import {
   useNavigationPersistence,
 } from '@navigation';
 
-import {SplashScreen} from '@screens';
-
 import {CombinedDarkTheme, CombinedDefaultTheme} from '@themes';
 
 export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
 
 const App = () => {
   const openedOnce = useRef(false);
-  const [appReadyStatus, setAppReadyStatus] = useState<-1 | 0 | 1>(0);
-  const [appInitCallsError, setAppInitCallsError] = useState<-1 | 0 | 1>(-1);
 
   useBackButtonHandler(canExit);
   const {onNavigationStateChange} = useNavigationPersistence(
@@ -52,11 +48,6 @@ const App = () => {
     });
   }, []);
 
-  //   if (appReadyStatus === 1) {
-  //     return <RootNavigator onStateChange={onNavigationStateChange} />;
-  //   }
-
-  //   return <SplashScreen />;
   return <RootNavigator onStateChange={onNavigationStateChange} />;
 };
 

@@ -13,8 +13,6 @@ export const getAllCountriesData = async (
     config,
   );
 
-  console.log('response', response);
-
   if (!response.ok) {
     const problem = getGeneralApiProblem(response);
     if (problem) {

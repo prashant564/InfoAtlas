@@ -19,17 +19,13 @@ const homePageStyles = (theme: ThemeType) => {
       width: '100%' as '100%',
       alignItems: 'center' as 'center',
     },
-    surface: {
-      flex: 1,
-      margin: 4,
-      alignItems: 'center' as 'center',
-      justifyContent: 'center' as 'center',
-      borderRadius: 16,
-    },
     pressable: {
       flex: 1,
       padding: 16,
       alignItems: 'center' as 'center',
+      margin: 8,
+      backgroundColor: theme.colors.surface,
+      borderRadius: 16,
     },
     countryNameText: {
       marginTop: 8,

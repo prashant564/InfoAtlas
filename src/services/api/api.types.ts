@@ -68,23 +68,23 @@ export type CountryDetailsItem = {
   cca3?: string;
   independent?: boolean;
   status?: string;
-  unMember?: boolean;
-  currencies?: Currencies;
+  unMember: boolean;
+  currencies: {[key: string]: CurrencyItem};
   idd?: Idd;
   capital?: string[];
   altSpellings?: string[];
   region?: string;
   subregion?: string;
-  languages?: Languages;
-  translations?: {[key: string]: Translation};
+  languages?: {[key: string]: string};
+  translations: {[key: string]: Translation};
   latlng?: number[];
   landlocked?: boolean;
   area?: number;
   demonyms?: Demonyms;
-  flag?: string;
-  maps?: Maps;
-  population?: number;
-  car?: Car;
+  flag: string;
+  maps: Maps;
+  population: number;
+  car: Car;
   timezones?: string[];
   continents?: string[];
   flags?: Flags;
@@ -103,19 +103,18 @@ export type CapitalInfo = {
 };
 
 export type Car = {
-  signs?: string[];
-  side?: string;
+  signs: string[];
+  side: string;
+};
+
+export type CurrencyItem = {
+  name: string;
+  symbol: string;
 };
 
 export type CoatOfArms = {
   png?: string;
   svg?: string;
-};
-
-export type Currencies = {
-  XPF?: Eur;
-  ISK?: Eur;
-  EUR?: Eur;
 };
 
 export type Eur = {

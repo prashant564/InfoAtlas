@@ -27,7 +27,6 @@ export const createCountriesSlice: StateCreator<
       const res = await getAllCountriesData();
       if (res.kind === 'ok') {
         const allCountryDetailsList = res.data || [];
-        console.log('datakyaaaya', JSON.stringify(allCountryDetailsList));
         set({
           allCountryDetailsList,
         });

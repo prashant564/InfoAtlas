@@ -81,19 +81,19 @@ function ScreenWithScrolling(props: ScreenProps & ScrollingScreenStoreProps) {
   const backgroundStyle = props.backgroundColor
     ? {backgroundColor: props.backgroundColor}
     : {};
-  const animBoxPadding = useSharedValue(insets.top);
-  const animatedBoxStyle = useAnimatedStyle(() => ({
-    paddingTop: withTiming(animBoxPadding.value, {
-      duration: 350,
-      easing: Easing.bezier(0.25, 0.1, 0.25, 1),
-    }),
-  }));
+  //   const animBoxPadding = useSharedValue(insets.top);
+  //   const animatedBoxStyle = useAnimatedStyle(() => ({
+  //     paddingTop: withTiming(animBoxPadding.value, {
+  //       duration: 350,
+  //       easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+  //     }),
+  //   }));
 
   const [refreshing, setRefreshing] = React.useState(false);
 
-  React.useEffect(() => {
-    animBoxPadding.value = insets.top;
-  }, [animBoxPadding, insets.top, props.unsafe]);
+  //   React.useEffect(() => {
+  //     animBoxPadding.value = insets.top;
+  //   }, [animBoxPadding, insets.top, props.unsafe]);
 
   const onRefresh = React.useCallback(() => {
     // triggerAnalytics('Pulled to Refresh');
@@ -116,7 +116,7 @@ function ScreenWithScrolling(props: ScreenProps & ScrollingScreenStoreProps) {
         hidden={props.hidden}
         animated
       />
-      <AnimatedBox style={[preset.outer, backgroundStyle, animatedBoxStyle]}>
+      <AnimatedBox style={[preset.outer, backgroundStyle]}>
         <ScrollView
           nestedScrollEnabled
           style={[preset.outer, props.scrollViewContainerStyles]}

@@ -1,3 +1,5 @@
+import {CurrencyItem} from '@services/api';
+
 type Procedure = (...args: any[]) => void;
 
 export const debounce = <F extends Procedure>(
@@ -23,4 +25,23 @@ export const debounce = <F extends Procedure>(
       func.apply(context, args);
     }
   };
+};
+
+export const formatNumberWithCommas = (num: number): string => {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
+export const getCurrencyString = (currencies: {
+  [key: string]: CurrencyItem;
+}): string => {
+  const currencyKeys = Object.keys(currencies);
+
+  if (currencyKeys.length === 0) {
+    return 'NaN';
+  }
+
+  const currencyKey = currencyKeys[0];
+  const currency = currencies[currencyKey];
+
+  return `${currency.symbol} ${currency.name}`;
 };

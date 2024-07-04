@@ -25,6 +25,7 @@ const SearchBar = ({
       label={'Choose Country'}
       onChangeText={onChangeSearch}
       placeholder="Search here"
+      autoComplete={'off'}
       forwardedRef={searchInputRef}
       style={{marginBottom: 16}}
       left={

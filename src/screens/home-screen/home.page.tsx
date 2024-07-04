@@ -13,6 +13,7 @@ import {useAppTheme} from '@themes';
 import {CountryDetailsItem} from '@services/api';
 
 import {debounce} from '@utils/utils';
+import {DUMMY_SKELETON_ARRAY} from '@utils/constants';
 
 import CountryListItem from './home.countryListItem';
 import {SkeletonLoader} from './home.skeletonLoader';
@@ -28,17 +29,15 @@ const HomePage = () => {
 
   const searchInputRef = useRef<TextInput>(null);
 
-  const dummySkeletonArray = Array.from({length: 12}, (_, index) => index + 1);
-
-  const {outerContainer, mainContainer, flashListContainer} =
-    homePageStyles(theme);
-
   const {__fetchAllCountriesDetails, allCountryDetailsList} = useAppBoundStore(
     state => ({
       __fetchAllCountriesDetails: state.__fetchAllCountriesDetails,
       allCountryDetailsList: state.allCountryDetailsList,
     }),
   );
+
+  const {outerContainer, mainContainer, flashListContainer} =
+    homePageStyles(theme);
 
   useEffect(() => {
     setFilteredCountryList(allCountryDetailsList);
@@ -96,15 +95,16 @@ const HomePage = () => {
             searchInputRef={searchInputRef}
             handleOnClosePressed={handleOnClosePressed}
           />
-          <If condition={allCountryDetailsList.length === 0}>
+          <If condition={filteredCountryList.length === 0}>
             <Then>
               <View style={flashListContainer}>
                 <FlashList
-                  data={dummySkeletonArray}
+                  data={DUMMY_SKELETON_ARRAY}
                   renderItem={() => {
                     return <SkeletonLoader />;
                   }}
                   estimatedItemSize={12}
+                  showsVerticalScrollIndicator={false}
                   keyExtractor={index => index.toString()}
                   numColumns={2}
                 />
