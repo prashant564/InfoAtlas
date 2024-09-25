@@ -15,6 +15,7 @@ import {
   SafeAreaProvider,
   initialWindowMetrics,
 } from 'react-native-safe-area-context';
+import CodePush from 'react-native-code-push';
 
 import {ThemeContext, Theme} from '@utils/ThemeContext';
 import {load} from '@utils/storageUtils';
@@ -69,4 +70,4 @@ const ProvidedApp = () => {
   );
 };
 
-export default ProvidedApp;
+export default CodePush(ProvidedApp);
