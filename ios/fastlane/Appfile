@@ -1,0 +1,10 @@
+app_identifier("com.pd.world.explorer") # The bundle identifier of your app
+apple_id("prashantdixit600@gmail.com") # Your Apple Developer Portal username
+
+itc_team_id("127118756") # App Store Connect Team ID
+team_id("KH7Y97H5P9") # Developer Portal Team ID
+itc_team_id("127118756") # App Store Connect Team ID
+team_id("KH7Y97H5P9") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
