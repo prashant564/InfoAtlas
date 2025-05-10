@@ -12,9 +12,11 @@ jest.mock('react-native-bootsplash', () => ({
 }));
 
 // Reanimated mock
-jest.mock('react-native-reanimated', () =>
-  require('react-native-reanimated/mock'),
-);
+jest.mock('react-native-reanimated', () => {
+  const Reanimated = require('react-native-reanimated/mock');
 
-// Silence useNativeDriver warning
-jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
+  // Optional: Override `call` with a no-op
+  Reanimated.default.call = () => {};
+
+  return Reanimated;
+});
