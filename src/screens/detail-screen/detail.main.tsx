@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {View} from 'react-native';
 import React, {memo} from 'react';
 import {useRoute} from '@react-navigation/native';

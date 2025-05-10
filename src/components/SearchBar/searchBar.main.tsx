@@ -27,7 +27,7 @@ const SearchBar = ({
       placeholder="Search here"
       autoComplete={'off'}
       forwardedRef={searchInputRef}
-      style={{marginBottom: 16}}
+      style={styles.textField}
       left={
         <TextInputPaper.Icon
           icon={() => {
@@ -58,5 +58,13 @@ const SearchBar = ({
     />
   );
 };
+
+import {StyleSheet} from 'react-native';
+
+const styles = StyleSheet.create({
+  textField: {
+    marginBottom: 16,
+  },
+});
 
 export default SearchBar;
