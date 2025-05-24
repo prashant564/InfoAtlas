@@ -1,4 +1,4 @@
-import {Linking, TouchableOpacity, View} from 'react-native';
+import {Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {Divider, Switch} from 'react-native-paper';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -47,7 +47,7 @@ const SettingScreen = () => {
           children={`Current Theme: ${
             themeMode === Theme.Dark ? 'Dark' : 'Light'
           }`}
-          style={{flex: 1}}
+          style={style.rowTextStyle}
         />
         <Switch
           color={theme.appColors.confusedYellow}
@@ -72,3 +72,9 @@ const SettingScreen = () => {
 };
 
 export default SettingScreen;
+
+const style = StyleSheet.create({
+  rowTextStyle: {
+    flex: 1,
+  },
+});

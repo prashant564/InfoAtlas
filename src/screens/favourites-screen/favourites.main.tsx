@@ -5,7 +5,6 @@ import {useIsFocused} from '@react-navigation/native';
 import {FlashList} from '@shopify/flash-list';
 
 import {Screen, SearchBar} from '@components';
-import {Else, If, Then} from '@components/Conditionals';
 
 import {useAppTheme} from '@themes';
 
@@ -14,10 +13,8 @@ import {useAppBoundStore} from '@store/mainStore';
 import {CountryDetailsItem} from '@services/api';
 
 import {debounce} from '@utils/utils';
-import {DUMMY_SKELETON_ARRAY} from '@utils/constants';
 
 import homePageStyles from '@screens/home-screen/styles';
-import {SkeletonLoader} from '@screens/home-screen/home.skeletonLoader';
 import CountryListItem from '@screens/home-screen/home.countryListItem';
 import {EmptyUIView} from '@components/EmptyUIView';
 

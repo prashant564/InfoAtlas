@@ -75,7 +75,6 @@ function ScreenWithoutScrolling(
 
 function ScreenWithScrolling(props: ScreenProps & ScrollingScreenStoreProps) {
   const {theme} = useAppTheme();
-  const insets = useSafeAreaInsets();
   const preset = presets(theme).scroll;
   const style = props.style || {};
   const backgroundStyle = props.backgroundColor
@@ -89,7 +88,7 @@ function ScreenWithScrolling(props: ScreenProps & ScrollingScreenStoreProps) {
   //     }),
   //   }));
 
-  const [refreshing, setRefreshing] = React.useState(false);
+  const refreshing = true;
 
   //   React.useEffect(() => {
   //     animBoxPadding.value = insets.top;
