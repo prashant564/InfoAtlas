@@ -1,282 +1,336 @@
-import { createFavCountriesSlice, initialFavCountriesState } from '@store/stores/favCountries';
-import { CountryDetailsItem } from '@services/api';
-import { StoreApi } from 'zustand';
-import { AppState } from '@store/mainStore';
-import { FAV_COUNTRIES_LIST_KEY, FAV_COUTRIES_NAME_LIST_KEY } from '@utils/constants';
-import { load, save } from '@utils/storageUtils';
-import { devLogger } from '@utils/logger';
+import {
+  createFavCountriesSlice,
+  initialFavCountriesState,
+} from '@store/stores/favCountries';
+import {StoreApi} from 'zustand';
+import {AppState} from '@store/mainStore';
+import {CountryDetailsItem} from '@services/api';
+import {load, save} from '@utils/storageUtils';
 
-jest.mock('@utils/logger', () => ({
-  devLogger: {
-    log: jest.fn(),
-    error: jest.fn(),
-    warn: jest.fn(),
-    info: jest.fn(),
-  },
-}));
+// Mock dependencies
+const mockLoad = jest.fn();
+const mockSave = jest.fn();
+const mockDevLogger = jest.fn();
 
+// Set up mocks
 jest.mock('@utils/storageUtils', () => ({
   load: jest.fn(),
   save: jest.fn(),
+  loadString: jest.fn(),
+  saveString: jest.fn(),
+  remove: jest.fn(),
+  clear: jest.fn(),
 }));
 
-const mockCountryDetailsItem: CountryDetailsItem = {
-  name: { common: 'Test Country', official: 'Test Country Official' },
-  cca2: 'TC',
-  cca3: 'TCY',
-  idd: { root: '+1', suffixes: ['234'] },
-  latlng: [10, 20],
-  area: 100,
-  population: 1000,
-  timezones: ['UTC+0'],
-  flags: { png: 'test.png', svg: 'test.svg', alt: 'Test Flag' },
-  coatOfArms: { png: 'test.png', svg: 'test.svg' },
-  capital: ['Test Capital'],
-  region: 'Test Region',
-  subregion: 'Test Subregion',
-  maps: { googleMaps: 'gmaps', openStreetMaps: 'osm' },
-  car: { signs: ['TC'], side: 'right' },
-  continents: ['Test Continent'],
-  currencies: { TCC: { name: 'Test Currency', symbol: 'TCS' } },
-  languages: { eng: 'English' },
-  tld: ['.tc'],
-  demonyms: { eng: { f: 'Test Female', m: 'Test Male' } },
-  borders: ['TB1', 'TB2'],
-  independent: true,
-  landlocked: false,
-  unMember: true,
-};
+jest.mock('@utils/logger', () => ({
+  devLogger: (...args: any[]) => mockDevLogger(...args),
+}));
 
-const mockCountry: CountryDetailsItem = {
-  name: { common: 'Test Country', official: 'Official Test Country', nativeName: {} },
-  tld: ['.tc'],
-  cca2: 'TC',
-  ccn3: '123',
-  cca3: 'TCO',
-  cioc: 'TOC',
-  independent: true,
-  status: 'officially-assigned',
-  unMember: true,
-  currencies: {},
-  idd: {},
-  capital: ['Test Capital'],
-  altSpellings: ['TC'],
-  region: 'Test Region',
-  subregion: 'Test Subregion',
-  languages: {},
-  translations: {},
-  latlng: [0, 0],
-  landlocked: false,
-  area: 1000,
-  demonyms: {},
-  flag: '🇹🇨',
-  maps: {},
-  population: 100,
-  gini: {},
-  fifa: 'TCO',
-  car: { signs: ['TC'], side: 'right' },
-  timezones: ['UTC'],
-  continents: ['Test Continent'],
-  flags: { png: '', svg: '', alt: 'flag' },
-  coatOfArms: {},
-  startOfWeek: 'monday',
-  capitalInfo: {},
-};
-
-const anotherMockCountry: CountryDetailsItem = {
-  name: { common: 'Another Country', official: 'Official Another Country', nativeName: {} },
-  tld: ['.ac'],
-  cca2: 'AC',
-  ccn3: '456',
-  cca3: 'ACO',
-  cioc: 'AOC',
-  independent: true,
-  status: 'officially-assigned',
-  unMember: true,
-  currencies: {},
-  idd: {},
-  capital: ['Another Capital'],
-  altSpellings: ['AC'],
-  region: 'Another Region',
-  subregion: 'Another Subregion',
-  languages: {},
-  translations: {},
-  latlng: [1, 1],
-  landlocked: false,
-  area: 2000,
-  demonyms: {},
-  flag: '🇦🇨',
-  maps: {},
-  population: 200,
-  gini: {},
-  fifa: 'ACO',
-  car: { signs: ['AC'], side: 'left' },
-  timezones: ['UTC'],
-  continents: ['Another Continent'],
-  flags: { png: '', svg: '', alt: 'flag' },
-  coatOfArms: {},
-  startOfWeek: 'tuesday',
-  capitalInfo: {},
-};
+jest.mock('@utils/constants', () => ({
+  FAV_COUNTRIES_LIST_KEY: 'FAV_COUNTRIES_LIST_KEY',
+  FAV_COUTRIES_NAME_LIST_KEY: 'FAV_COUTRIES_NAME_LIST_KEY',
+}));
 
 describe('FavCountries Slice', () => {
   let set: jest.Mock;
   let get: jest.Mock;
   let store: StoreApi<AppState>;
-  let favCountriesSlice: ReturnType<typeof createFavCountriesSlice>;
+  let favCountriesSlice: any;
+
+  const mockAppState = {
+    ...initialFavCountriesState,
+    __fetchAllFavCountriesDetails: jest.fn(),
+    __addCountryToFavorties: jest.fn(),
+    __removeCountryFromFavorties: jest.fn(),
+  } as any;
+
+  const mockCountry: CountryDetailsItem = {
+    name: {
+      common: 'Canada',
+      official: 'Canada',
+      nativeName: {},
+    },
+    tld: ['.ca'],
+    cca2: 'CA',
+    ccn3: '124',
+    cioc: 'CAN',
+    independent: true,
+    status: 'officially-assigned',
+    unMember: true,
+    currencies: {
+      CAD: {
+        symbol: '$',
+        name: 'Canadian dollar',
+      },
+    },
+    idd: {
+      root: '+1',
+      suffixes: [''],
+    },
+    capital: ['Ottawa'],
+    altSpellings: ['CA'],
+    region: 'Americas',
+    subregion: 'North America',
+    languages: {
+      eng: 'English',
+      fra: 'French',
+    },
+    latlng: [60, -95],
+    landlocked: false,
+    borders: ['USA'],
+    area: 9984670,
+    demonyms: {
+      eng: {
+        f: 'Canadian',
+        m: 'Canadian',
+      },
+      fra: {
+        f: 'Canadienne',
+        m: 'Canadien',
+      },
+    },
+    cca3: 'CAN',
+    translations: {},
+    flag: '🇨🇦',
+    maps: {
+      googleMaps: 'https://goo.gl/maps/test',
+      openStreetMaps: 'https://www.openstreetmap.org/relation/test',
+    },
+    population: 38000000,
+    gini: {
+      '2017': 33.3,
+    },
+    fifa: 'CAN',
+    car: {
+      signs: ['CDN'],
+      side: 'right',
+    },
+    timezones: [
+      'UTC-08:00',
+      'UTC-07:00',
+      'UTC-06:00',
+      'UTC-05:00',
+      'UTC-04:00',
+      'UTC-03:30',
+    ],
+    continents: ['North America'],
+    flags: {
+      png: 'https://flagcdn.com/w320/ca.png',
+      svg: 'https://flagcdn.com/ca.svg',
+      alt: 'The flag of Canada is composed of a red maple leaf centered on a white square, flanked by two red vertical bands.',
+    },
+    coatOfArms: {
+      png: 'https://mainfacts.com/media/images/coats_of_arms/ca.png',
+      svg: 'https://mainfacts.com/media/images/coats_of_arms/ca.svg',
+    },
+    startOfWeek: 'sunday',
+    capitalInfo: {
+      latlng: [45.42, -75.7],
+    },
+    postalCode: {
+      format: 'A#A #A#',
+      regex:
+        '^([ABCEGHJKLMNPRSTVXY]\\d[ABCEGHJKLMNPRSTVWXYZ]) ?(\\d[ABCEGHJKLMNPRSTVWXYZ]\\d)$',
+    },
+  };
 
   beforeEach(() => {
+    // Reset mocks before each test
     jest.clearAllMocks();
+
+    // Setup the mocked functions
+    (load as jest.Mock).mockImplementation(mockLoad);
+    (save as jest.Mock).mockImplementation(mockSave);
+
     set = jest.fn();
-    get = jest.fn(() => ({ ...initialFavCountriesState }));
+    get = jest.fn(() => mockAppState);
     store = {} as StoreApi<AppState>;
+
     favCountriesSlice = createFavCountriesSlice(set, get, store);
   });
 
-  it('should initialize with default state', () => {
-    expect(favCountriesSlice.favCountriesList).toEqual(initialFavCountriesState.favCountriesList);
+  test('should initialize with default state', () => {
+    // Check that the slice contains the initial state
+    expect(favCountriesSlice.favCountriesList).toEqual([]);
   });
 
   describe('__fetchAllFavCountriesDetails', () => {
-    it('should fetch favorite countries successfully', async () => {
-      const sampleFavCountries: CountryDetailsItem[] = [mockCountryDetailsItem];
-      (load as jest.Mock).mockResolvedValue(sampleFavCountries);
+    test('should fetch favorite countries data successfully', async () => {
+      const mockFavCountries = [mockCountry];
+
+      mockLoad.mockResolvedValue(mockFavCountries);
 
       await favCountriesSlice.__fetchAllFavCountriesDetails();
 
-      expect(load).toHaveBeenCalledWith(FAV_COUNTRIES_LIST_KEY);
-      expect(set).toHaveBeenCalledWith({ favCountriesList: sampleFavCountries });
+      expect(mockLoad).toHaveBeenCalledWith('FAV_COUNTRIES_LIST_KEY');
+      expect(set).toHaveBeenCalledWith({
+        favCountriesList: mockFavCountries,
+      });
     });
 
-    it('should handle empty list when fetching', async () => {
-      (load as jest.Mock).mockResolvedValue(null);
+    test('should handle null response from storage', async () => {
+      mockLoad.mockResolvedValue(null);
 
       await favCountriesSlice.__fetchAllFavCountriesDetails();
 
-      expect(load).toHaveBeenCalledWith(FAV_COUNTRIES_LIST_KEY);
+      expect(mockLoad).toHaveBeenCalledWith('FAV_COUNTRIES_LIST_KEY');
       expect(set).not.toHaveBeenCalled();
     });
 
-    it('should handle error when fetching', async () => {
-      const mockError = new Error('Failed to load');
-      (load as jest.Mock).mockRejectedValue(mockError);
+    test('should handle promise rejection during load', async () => {
+      const mockError = new Error('Storage Error');
+      mockLoad.mockRejectedValue(mockError);
 
       await favCountriesSlice.__fetchAllFavCountriesDetails();
 
-      expect(load).toHaveBeenCalledWith(FAV_COUNTRIES_LIST_KEY);
-      expect(devLogger.error).toHaveBeenCalledWith('Error loading fav countries list from storage:', mockError);
+      expect(mockLoad).toHaveBeenCalledWith('FAV_COUNTRIES_LIST_KEY');
+      expect(mockDevLogger).toHaveBeenCalledWith(
+        'favCountryList __fetchAllFavCountriesDetails: Error processing fav countries list',
+        mockError,
+        'fail',
+      );
       expect(set).not.toHaveBeenCalled();
     });
   });
 
   describe('__addCountryToFavorties', () => {
-    it('should add a country to favorites when list is initially empty', async () => {
-      (load as jest.Mock).mockImplementation((key: string) => {
-        if (key === FAV_COUTRIES_NAME_LIST_KEY) return Promise.resolve(null);
-        if (key === FAV_COUNTRIES_LIST_KEY) return Promise.resolve(null);
-        return Promise.resolve(null);
-      });
-      (save as jest.Mock).mockResolvedValue(undefined);
+    test('should add country to favorites when lists exist', async () => {
+      const existingNames = ['USA', 'UK'];
+      const existingCountries = [mockCountry];
+
+      mockLoad
+        .mockResolvedValueOnce(existingNames) // First call for names
+        .mockResolvedValueOnce(existingCountries); // Second call for countries
 
       await favCountriesSlice.__addCountryToFavorties(mockCountry);
 
-      expect(load).toHaveBeenCalledWith(FAV_COUTRIES_NAME_LIST_KEY);
-      expect(load).toHaveBeenCalledWith(FAV_COUNTRIES_LIST_KEY);
-      expect(save).toHaveBeenCalledWith(FAV_COUTRIES_NAME_LIST_KEY, [mockCountry.name.common]);
-      expect(save).toHaveBeenCalledWith(FAV_COUNTRIES_LIST_KEY, [mockCountry]);
+      expect(mockLoad).toHaveBeenCalledTimes(2);
+      expect(mockLoad).toHaveBeenNthCalledWith(1, 'FAV_COUTRIES_NAME_LIST_KEY');
+      expect(mockLoad).toHaveBeenNthCalledWith(2, 'FAV_COUNTRIES_LIST_KEY');
+
+      expect(mockSave).toHaveBeenCalledTimes(2);
+      expect(mockSave).toHaveBeenNthCalledWith(
+        1,
+        'FAV_COUTRIES_NAME_LIST_KEY',
+        [...existingNames, mockCountry.name.common],
+      );
+      expect(mockSave).toHaveBeenNthCalledWith(2, 'FAV_COUNTRIES_LIST_KEY', [
+        ...existingCountries,
+        mockCountry,
+      ]);
     });
 
-    it('should add a country to favorites when list has existing items', async () => {
-      const existingName = 'Existing Country';
-      const existingCountry: CountryDetailsItem = { ...mockCountry, name: { ...mockCountry.name, common: existingName } };
-      (load as jest.Mock).mockImplementation((key: string) => {
-        if (key === FAV_COUTRIES_NAME_LIST_KEY) return Promise.resolve([existingName]);
-        if (key === FAV_COUNTRIES_LIST_KEY) return Promise.resolve([existingCountry]);
-        return Promise.resolve(null);
-      });
-      (save as jest.Mock).mockResolvedValue(undefined);
+    test('should add country to favorites when lists are null', async () => {
+      mockLoad
+        .mockResolvedValueOnce(null) // First call for names
+        .mockResolvedValueOnce(null); // Second call for countries
 
       await favCountriesSlice.__addCountryToFavorties(mockCountry);
 
-      expect(save).toHaveBeenCalledWith(FAV_COUTRIES_NAME_LIST_KEY, [existingName, mockCountry.name.common]);
-      expect(save).toHaveBeenCalledWith(FAV_COUNTRIES_LIST_KEY, [existingCountry, mockCountry]);
+      expect(mockLoad).toHaveBeenCalledTimes(2);
+      expect(mockSave).toHaveBeenCalledTimes(2);
+      expect(mockSave).toHaveBeenNthCalledWith(
+        1,
+        'FAV_COUTRIES_NAME_LIST_KEY',
+        [mockCountry.name.common],
+      );
+      expect(mockSave).toHaveBeenNthCalledWith(2, 'FAV_COUNTRIES_LIST_KEY', [
+        mockCountry,
+      ]);
     });
 
-    it('should handle error when adding a country to favorites', async () => {
-      const mockSaveError = new Error('Failed to save country list');
-      (load as jest.Mock).mockImplementation((key: string) => {
-        if (key === FAV_COUTRIES_NAME_LIST_KEY) return Promise.resolve(null);
-        if (key === FAV_COUNTRIES_LIST_KEY) return Promise.resolve(null);
-        return Promise.resolve(null);
-      });
-      (save as jest.Mock).mockImplementation((key: string) => {
-        if (key === FAV_COUTRIES_NAME_LIST_KEY) return Promise.resolve(undefined); // First save (names) succeeds
-        if (key === FAV_COUNTRIES_LIST_KEY) return Promise.reject(mockSaveError); // Second save (details) fails
-        return Promise.resolve(undefined);
-      });
+    test('should handle error when adding country to favorites', async () => {
+      const mockError = new Error('Storage Error');
+      mockLoad.mockRejectedValue(mockError);
 
       await favCountriesSlice.__addCountryToFavorties(mockCountry);
 
-      expect(devLogger.error).toHaveBeenCalledWith(
-        `Error saving fav countries list for key ${FAV_COUNTRIES_LIST_KEY}:`,
-        mockSaveError,
+      expect(mockDevLogger).toHaveBeenCalledWith(
+        'favCountryList in __addCountryToFavorties',
+        mockError,
+        'fail',
       );
     });
   });
 
   describe('__removeCountryFromFavorties', () => {
-    it('should remove a country from favorites', async () => {
-      const countryNameToRemove = mockCountry.name.common;
-      (load as jest.Mock).mockImplementation((key: string) => {
-        if (key === FAV_COUTRIES_NAME_LIST_KEY) return Promise.resolve([countryNameToRemove, anotherMockCountry.name.common]);
-        if (key === FAV_COUNTRIES_LIST_KEY) return Promise.resolve([mockCountry, anotherMockCountry]);
-        return Promise.resolve(null);
-      });
-      (save as jest.Mock).mockResolvedValue(undefined);
+    test('should remove country from favorites when lists exist', async () => {
+      const existingNames = ['USA', 'Canada', 'UK'];
+      const existingCountries = [
+        {name: {common: 'USA'}},
+        mockCountry,
+        {name: {common: 'UK'}},
+      ];
 
-      await favCountriesSlice.__removeCountryFromFavorties(countryNameToRemove);
+      mockLoad
+        .mockResolvedValueOnce(existingNames) // First call for names
+        .mockResolvedValueOnce(existingCountries); // Second call for countries
 
-      expect(load).toHaveBeenCalledWith(FAV_COUTRIES_NAME_LIST_KEY);
-      expect(load).toHaveBeenCalledWith(FAV_COUNTRIES_LIST_KEY);
-      expect(save).toHaveBeenCalledWith(FAV_COUTRIES_NAME_LIST_KEY, [anotherMockCountry.name.common]);
-      expect(save).toHaveBeenCalledWith(FAV_COUNTRIES_LIST_KEY, [anotherMockCountry]);
-    });
+      await favCountriesSlice.__removeCountryFromFavorties('Canada');
 
-    it('should handle removing a non-existent country', async () => {
-      const countryNameToRemove = 'NonExistentCountry';
-      (load as jest.Mock).mockImplementation((key: string) => {
-        if (key === FAV_COUTRIES_NAME_LIST_KEY) return Promise.resolve([mockCountry.name.common]);
-        if (key === FAV_COUNTRIES_LIST_KEY) return Promise.resolve([mockCountry]);
-        return Promise.resolve(null);
-      });
-      (save as jest.Mock).mockResolvedValue(undefined);
+      expect(mockLoad).toHaveBeenCalledTimes(2);
+      expect(mockLoad).toHaveBeenNthCalledWith(1, 'FAV_COUTRIES_NAME_LIST_KEY');
+      expect(mockLoad).toHaveBeenNthCalledWith(2, 'FAV_COUNTRIES_LIST_KEY');
 
-      await favCountriesSlice.__removeCountryFromFavorties(countryNameToRemove);
-
-      expect(save).toHaveBeenCalledWith(FAV_COUTRIES_NAME_LIST_KEY, [mockCountry.name.common]);
-      expect(save).toHaveBeenCalledWith(FAV_COUNTRIES_LIST_KEY, [mockCountry]);
-    });
-
-    it('should handle error when removing a country from favorites', async () => {
-      const countryNameToRemove = mockCountry.name.common;
-      const mockSaveError = new Error('Failed to save updated country list');
-      (load as jest.Mock).mockImplementation((key: string) => {
-        if (key === FAV_COUTRIES_NAME_LIST_KEY) return Promise.resolve([countryNameToRemove]);
-        if (key === FAV_COUNTRIES_LIST_KEY) return Promise.resolve([mockCountry]);
-        return Promise.resolve(null);
-      });
-      (save as jest.Mock).mockImplementation((key: string) => {
-        if (key === FAV_COUTRIES_NAME_LIST_KEY) return Promise.resolve(undefined); // First save (names) succeeds
-        if (key === FAV_COUNTRIES_LIST_KEY) return Promise.reject(mockSaveError); // Second save (details) fails
-        return Promise.resolve(undefined);
-      });
-
-      await favCountriesSlice.__removeCountryFromFavorties(countryNameToRemove);
-
-      expect(devLogger.error).toHaveBeenCalledWith(
-        `Error saving fav countries list for key ${FAV_COUNTRIES_LIST_KEY}:`,
-        mockSaveError,
+      expect(mockSave).toHaveBeenCalledTimes(2);
+      expect(mockSave).toHaveBeenNthCalledWith(
+        1,
+        'FAV_COUTRIES_NAME_LIST_KEY',
+        ['USA', 'UK'],
       );
+      expect(mockSave).toHaveBeenNthCalledWith(2, 'FAV_COUNTRIES_LIST_KEY', [
+        {name: {common: 'USA'}},
+        {name: {common: 'UK'}},
+      ]);
+    });
+
+    test('should handle null lists when removing country', async () => {
+      mockLoad
+        .mockResolvedValueOnce(null) // First call for names
+        .mockResolvedValueOnce(null); // Second call for countries
+
+      await favCountriesSlice.__removeCountryFromFavorties('Canada');
+
+      expect(mockLoad).toHaveBeenCalledTimes(2);
+      expect(mockSave).not.toHaveBeenCalled();
+    });
+
+    test('should handle error when removing country from favorites', async () => {
+      const mockError = new Error('Storage Error');
+      mockLoad.mockRejectedValue(mockError);
+
+      await favCountriesSlice.__removeCountryFromFavorties('Canada');
+
+      expect(mockDevLogger).toHaveBeenCalledWith(
+        'favCountryList in __removeCountryFromFavorties',
+        mockError,
+        'fail',
+      );
+    });
+
+    test('should remove only matching country name', async () => {
+      const existingNames = ['USA', 'Canada', 'UK'];
+      const existingCountries = [
+        {name: {common: 'USA'}},
+        {name: {common: 'Canada'}},
+        {name: {common: 'UK'}},
+      ];
+
+      mockLoad
+        .mockResolvedValueOnce(existingNames)
+        .mockResolvedValueOnce(existingCountries);
+
+      await favCountriesSlice.__removeCountryFromFavorties('USA');
+
+      expect(mockSave).toHaveBeenNthCalledWith(
+        1,
+        'FAV_COUTRIES_NAME_LIST_KEY',
+        ['Canada', 'UK'],
+      );
+      expect(mockSave).toHaveBeenNthCalledWith(2, 'FAV_COUNTRIES_LIST_KEY', [
+        {name: {common: 'Canada'}},
+        {name: {common: 'UK'}},
+      ]);
     });
   });
 });
