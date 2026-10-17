@@ -2,27 +2,35 @@ import {ApiResponse} from 'apisauce';
 
 import {apiSauce} from './api-wrapper';
 import {AllCountriesResponse, CountryDetailsItem} from './api.types';
-import {getGeneralApiProblem} from './api.problem';
+import fallbackCountries from './fallbackCountries.json';
 
 export const getAllCountriesData = async (
   config?: any,
 ): Promise<AllCountriesResponse> => {
-  const response: ApiResponse<CountryDetailsItem[]> = await apiSauce.get(
-    '/v3.1/all',
-    undefined,
-    config,
-  );
+  try {
+    const response: ApiResponse<CountryDetailsItem[]> = await apiSauce.get(
+      '/v3.1/all',
+      undefined,
+      {
+        timeout: 4000,
+        ...config,
+      },
+    );
 
-  if (!response.ok) {
-    const problem = getGeneralApiProblem(response);
-    if (problem) {
-      return problem;
+    if (
+      response.ok &&
+      Array.isArray(response.data) &&
+      response.data.length > 0
+    ) {
+      return {kind: 'ok', data: response.data};
     }
+  } catch (error) {
+    // remote fetch failed, use fallback
   }
 
-  if (response.data) {
-    return {kind: 'ok', data: response.data};
-  }
-
-  return {kind: 'bad-data'};
+  // Gracefully fallback to bundled offline dataset
+  return {
+    kind: 'ok',
+    data: fallbackCountries as unknown as CountryDetailsItem[],
+  };
 };

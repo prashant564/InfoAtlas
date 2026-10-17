@@ -20,12 +20,12 @@ export default function IfElse(props: IfElseProps) {
 
   if (condition) {
     if (typeof positive === 'function') {
-      return positive();
+      return (positive as any)();
     }
     return positive;
   }
   if (typeof negative === 'function') {
-    return negative();
+    return (negative as any)();
   }
   return negative;
 }
@@ -36,7 +36,7 @@ const render = ({
   children: React.ReactNode | React.ReactNode[];
 }) => {
   if (typeof children === 'function') {
-    return <>{children()}</>;
+    return <>{(children as any)()}</>;
   }
 
   return <>{children || null}</>;
@@ -61,7 +61,7 @@ export const If = ({condition, children}: IfProps) => {
     return null;
   }
   if (typeof children === 'function') {
-    return children(condition);
+    return (children as any)(condition);
   }
   return (
     ([] as Array<React.ReactNode>)
@@ -103,7 +103,7 @@ export function Switch({
     }
 
     if (!matchingCase && child.type === Case) {
-      const {condition} = child.props;
+      const {condition} = child.props as any;
 
       const conditionResult = getConditionResult(condition);
 

@@ -10,6 +10,7 @@ export interface TextNewProps {
   children?: ReactNode;
 
   type?: 'primary' | 'secondary';
+  variant?: any;
   /**
    * Text which is looked up via i18n.
    */

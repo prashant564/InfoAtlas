@@ -73,11 +73,13 @@ export function useBackButtonHandler(canExit: (routeName: string) => boolean) {
     };
 
     // Subscribe when we come to life
-    BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    const subscription = BackHandler.addEventListener(
+      'hardwareBackPress',
+      onBackPress,
+    );
 
     // Unsubscribe when we're done
-    return () =>
-      BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    return () => subscription.remove();
   }, []);
 }
 
@@ -93,7 +95,7 @@ export function useNavigationPersistence(storage: any, persistenceKey: string) {
   // in production, remove the __DEV__ and set the state to true
   const [isRestored, setIsRestored] = useState(!__DEV__);
 
-  const routeNameRef = useRef<string | undefined>();
+  const routeNameRef = useRef<string | undefined>(undefined);
 
   const onNavigationStateChange = (state: any) => {
     const previousRouteName = routeNameRef.current;

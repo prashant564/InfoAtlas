@@ -39,7 +39,9 @@ const DetailGeneralInfoSection = ({
       : 'NaN';
   const currencyString = getCurrencyString(currencies);
   const groupedTimeZones = timezones?.join(' ');
-  const carRules = `${car.signs[0]} - ${car.side}`;
+  const carRules = car?.signs?.length
+    ? `${car.signs[0]} - ${car.side}`
+    : car?.side || 'NaN';
 
   const {fullFlexContainer, rowItemContainer, leftAlignItemContainer, divider} =
     DetailScreenStyles(theme);

@@ -33,7 +33,7 @@ const CountryListItem = ({item}: CountryListItem) => {
           selectedCountry: item,
         });
       }}>
-      <Image source={{uri: item.flags!!.png}} size={'lg'} />
+      <Image source={{uri: item.flags?.png || ''}} size={'lg'} />
       <Text variant="bodyMedium" style={countryNameText} numberOfLines={2}>
         {item.name.common}
       </Text>

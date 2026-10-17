@@ -1,13 +1,18 @@
 import React from 'react';
 import {Text as BaseText} from 'react-native-paper';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TextProps as RNTextProps} from 'react-native';
 
 import {useAppTheme} from '@themes/getTheme';
 
 import {TextNewProps} from './typings';
 
 export type TextProps = TextNewProps &
-  Omit<React.ComponentProps<typeof BaseText>, 'children'>;
+  Omit<RNTextProps, 'children'> & {
+    variant?: any;
+    theme?: any;
+  };
+
+const BaseTextComponent = BaseText as unknown as React.ComponentType<any>;
 
 const Text = ({
   text,
@@ -41,9 +46,9 @@ const Text = ({
   ]);
 
   return (
-    <BaseText {...rest} style={textStyle}>
+    <BaseTextComponent {...rest} style={textStyle}>
       {content}
-    </BaseText>
+    </BaseTextComponent>
   );
 };
 

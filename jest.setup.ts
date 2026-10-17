@@ -20,3 +20,20 @@ jest.mock('react-native-reanimated', () => {
 
   return Reanimated;
 });
+
+// Navigation mock for Jest: avoid loading native screen codegen components.
+jest.mock('@react-navigation/native-stack', () => {
+  const React = require('react');
+
+  const MockScreen = ({children}: {children?: React.ReactNode}) =>
+    React.createElement(React.Fragment, null, children);
+  const MockNavigator = ({children}: {children?: React.ReactNode}) =>
+    React.createElement(React.Fragment, null, children);
+
+  return {
+    createNativeStackNavigator: () => ({
+      Navigator: MockNavigator,
+      Screen: MockScreen,
+    }),
+  };
+});

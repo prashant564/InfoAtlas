@@ -31,9 +31,13 @@ export const formatNumberWithCommas = (num: number): string => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
-export const getCurrencyString = (currencies: {
+export const getCurrencyString = (currencies?: {
   [key: string]: CurrencyItem;
 }): string => {
+  if (!currencies) {
+    return 'NaN';
+  }
+
   const currencyKeys = Object.keys(currencies);
 
   if (currencyKeys.length === 0) {
@@ -42,6 +46,12 @@ export const getCurrencyString = (currencies: {
 
   const currencyKey = currencyKeys[0];
   const currency = currencies[currencyKey];
+  if (!currency) {
+    return 'NaN';
+  }
 
-  return `${currency.symbol} ${currency.name}`;
+  const symbol = currency.symbol || '';
+  const name = currency.name || '';
+  const result = `${symbol} ${name}`.trim();
+  return result || 'NaN';
 };
