@@ -4,3 +4,4 @@ export * from './screen';
 export * from './Text';
 export * from './TextField';
 export * from './SearchBar';
+export * from './ChoiceButton';

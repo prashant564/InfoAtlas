@@ -39,18 +39,15 @@ function TextField(props: TextFieldProps): React.ReactElement<TextFieldProps> {
   const helperTextType = error ? 'error' : 'info';
   const helperTextStyle = StyleSheet.flatten([
     {
-      color: disabled
-        ? theme.appColors.primary400
-        : helperTextType === 'error'
-        ? theme.appColors.miscOrange
-        : theme.appColors.primary20,
+      color:
+        helperTextType === 'error' && !disabled
+          ? theme.colors.error
+          : theme.colors.secondaryText,
     },
     helperStyleOverride,
   ]);
 
-  const activeOutlineColor = error
-    ? theme.appColors.miscOrange
-    : theme.colors.primary;
+  const activeOutlineColor = error ? theme.colors.error : theme.colors.primary;
 
   const placeHolderTextColor =
     value !== '' && typeof value !== 'undefined'
@@ -59,11 +56,11 @@ function TextField(props: TextFieldProps): React.ReactElement<TextFieldProps> {
 
   const surfaceVariantColor =
     value !== '' && typeof value !== 'undefined'
-      ? theme.colors.activeBackground
+      ? theme.colors.primary
       : theme.colors.placeholder;
 
   const labelColor =
-    error && !disabled ? theme.appColors.miscOrange : theme.colors.text;
+    error && !disabled ? theme.colors.error : theme.colors.text;
 
   const backgroundColor = {
     backgroundColor: theme.colors.textInputBg,
@@ -90,8 +87,8 @@ function TextField(props: TextFieldProps): React.ReactElement<TextFieldProps> {
         placeholderTextColor={placeHolderTextColor}
         style={textFieldStyle}
         activeOutlineColor={activeOutlineColor}
-        activeUnderlineColor={theme.colors.activeBackground}
-        underlineColor={theme.colors.inactiveBackground}
+        activeUnderlineColor={theme.colors.primary}
+        underlineColor={theme.colors.divider}
         textColor={theme.colors.text}
         autoCorrect={false}
         onEndEditing={onEndEditing}

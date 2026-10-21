@@ -1,9 +1,8 @@
 import {View} from 'react-native';
 import React, {useMemo, useState} from 'react';
 import {FlashList} from '@shopify/flash-list';
-import {Button} from 'react-native-paper';
 
-import {Screen, Text} from '@components';
+import {ChoiceButton, Screen, Text} from '@components';
 import {EmptyUIView} from '@components/EmptyUIView';
 
 import {useAppTheme} from '@themes';
@@ -58,27 +57,13 @@ const MyWorldPage = () => {
 
   const visitedTotal = stats.visitedCountries + stats.visitedTerritories;
 
-  const tabButtonProps = (tab: TravelStatus) => {
-    const active = selectedTab === tab;
-    return {
-      mode: 'contained' as const,
-      style: tabButton,
-      buttonColor: active
-        ? theme.colors.activeBackground
-        : theme.colors.inactiveBackground,
-      textColor: active ? theme.colors.activeText : theme.colors.text,
-      accessibilityState: {selected: active},
-      onPress: () => setSelectedTab(tab),
-    };
-  };
-
   return (
     <View style={[outerContainer]}>
       <Screen
         preset="fixed"
         unsafe
         statusBarBg={theme.colors.background}
-        statusBar="light-content">
+        statusBar={theme.statusBarStyle}>
         <View style={mainContainer}>
           <View style={flashListContainer}>
             <FlashList
@@ -92,16 +77,20 @@ const MyWorldPage = () => {
                 <View>
                   <MyWorldStats stats={stats} />
                   <View style={tabsRow}>
-                    <Button
-                      {...tabButtonProps('visited')}
-                      icon={'check-circle-outline'}>
-                      {`Visited (${visitedTotal})`}
-                    </Button>
-                    <Button
-                      {...tabButtonProps('wishlist')}
-                      icon={'star-outline'}>
-                      {`Wishlist (${stats.wishlistCount})`}
-                    </Button>
+                    <ChoiceButton
+                      label={`Visited (${visitedTotal})`}
+                      icon={'check-circle-outline'}
+                      selected={selectedTab === 'visited'}
+                      style={tabButton}
+                      onPress={() => setSelectedTab('visited')}
+                    />
+                    <ChoiceButton
+                      label={`Wishlist (${stats.wishlistCount})`}
+                      icon={'star-outline'}
+                      selected={selectedTab === 'wishlist'}
+                      style={tabButton}
+                      onPress={() => setSelectedTab('wishlist')}
+                    />
                   </View>
                 </View>
               }

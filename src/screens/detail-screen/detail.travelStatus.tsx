@@ -1,6 +1,7 @@
 import {View} from 'react-native';
 import React from 'react';
-import {Button} from 'react-native-paper';
+
+import {ChoiceButton} from '@components';
 
 import {useAppTheme} from '@themes';
 
@@ -30,32 +31,38 @@ const DetailTravelStatus = ({selectedCountry}: DetailTravelStatusProps) => {
     __setTravelStatus(cca3, status === target ? null : target);
   };
 
-  const buttonProps = (target: TravelStatus) => {
-    const active = status === target;
-    return {
-      mode: 'contained' as const,
-      style: actionButton,
-      buttonColor: active
-        ? theme.colors.activeBackground
-        : theme.colors.inactiveBackground,
-      textColor: active ? theme.colors.activeText : theme.colors.text,
-      accessibilityState: {selected: active},
-      onPress: () => toggle(target),
-    };
+  const selectedColors: Record<
+    TravelStatus,
+    {background: string; text: string}
+  > = {
+    visited: {
+      background: theme.colors.visitedContainer,
+      text: theme.colors.onVisitedContainer,
+    },
+    wishlist: {
+      background: theme.colors.wishlistContainer,
+      text: theme.colors.onWishlistContainer,
+    },
   };
 
   return (
     <View style={actionsRow}>
-      <Button
-        {...buttonProps('visited')}
-        icon={status === 'visited' ? 'check-circle' : 'check-circle-outline'}>
-        Been here
-      </Button>
-      <Button
-        {...buttonProps('wishlist')}
-        icon={status === 'wishlist' ? 'star' : 'star-outline'}>
-        Want to go
-      </Button>
+      <ChoiceButton
+        label={'Been here'}
+        icon={status === 'visited' ? 'check-circle' : 'check-circle-outline'}
+        selected={status === 'visited'}
+        selectedColors={selectedColors.visited}
+        style={actionButton}
+        onPress={() => toggle('visited')}
+      />
+      <ChoiceButton
+        label={'Want to go'}
+        icon={status === 'wishlist' ? 'star' : 'star-outline'}
+        selected={status === 'wishlist'}
+        selectedColors={selectedColors.wishlist}
+        style={actionButton}
+        onPress={() => toggle('wishlist')}
+      />
     </View>
   );
 };

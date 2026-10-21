@@ -63,7 +63,9 @@ const CountryListItem = ({item}: CountryListItem) => {
         <MaterialCommunityIcons
           name={status === 'visited' ? 'check-circle' : 'star'}
           size={18}
-          color={theme.appColors.miscBrown}
+          color={
+            status === 'visited' ? theme.colors.visited : theme.colors.wishlist
+          }
           style={statusBadge}
           accessibilityLabel={status === 'visited' ? 'Visited' : 'On wishlist'}
         />

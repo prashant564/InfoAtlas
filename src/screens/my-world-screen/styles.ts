@@ -25,7 +25,7 @@ const myWorldStyles = (theme: ThemeType) => {
     progressFill: {
       height: '100%' as '100%',
       borderRadius: 4,
-      backgroundColor: theme.appColors.miscBrown,
+      backgroundColor: theme.colors.visited,
     },
     miniStatsRow: {
       flexDirection: 'row' as 'row',

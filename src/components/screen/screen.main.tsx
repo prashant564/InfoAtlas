@@ -59,11 +59,11 @@ function ScreenWithoutScrolling(
       style={[preset.outer, backgroundStyle]}
       behavior={isIos ? 'padding' : undefined}
       keyboardVerticalOffset={offsets[props.keyboardOffset || 'none']}>
-      <StatusBar animated barStyle={props.statusBar || 'dark-content'} />
+      <StatusBar animated barStyle={props.statusBar || theme.statusBarStyle} />
       <NativeStatusBar
         animated
-        barStyle={props.statusBar || 'dark-content'}
-        backgroundColor={props.statusBarBg || theme.appColors.white}
+        barStyle={props.statusBar || theme.statusBarStyle}
+        backgroundColor={props.statusBarBg || theme.colors.background}
         hidden={props.hidden}
       />
       <AnimatedBox style={[preset.inner, style, animatedBoxStyle]}>
@@ -108,10 +108,10 @@ function ScreenWithScrolling(props: ScreenProps & ScrollingScreenStoreProps) {
       style={[preset.outer, backgroundStyle]}
       behavior={isIos ? 'padding' : undefined}
       keyboardVerticalOffset={offsets[props.keyboardOffset || 'none']}>
-      <StatusBar animated barStyle={props.statusBar || 'dark-content'} />
+      <StatusBar animated barStyle={props.statusBar || theme.statusBarStyle} />
       <NativeStatusBar
-        barStyle={props.statusBar || 'dark-content'}
-        backgroundColor={props.statusBarBg || theme.appColors.white}
+        barStyle={props.statusBar || theme.statusBarStyle}
+        backgroundColor={props.statusBarBg || theme.colors.background}
         hidden={props.hidden}
         animated
       />
@@ -124,13 +124,9 @@ function ScreenWithScrolling(props: ScreenProps & ScrollingScreenStoreProps) {
           refreshControl={
             props.hasPTR ? (
               <RefreshControl
-                colors={[
-                  theme.appColors.primary100,
-                  theme.appColors.confusedYellow,
-                  theme.appColors.redOrangified,
-                  theme.appColors.goodblue,
-                ]}
-                tintColor={'#8708D7'}
+                colors={[theme.colors.primary]}
+                progressBackgroundColor={theme.colors.surface}
+                tintColor={theme.colors.primary}
                 refreshing={refreshing}
                 onRefresh={onRefresh}
               />

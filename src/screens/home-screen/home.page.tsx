@@ -49,7 +49,7 @@ const HomePage = () => {
         unsafe
         hasPTR
         statusBarBg={theme.colors.background}
-        statusBar="light-content">
+        statusBar={theme.statusBarStyle}>
         <View style={mainContainer}>
           <SearchBar
             onChangeSearch={onChangeSearch}

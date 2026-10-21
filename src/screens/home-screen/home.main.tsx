@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React, {FunctionComponent} from 'react';
+import {StyleSheet} from 'react-native';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -22,11 +23,15 @@ const HomeScreen: FunctionComponent = () => {
       initialRouteName={'Home'}
       shifting={false}
       labeled={true}
-      activeColor={theme.appColors.miscBrown}
-      inactiveColor={theme.appColors.white__a5}
-      barStyle={{
-        backgroundColor: theme?.colors.background,
-      }}>
+      activeColor={theme.colors.onPrimaryContainer}
+      inactiveColor={theme.colors.secondaryText}
+      barStyle={[
+        styles.tabBar,
+        {
+          backgroundColor: theme.colors.surface,
+          borderTopColor: theme.colors.divider,
+        },
+      ]}>
       <HomeTabs.Screen
         name="Home"
         component={HomePage}
@@ -60,3 +65,9 @@ const HomeScreen: FunctionComponent = () => {
 };
 
 export default HomeScreen;
+
+const styles = StyleSheet.create({
+  tabBar: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+  },
+});

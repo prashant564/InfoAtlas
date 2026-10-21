@@ -9,6 +9,7 @@
  */
 
 import React, {useCallback, useEffect, useState, useRef} from 'react';
+import {useColorScheme} from 'react-native';
 import {Provider as PaperProvider} from 'react-native-paper';
 import RNBootSplash from 'react-native-bootsplash';
 import {
@@ -16,7 +17,12 @@ import {
   initialWindowMetrics,
 } from 'react-native-safe-area-context';
 
-import {ThemeContext, Theme} from '@utils/ThemeContext';
+import {
+  ThemeContext,
+  Theme,
+  parseThemeMode,
+  resolveIsDark,
+} from '@utils/ThemeContext';
 import {load, loadString, saveString} from '@utils/storageUtils';
 import * as storage from '@utils/storageUtils';
 import {THEME_MODE_KEY} from '@utils/constants';
@@ -37,11 +43,12 @@ export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
 const App = () => {
   const openedOnce = useRef(false);
 
-  const {__fetchAllCountriesDetails, __loadTravelEntries} =
-    useAppBoundStore(state => ({
+  const {__fetchAllCountriesDetails, __loadTravelEntries} = useAppBoundStore(
+    state => ({
       __fetchAllCountriesDetails: state.__fetchAllCountriesDetails,
       __loadTravelEntries: state.__loadTravelEntries,
-    }));
+    }),
+  );
 
   useBackButtonHandler(canExit);
   const {onNavigationStateChange} = useNavigationPersistence(
@@ -68,10 +75,11 @@ const App = () => {
 const ProvidedApp = () => {
   // null until the saved preference is read; the boot splash stays up meanwhile.
   const [themeMode, setThemeModeState] = useState<Theme | null>(null);
+  const systemScheme = useColorScheme();
 
   useEffect(() => {
     loadString(THEME_MODE_KEY).then(saved => {
-      setThemeModeState(saved === Theme.Light ? Theme.Light : Theme.Dark);
+      setThemeModeState(parseThemeMode(saved));
     });
   }, []);
 
@@ -84,12 +92,12 @@ const ProvidedApp = () => {
     return null;
   }
 
-  const appTheme =
-    themeMode === Theme.Light ? CombinedDefaultTheme : CombinedDarkTheme;
+  const isDark = resolveIsDark(themeMode, systemScheme);
+  const appTheme = isDark ? CombinedDarkTheme : CombinedDefaultTheme;
 
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <ThemeContext.Provider value={{themeMode, setThemeMode}}>
+      <ThemeContext.Provider value={{themeMode, setThemeMode, isDark}}>
         <PaperProvider theme={appTheme}>
           <App />
         </PaperProvider>

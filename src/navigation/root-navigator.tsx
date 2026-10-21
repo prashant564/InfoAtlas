@@ -11,9 +11,7 @@ import {
 } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {Theme, useThemeContext} from '@utils/ThemeContext';
-
-import {CombinedDarkTheme, CombinedDefaultTheme} from '@themes/theme';
+import {useAppTheme} from '@themes/getTheme';
 
 import {If, Then, Else} from '@components/Conditionals';
 
@@ -51,9 +49,7 @@ interface NavigationProps
 
 export const RootNavigator = (props: NavigationProps) => {
   const [ready, setReady] = useState(false);
-  const {themeMode} = useThemeContext();
-  const appTheme =
-    themeMode === Theme.Light ? CombinedDefaultTheme : CombinedDarkTheme;
+  const {theme: appTheme} = useAppTheme();
 
   return (
     <NavigationContainer

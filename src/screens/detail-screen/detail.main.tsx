@@ -37,7 +37,7 @@ const DetailScreen = () => {
       <Screen
         preset="scroll"
         statusBarBg={theme.colors.background}
-        statusBar="light-content">
+        statusBar={theme.statusBarStyle}>
         <View style={mainContainer}>
           <View style={fullWidthContainer}>
             <DetailHero selectedCountry={selectedCountry} />

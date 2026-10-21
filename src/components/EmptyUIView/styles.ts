@@ -12,7 +12,7 @@ export const EmptyUIViewStyles = (theme: ThemeType) => {
       fontWeight: '500' as '500',
       lineHeight: 16,
       textAlign: 'center' as 'center',
-      color: theme.appColors.white__a7,
+      color: theme.colors.secondaryText,
     },
   };
 };
