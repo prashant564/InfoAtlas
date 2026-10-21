@@ -1,4 +1,5 @@
 import React from 'react';
+import {Linking, Share} from 'react-native';
 import {fireEvent, render, screen} from '@testing-library/react-native';
 import DetailHero from '@screens/detail-screen/detail.hero';
 import DetailLocalTime from '@screens/detail-screen/detail.localTime';
@@ -6,7 +7,11 @@ import DetailFacts, {
   getFactSections,
 } from '@screens/detail-screen/detail.facts';
 import DetailBorders from '@screens/detail-screen/detail.borders';
-import DetailTranslationList from '@screens/detail-screen/detail.translation';
+import DetailActions from '@screens/detail-screen/detail.actions';
+import DetailCoatOfArms from '@screens/detail-screen/detail.coatOfArms';
+import DetailTranslationList, {
+  TRANSLATION_LANGUAGES,
+} from '@screens/detail-screen/detail.translation';
 import {bundledDataset} from '@services/countries';
 import {useAppBoundStore} from '@store/mainStore';
 import {NOT_AVAILABLE} from '@utils/constants';
@@ -102,8 +107,66 @@ describe('Detail Screen Components', () => {
     });
   });
 
-  test('renders DetailTranslationList correctly', () => {
-    render(<DetailTranslationList translations={india.translations} />);
-    expect(screen.getByText('Translations')).toBeTruthy();
+  describe('DetailActions', () => {
+    test('opens maps and the share sheet', () => {
+      const openURL = jest
+        .spyOn(Linking, 'openURL')
+        .mockResolvedValue(undefined);
+      const share = jest
+        .spyOn(Share, 'share')
+        .mockResolvedValue({action: Share.sharedAction});
+
+      render(<DetailActions selectedCountry={india} />);
+
+      fireEvent.press(screen.getByText('Open in Maps'));
+      expect(openURL).toHaveBeenCalledWith(expect.stringContaining('India'));
+
+      fireEvent.press(screen.getByText('Share'));
+      expect(share).toHaveBeenCalledWith({
+        message: expect.stringContaining('🇮🇳 India'),
+      });
+    });
+  });
+
+  describe('DetailCoatOfArms', () => {
+    test('renders the image when available', () => {
+      render(<DetailCoatOfArms selectedCountry={india} />);
+      expect(screen.getByText('Coat of Arms')).toBeTruthy();
+    });
+
+    test('renders nothing when there is no coat of arms', () => {
+      render(<DetailCoatOfArms selectedCountry={findCountry('PCN')} />);
+      expect(screen.queryByText('Coat of Arms')).toBeNull();
+    });
+
+    test('hides itself when the image fails to load', () => {
+      render(<DetailCoatOfArms selectedCountry={india} />);
+      fireEvent(screen.getByLabelText('Coat of arms of India'), 'error');
+      expect(screen.queryByText('Coat of Arms')).toBeNull();
+    });
+  });
+
+  describe('DetailTranslationList', () => {
+    test('every dataset language code has a readable name', () => {
+      const codes = new Set(
+        bundledDataset.countries.flatMap(c => Object.keys(c.translations)),
+      );
+      [...codes].forEach(code =>
+        expect(TRANSLATION_LANGUAGES[code]).toBeDefined(),
+      );
+    });
+
+    test('shows a few languages and expands to all', () => {
+      render(<DetailTranslationList translations={india.translations} />);
+
+      expect(screen.getByText('Arabic')).toBeTruthy();
+      expect(screen.queryByText('Japanese')).toBeNull();
+
+      fireEvent.press(screen.getByText(/^Show all \d+$/));
+
+      expect(screen.getByText('Japanese')).toBeTruthy();
+      expect(screen.getByText('インド')).toBeTruthy();
+      expect(screen.getByText('Show less')).toBeTruthy();
+    });
   });
 });
