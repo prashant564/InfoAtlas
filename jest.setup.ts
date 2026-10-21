@@ -37,3 +37,6 @@ jest.mock('@react-navigation/native-stack', () => {
     }),
   };
 });
+
+// FlashList renders nothing in Jest without a layout pass.
+require('@shopify/flash-list/jestSetup');

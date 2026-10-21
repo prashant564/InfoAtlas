@@ -1,4 +1,5 @@
 import {colors, fontFamily} from './theme-main';
+import {Palette, darkPalette, lightPalette} from './palette';
 
 import {
   DarkTheme as NavigationDarkTheme,
@@ -22,80 +23,70 @@ const {LightTheme: AdaptedNavDefaultTheme, DarkTheme: AdaptedNavDarkTheme} =
 const mergedDefaultTheme = merge(PaperDefaultTheme, AdaptedNavDefaultTheme);
 const mergedDarkTheme = merge(PaperDarkTheme, AdaptedNavDarkTheme);
 
-export const CombinedDefaultTheme = {
-  ...mergedDefaultTheme,
+const buildTheme = (
+  base: typeof mergedDefaultTheme,
+  palette: Palette,
+  dark: boolean,
+) => ({
+  ...base,
+  dark,
+  statusBarStyle: (dark ? 'light-content' : 'dark-content') as
+    | 'light-content'
+    | 'dark-content',
   colors: {
-    ...mergedDefaultTheme,
-    background: colors.primary500,
-    backdrop: colors.primary600,
-    primary: colors.primary100,
-    secondary: colors.primary200,
-    text: 'white',
-    placeholder: colors.white__a5,
-    disabled: colors.primary400,
-    surface: colors.primary400,
-    secondaryText: colors.primaryDark100,
-    textInputBg: colors.primary600,
-    secondaryTextInputBg: colors.primary500,
-    activeBackground: colors.primary100,
-    inactiveBackground: colors.primary300,
-    activeText: colors.white,
-    inactiveText: colors.primaryDark100,
+    ...base.colors,
 
-    // manually added
+    // Material 3 roles used by react-native-paper components
+    primary: palette.primary,
+    onPrimary: palette.onPrimary,
+    primaryContainer: palette.primaryContainer,
+    onPrimaryContainer: palette.onPrimaryContainer,
+    secondary: palette.primary,
+    onSecondary: palette.onPrimary,
+    // Bottom tab active indicator
+    secondaryContainer: palette.primaryContainer,
+    onSecondaryContainer: palette.onPrimaryContainer,
+    background: palette.background,
+    onBackground: palette.text,
+    surface: palette.surface,
+    onSurface: palette.text,
+    surfaceVariant: palette.surfaceMuted,
+    onSurfaceVariant: palette.secondaryText,
+    outline: palette.secondaryText,
+    outlineVariant: palette.divider,
+    error: palette.error,
     elevation: {
-      ...PaperDefaultTheme.colors.elevation,
-      level1: colors.primary400, // surfaceContainerLow
-      level2: colors.primary400, // surfaceContainer
-      level3: colors.primary400, // surfaceContainerHigh
-      level4: colors.primary400, // surfaceContainerHighest
-      level5: colors.primary400, // surfaceContainerHighest
+      level0: 'transparent',
+      level1: palette.elevation[0],
+      level2: palette.elevation[1],
+      level3: palette.elevation[2],
+      level4: palette.elevation[3],
+      level5: palette.elevation[4],
     },
-    card: colors.primary400,
-    border: colors.primary100,
-    notification: colors.primary200,
-  },
-  appColors: {
-    ...colors,
-  },
 
-  fontFamily: {
-    ...fontFamily,
-  },
-};
+    // React Navigation
+    card: palette.surface,
+    text: palette.text,
+    border: palette.divider,
+    notification: palette.error,
 
-export const CombinedDarkTheme = {
-  ...mergedDarkTheme,
-  colors: {
-    ...mergedDarkTheme,
-    background: '#1E1E1E',
-    backdrop: colors.darkThemeAppGrey900,
-    primary: colors.darkThemeGrey700,
-    secondary: colors.darkThemeGrey900,
-    text: '#F9CFFB',
-    placeholder: colors.white__a5,
-    disabled: colors.primary400,
-    surface: colors.darkThemeGrey700,
-    secondaryText: '#C0C0C0',
-    textInputBg: colors.darkThemeGrey700,
-    secondaryTextInputBg: colors.darkThemeAppGrey900,
-    activeBackground: colors.primary100,
-    inactiveBackground: colors.darkThemeGrey700,
-    activeText: colors.white,
-    inactiveText: colors.primary100,
-
-    // manually added
-    elevation: {
-      ...PaperDarkTheme.colors.elevation,
-      level1: colors.darkThemeGrey700, // surfaceContainerLow
-      level2: colors.darkThemeGrey700, // surfaceContainer
-      level3: colors.darkThemeGrey700, // surfaceContainerHigh
-      level4: colors.darkThemeGrey700, // surfaceContainerHighest
-      level5: colors.darkThemeGrey700, // surfaceContainerHighest
-    },
-    card: colors.darkThemeGrey700,
-    border: colors.primary100,
-    notification: colors.darkThemeGrey900,
+    // App tokens
+    secondaryText: palette.secondaryText,
+    placeholder: palette.placeholder,
+    divider: palette.divider,
+    textInputBg: palette.surface,
+    activeBackground: palette.primary,
+    activeText: palette.onPrimary,
+    inactiveBackground: palette.surfaceMuted,
+    inactiveText: palette.primary,
+    visited: palette.visited,
+    visitedContainer: palette.visitedContainer,
+    onVisitedContainer: palette.onVisitedContainer,
+    wishlist: palette.wishlist,
+    wishlistContainer: palette.wishlistContainer,
+    onWishlistContainer: palette.onWishlistContainer,
+    skeletonBone: palette.skeletonBone,
+    skeletonHighlight: palette.skeletonHighlight,
   },
   appColors: {
     ...colors,
@@ -103,4 +94,12 @@ export const CombinedDarkTheme = {
   fontFamily: {
     ...fontFamily,
   },
-};
+});
+
+export const CombinedDefaultTheme = buildTheme(
+  mergedDefaultTheme,
+  lightPalette,
+  false,
+);
+
+export const CombinedDarkTheme = buildTheme(mergedDarkTheme, darkPalette, true);

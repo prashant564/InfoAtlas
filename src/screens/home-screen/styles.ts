@@ -27,6 +27,11 @@ const homePageStyles = (theme: ThemeType) => {
       backgroundColor: theme.colors.surface,
       borderRadius: 16,
     },
+    statusBadge: {
+      position: 'absolute' as 'absolute',
+      top: 10,
+      right: 10,
+    },
     flagEmojiText: {
       fontSize: 36,
       lineHeight: 48,

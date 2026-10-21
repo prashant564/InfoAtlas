@@ -20,6 +20,9 @@ export const DetailScreenStyles = (theme: ThemeType) => {
       paddingHorizontal: 16,
       marginTop: Platform.OS === 'android' ? 8 : 0,
     },
+    headerSideSpacer: {
+      width: 40,
+    },
     headerTitle: {
       flex: 1,
       textAlign: 'center' as 'center',
@@ -77,7 +80,7 @@ export const DetailScreenStyles = (theme: ThemeType) => {
     },
     quickFactDivider: {
       width: 1,
-      backgroundColor: theme.appColors.white__a2,
+      backgroundColor: theme.colors.divider,
     },
     /**
      * Right now
@@ -130,7 +133,7 @@ export const DetailScreenStyles = (theme: ThemeType) => {
       flexDirection: 'row' as 'row',
       paddingVertical: 10,
       borderBottomWidth: 1,
-      borderBottomColor: theme.appColors.white__a1,
+      borderBottomColor: theme.colors.divider,
     },
     translationLanguage: {
       width: 96,

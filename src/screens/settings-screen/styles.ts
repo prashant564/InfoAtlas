@@ -9,12 +9,8 @@ export const SettingScreenStyles = (theme: ThemeType) => {
       padding: 16,
       paddingTop: Platform.OS === 'android' ? 16 : 0,
     },
-    rowContainer: {
-      flexDirection: 'row' as 'row',
-      alignItems: 'flex-start' as 'flex-start',
-    },
     divider: {
-      backgroundColor: theme.appColors.white__a5,
+      backgroundColor: theme.colors.divider,
       marginVertical: 16,
       height: 1,
     },
@@ -22,20 +18,23 @@ export const SettingScreenStyles = (theme: ThemeType) => {
       marginBottom: 16,
     },
     sectionHeader: {
-      color: '#888' as '#888',
+      color: theme.colors.secondaryText,
       fontWeight: 'bold' as 'bold',
-      marginBottom: 10,
+      letterSpacing: 0.8,
+      marginBottom: 12,
     },
-    developerInfo: {
-      marginBottom: 20,
+    optionsRow: {
+      flexDirection: 'row' as 'row',
+      marginHorizontal: -4,
     },
-    developerDescription: {
-      color: '#fff' as '#fff',
-      marginBottom: 16,
+    optionButton: {
+      flex: 1,
+      marginHorizontal: 4,
     },
     linkText: {
-      color: '#1E90FF' as '#1E90FF',
+      color: theme.colors.primary,
       fontSize: 16,
+      paddingVertical: 8,
     },
   };
 };

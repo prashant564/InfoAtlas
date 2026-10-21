@@ -14,8 +14,8 @@ export const SkeletonLoader = () => {
     <Skeleton
       containerStyle={skeletonContainer}
       isLoading={true}
-      boneColor={theme.appColors.primary300}
-      highlightColor={theme.appColors.white__a3}
+      boneColor={theme.colors.skeletonBone}
+      highlightColor={theme.colors.skeletonHighlight}
       layout={[
         {
           flex: 1,

@@ -1,15 +1,21 @@
-import {Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Linking, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {Divider, Switch} from 'react-native-paper';
+import {Divider} from 'react-native-paper';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-import {Text} from '@components';
+import {ChoiceButton, Text} from '@components';
 
 import {useAppTheme} from '@themes';
 
 import {Theme, useThemeContext} from '@utils/ThemeContext';
 
 import {SettingScreenStyles} from './styles';
+
+const THEME_OPTIONS: {mode: Theme; label: string; icon: string}[] = [
+  {mode: Theme.System, label: 'System', icon: 'theme-light-dark'},
+  {mode: Theme.Light, label: 'Light', icon: 'white-balance-sunny'},
+  {mode: Theme.Dark, label: 'Dark', icon: 'weather-night'},
+];
 
 const SettingScreen = () => {
   const {theme} = useAppTheme();
@@ -19,9 +25,10 @@ const SettingScreen = () => {
   const {
     outerContainer,
     divider,
-    rowContainer,
     section,
     sectionHeader,
+    optionsRow,
+    optionButton,
     linkText,
   } = SettingScreenStyles(theme);
 
@@ -40,24 +47,23 @@ const SettingScreen = () => {
   return (
     <View style={[outerContainer, {top}]}>
       <Text variant={'headlineLarge'} children={'Settings'} />
-      <Divider style={divider} bold />
-      <View style={rowContainer}>
-        <Text
-          variant={'titleMedium'}
-          children={`Current Theme: ${
-            themeMode === Theme.Dark ? 'Dark' : 'Light'
-          }`}
-          style={style.rowTextStyle}
-        />
-        <Switch
-          color={theme.appColors.confusedYellow}
-          value={themeMode === Theme.Dark}
-          onValueChange={toggled => {
-            setThemeMode(toggled ? Theme.Dark : Theme.Light);
-          }}
-        />
+      <Divider style={divider} />
+      <View style={section}>
+        <Text style={sectionHeader}>APPEARANCE</Text>
+        <View style={optionsRow}>
+          {THEME_OPTIONS.map(({mode, label, icon}) => (
+            <ChoiceButton
+              key={mode}
+              label={label}
+              icon={icon}
+              selected={themeMode === mode}
+              style={optionButton}
+              onPress={() => setThemeMode(mode)}
+            />
+          ))}
+        </View>
       </View>
-      <Divider style={divider} bold />
+      <Divider style={divider} />
       <View style={section}>
         <Text style={sectionHeader}>APPLICATION</Text>
         <TouchableOpacity onPress={openTermsOfService}>
@@ -72,9 +78,3 @@ const SettingScreen = () => {
 };
 
 export default SettingScreen;
-
-const style = StyleSheet.create({
-  rowTextStyle: {
-    flex: 1,
-  },
-});

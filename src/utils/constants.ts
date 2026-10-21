@@ -17,11 +17,14 @@ export const NOT_AVAILABLE = '—';
 
 export const COUNTRIES_DATASET_KEY = 'countriesDataset';
 
-export const FAV_COUNTRY_CODES_KEY = 'favCountryCodes';
+export const TRAVEL_ENTRIES_KEY = 'travelEntries';
 
 /**
- * Legacy favourites keys (<= v1.1.0), read once to migrate to FAV_COUNTRY_CODES_KEY.
+ * Legacy favourites keys, read once to migrate favourites into the wishlist:
+ * FAV_COUNTRY_CODES_KEY (v1.2), the two below (<= v1.1.0).
  */
+export const FAV_COUNTRY_CODES_KEY = 'favCountryCodes';
+
 export const FAV_COUNTRIES_LIST_KEY = 'favCountryList';
 
 export const FAV_COUTRIES_NAME_LIST_KEY = 'favNameList';
