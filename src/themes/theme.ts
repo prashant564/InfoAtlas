@@ -85,6 +85,7 @@ const buildTheme = (
     wishlist: palette.wishlist,
     wishlistContainer: palette.wishlistContainer,
     onWishlistContainer: palette.onWishlistContainer,
+    mapLand: palette.mapLand,
     skeletonBone: palette.skeletonBone,
     skeletonHighlight: palette.skeletonHighlight,
   },

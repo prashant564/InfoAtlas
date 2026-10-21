@@ -39,6 +39,9 @@ const pairs: [keyof Palette, keyof Palette, number][] = [
   ['visited', 'surfaceMuted', GRAPHIC],
   ['wishlist', 'surface', GRAPHIC],
   ['wishlist', 'surfaceMuted', GRAPHIC],
+  ['visited', 'mapLand', GRAPHIC],
+  ['wishlist', 'mapLand', GRAPHIC],
+  ['primary', 'mapLand', GRAPHIC],
 ];
 
 describe.each([

@@ -5,3 +5,4 @@ export * from './Text';
 export * from './TextField';
 export * from './SearchBar';
 export * from './ChoiceButton';
+export * from './WorldMap';

@@ -9,7 +9,8 @@
  */
 
 import React, {useCallback, useEffect, useState, useRef} from 'react';
-import {useColorScheme} from 'react-native';
+import {StyleSheet, useColorScheme} from 'react-native';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Provider as PaperProvider} from 'react-native-paper';
 import RNBootSplash from 'react-native-bootsplash';
 import {
@@ -96,14 +97,20 @@ const ProvidedApp = () => {
   const appTheme = isDark ? CombinedDarkTheme : CombinedDefaultTheme;
 
   return (
-    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <ThemeContext.Provider value={{themeMode, setThemeMode, isDark}}>
-        <PaperProvider theme={appTheme}>
-          <App />
-        </PaperProvider>
-      </ThemeContext.Provider>
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={styles.root}>
+      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+        <ThemeContext.Provider value={{themeMode, setThemeMode, isDark}}>
+          <PaperProvider theme={appTheme}>
+            <App />
+          </PaperProvider>
+        </ThemeContext.Provider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 };
+
+const styles = StyleSheet.create({
+  root: {flex: 1},
+});
 
 export default ProvidedApp;
