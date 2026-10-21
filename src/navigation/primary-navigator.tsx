@@ -13,7 +13,12 @@ import {RouteProp} from '@react-navigation/native';
 
 import {CountryDetailsItem} from '@services/api';
 
-import {HomeScreen, SettingScreen, DetailScreen} from '@screens';
+import {
+  HomeScreen,
+  SettingScreen,
+  DetailScreen,
+  WorldMapScreen,
+} from '@screens';
 
 export type PrimaryParamList = {
   HomeScreen: undefined;
@@ -22,6 +27,7 @@ export type PrimaryParamList = {
     selectedCountry: CountryDetailsItem;
   };
   SettingScreen: undefined;
+  WorldMapScreen: undefined;
 };
 
 export type PrimaryNavigationProps = NativeStackScreenProps<
@@ -48,6 +54,7 @@ const PrimaryNavigator: FunctionComponent = () => {
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="SettingScreen" component={SettingScreen} />
           <Stack.Screen name="DetailScreen" component={DetailScreen} />
+          <Stack.Screen name="WorldMapScreen" component={WorldMapScreen} />
         </>
       </Stack.Navigator>
     </>

@@ -18,6 +18,7 @@ import homePageStyles from '@screens/home-screen/styles';
 import CountryListItem from '@screens/home-screen/home.countryListItem';
 
 import MyWorldStats from './myWorld.stats';
+import MyWorldMapCard from './myWorld.mapCard';
 import myWorldStyles from './styles';
 
 const EMPTY_STATE: Record<TravelStatus, {msg: string; hint: string}> = {
@@ -76,6 +77,7 @@ const MyWorldPage = () => {
               ListHeaderComponent={
                 <View>
                   <MyWorldStats stats={stats} />
+                  <MyWorldMapCard travelEntries={travelEntries} />
                   <View style={tabsRow}>
                     <ChoiceButton
                       label={`Visited (${visitedTotal})`}

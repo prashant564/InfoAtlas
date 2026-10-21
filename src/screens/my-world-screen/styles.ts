@@ -1,3 +1,4 @@
+import {MAP_ASPECT_RATIO} from '@components';
 import {ThemeType} from '@themes';
 
 const myWorldStyles = (theme: ThemeType) => {
@@ -33,6 +34,30 @@ const myWorldStyles = (theme: ThemeType) => {
     },
     miniStat: {
       flex: 1,
+    },
+    mapCard: {
+      borderRadius: 16,
+      marginHorizontal: 8,
+      marginBottom: 8,
+    },
+    // Clips the map to the card's corners (Surface itself can't clip
+    // without losing its shadow).
+    mapCardContent: {
+      borderRadius: 16,
+      overflow: 'hidden' as 'hidden',
+    },
+    mapCardHeader: {
+      flexDirection: 'row' as 'row',
+      alignItems: 'center' as 'center',
+      justifyContent: 'space-between' as 'space-between',
+      paddingHorizontal: 16,
+      paddingTop: 12,
+      paddingBottom: 8,
+    },
+    mapCardMap: {
+      width: '100%' as '100%',
+      aspectRatio: MAP_ASPECT_RATIO,
+      marginBottom: 8,
     },
     tabsRow: {
       flexDirection: 'row' as 'row',

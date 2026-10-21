@@ -31,3 +31,17 @@ purge both files:
 curl https://purge.jsdelivr.net/gh/prashant564/InfoAtlas@main/data/manifest.json
 curl https://purge.jsdelivr.net/gh/prashant564/InfoAtlas@main/data/countries.json
 ```
+
+## World map
+
+The My World map (`src/components/WorldMap/worldMap.json`) is generated
+from Natural Earth shapes, matched to `countries.json` by `ccn3`. If you
+add or remove a country, regenerate it and commit the result:
+
+```sh
+yarn map:generate
+```
+
+Countries without a shape (tiny islands) are drawn as dots at their
+`latlng`. `__tests__/components/worldMapData.test.ts` fails if a country
+in the bundled dataset can't be found on the map.

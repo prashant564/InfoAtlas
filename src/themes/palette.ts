@@ -30,6 +30,8 @@ export type Palette = {
   wishlistContainer: string;
   onWishlistContainer: string;
   error: string;
+  /** Untracked land on the world map; visited/wishlist fills must stand out. */
+  mapLand: string;
   skeletonBone: string;
   skeletonHighlight: string;
   elevation: [string, string, string, string, string];
@@ -54,6 +56,7 @@ export const lightPalette: Palette = {
   wishlistContainer: '#FEF3C7',
   onWishlistContainer: '#92400E',
   error: '#DC2626',
+  mapLand: '#E6E8EF',
   skeletonBone: '#E6E8F0',
   skeletonHighlight: '#F5F6FA',
   elevation: ['#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF'],
@@ -78,6 +81,7 @@ export const darkPalette: Palette = {
   wishlistContainer: '#78350F',
   onWishlistContainer: '#FDE68A',
   error: '#F87171',
+  mapLand: '#343A4A',
   skeletonBone: '#1F2330',
   skeletonHighlight: '#2A2F3D',
   // Lighter surfaces read as "closer" in dark mode.
