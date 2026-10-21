@@ -11,6 +11,7 @@ export const DetailScreenStyles = (theme: ThemeType) => {
     },
     mainContainer: {
       padding: 16,
+      paddingBottom: Platform.OS === 'ios' ? 52 : 16,
       flex: 1,
       alignItems: 'flex-start' as 'flex-start',
     },
@@ -23,40 +24,13 @@ export const DetailScreenStyles = (theme: ThemeType) => {
       flex: 1,
       textAlign: 'center' as 'center',
     },
-    rowWiseContainer: {
-      width: '100%' as '100%',
-      flexDirection: 'row' as 'row',
-      marginBottom: 4,
-    },
-    rowContainer: {
-      flexDirection: 'row' as 'row',
-      flex: 1,
-    },
     rowItemContainer: {
       flexDirection: 'row' as 'row',
       width: '100%' as '100%',
       alignItems: 'center' as 'center',
     },
-    leftAlignItemContainer: {
-      flex: 1,
-      alignItems: 'flex-start' as 'flex-start',
-    },
-    divider: {
-      backgroundColor: theme.appColors.white__a5,
-      marginVertical: 8,
-      height: 1,
-    },
     fullWidthContainer: {
       width: '100%' as '100%',
-    },
-    fullFlexContainer: {
-      flex: 1,
-    },
-    bottomRowItemContainer: {
-      flexDirection: 'row' as 'row',
-      width: '100%' as '100%',
-      alignItems: 'center' as 'center',
-      marginBottom: Platform.OS === 'ios' ? 36 : 0,
     },
     surface: {
       padding: 16,
@@ -71,6 +45,73 @@ export const DetailScreenStyles = (theme: ThemeType) => {
     flagEmojiText: {
       fontSize: 120,
       lineHeight: 150,
+    },
+    sectionTitle: {
+      marginTop: 24,
+      marginBottom: 8,
+    },
+    /**
+     * Hero
+     */
+    heroNameBlock: {
+      marginTop: 16,
+    },
+    pillRow: {
+      flexDirection: 'row' as 'row',
+      flexWrap: 'wrap' as 'wrap',
+      marginTop: 8,
+      marginHorizontal: -4,
+    },
+    pill: {
+      paddingHorizontal: 12,
+      paddingVertical: 6,
+      borderRadius: 16,
+      margin: 4,
+      backgroundColor: theme.colors.inactiveBackground,
+    },
+    quickFactsRow: {
+      flexDirection: 'row' as 'row',
+      marginTop: 16,
+      paddingVertical: 12,
+      borderRadius: 16,
+    },
+    quickFact: {
+      flex: 1,
+      alignItems: 'center' as 'center',
+      paddingHorizontal: 4,
+    },
+    quickFactDivider: {
+      width: 1,
+      backgroundColor: theme.appColors.white__a2,
+    },
+    /**
+     * Right now
+     */
+    localTimeCard: {
+      flexDirection: 'row' as 'row',
+      alignItems: 'center' as 'center',
+      marginTop: 16,
+      padding: 16,
+      borderRadius: 16,
+    },
+    localTimeTextBlock: {
+      flex: 1,
+      marginLeft: 8,
+    },
+    /**
+     * Facts grid
+     */
+    factsCard: {
+      flexDirection: 'row' as 'row',
+      flexWrap: 'wrap' as 'wrap',
+      paddingHorizontal: 16,
+      paddingBottom: 16,
+      borderRadius: 16,
+    },
+    factCell: {
+      width: '50%' as '50%',
+      paddingTop: 16,
+      paddingRight: 8,
     },
     flatListStyle: {
       marginTop: 8,

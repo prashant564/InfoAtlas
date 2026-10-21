@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "updatedAt": "2026-10-21",
   "countries": [
     {
@@ -212,7 +212,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Vienna"
+      ]
     },
     {
       "name": {
@@ -426,7 +429,10 @@
       "postalCode": {
         "format": "###",
         "regex": "^(d{3})$"
-      }
+      },
+      "timezoneIds": [
+        "Africa/Maseru"
+      ]
     },
     {
       "name": {
@@ -958,7 +964,38 @@
       "postalCode": {
         "format": "#####-####",
         "regex": "^d{5}(-d{4})?$"
-      }
+      },
+      "timezoneIds": [
+        "America/New_York",
+        "America/Detroit",
+        "America/Kentucky/Louisville",
+        "America/Kentucky/Monticello",
+        "America/Indiana/Indianapolis",
+        "America/Indiana/Vincennes",
+        "America/Indiana/Winamac",
+        "America/Indiana/Marengo",
+        "America/Indiana/Petersburg",
+        "America/Indiana/Vevay",
+        "America/Chicago",
+        "America/Indiana/Tell_City",
+        "America/Indiana/Knox",
+        "America/Menominee",
+        "America/North_Dakota/Center",
+        "America/North_Dakota/New_Salem",
+        "America/North_Dakota/Beulah",
+        "America/Denver",
+        "America/Boise",
+        "America/Phoenix",
+        "America/Los_Angeles",
+        "America/Anchorage",
+        "America/Juneau",
+        "America/Sitka",
+        "America/Metlakatla",
+        "America/Yakutat",
+        "America/Nome",
+        "America/Adak",
+        "Pacific/Honolulu"
+      ]
     },
     {
       "name": {
@@ -1180,7 +1217,10 @@
       "postalCode": {
         "format": "######",
         "regex": "^(d{6})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Kolkata"
+      ]
     },
     {
       "name": {
@@ -1389,7 +1429,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Budapest"
+      ]
     },
     {
       "name": {
@@ -1600,7 +1643,11 @@
         "format": "####",
         "regex": "^(d{4})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Asia/Nicosia",
+        "Asia/Famagusta"
+      ]
     },
     {
       "name": {
@@ -1806,7 +1853,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Africa/Tunis"
+      ]
     },
     {
       "name": {
@@ -2010,7 +2060,10 @@
           -159.77
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Rarotonga"
+      ]
     },
     {
       "name": {
@@ -2217,7 +2270,11 @@
       "postalCode": {
         "format": "@####@",
         "regex": "^([a-zA-Z]d{4}[a-zA-Z])$"
-      }
+      },
+      "timezoneIds": [
+        "America/Guayaquil",
+        "Pacific/Galapagos"
+      ]
     },
     {
       "name": {
@@ -2425,7 +2482,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "America/Caracas"
+      ]
     },
     {
       "name": {
@@ -2639,7 +2699,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Karachi"
+      ]
     },
     {
       "name": {
@@ -2848,7 +2911,10 @@
       "postalCode": {
         "format": "###  ##",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Bratislava"
+      ]
     },
     {
       "name": {
@@ -3051,7 +3117,10 @@
           0.38,
           9.45
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Libreville"
+      ]
     },
     {
       "name": {
@@ -3258,7 +3327,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Phnom_Penh"
+      ]
     },
     {
       "name": {
@@ -3455,7 +3527,10 @@
           159.95
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Guadalcanal"
+      ]
     },
     {
       "name": {
@@ -3668,7 +3743,10 @@
       "postalCode": {
         "format": "### ##",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Prague"
+      ]
     },
     {
       "name": {
@@ -3879,7 +3957,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Africa/Bissau"
+      ]
     },
     {
       "name": {
@@ -4088,7 +4169,10 @@
           -24.63,
           25.9
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Gaborone"
+      ]
     },
     {
       "name": {
@@ -4283,7 +4367,10 @@
           -62.72
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/St_Kitts"
+      ]
     },
     {
       "name": {
@@ -4489,7 +4576,10 @@
           33.5,
           36.3
         ]
-      }
+      },
+      "timezoneIds": [
+        "Asia/Damascus"
+      ]
     },
     {
       "name": {
@@ -4700,7 +4790,11 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Simferopol",
+        "Europe/Kyiv"
+      ]
     },
     {
       "name": {
@@ -4901,7 +4995,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^((97|98)3d{2})$"
-      }
+      },
+      "timezoneIds": [
+        "America/Cayenne"
+      ]
     },
     {
       "name": {
@@ -5102,7 +5199,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Monaco"
+      ]
     },
     {
       "name": {
@@ -5306,7 +5406,10 @@
         "format": "###",
         "regex": "^(d{3})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Atlantic/Reykjavik"
+      ]
     },
     {
       "name": {
@@ -5497,7 +5600,10 @@
           -130.08
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Pitcairn"
+      ]
     },
     {
       "name": {
@@ -5708,7 +5814,10 @@
           3.85,
           11.5
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Douala"
+      ]
     },
     {
       "name": {
@@ -5916,7 +6025,10 @@
       "postalCode": {
         "format": "######",
         "regex": "^(d{6})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Ho_Chi_Minh"
+      ]
     },
     {
       "name": {
@@ -6128,7 +6240,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Colombo"
+      ]
     },
     {
       "name": {
@@ -6343,7 +6458,10 @@
       "postalCode": {
         "format": "######",
         "regex": "^(d{6})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Bishkek"
+      ]
     },
     {
       "name": {
@@ -6553,7 +6671,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Riyadh"
+      ]
     },
     {
       "name": {
@@ -6766,7 +6887,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Africa/Casablanca"
+      ]
     },
     {
       "name": {
@@ -6976,7 +7100,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Rome"
+      ]
     },
     {
       "name": {
@@ -7179,7 +7306,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Vaduz"
+      ]
     },
     {
       "name": {
@@ -7379,7 +7509,10 @@
         "format": "####|###",
         "regex": "^(d{3}d?)$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Asia/Bahrain"
+      ]
     },
     {
       "name": {
@@ -7755,7 +7888,10 @@
       "postalCode": {
         "format": "MD-####",
         "regex": "^(?:MD)*(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Chisinau"
+      ]
     },
     {
       "name": {
@@ -7961,7 +8097,10 @@
           8.97,
           -79.53
         ]
-      }
+      },
+      "timezoneIds": [
+        "America/Panama"
+      ]
     },
     {
       "name": {
@@ -8169,7 +8308,13 @@
       "postalCode": {
         "format": "#######",
         "regex": "^(d{7})$"
-      }
+      },
+      "timezoneIds": [
+        "America/Santiago",
+        "America/Coyhaique",
+        "America/Punta_Arenas",
+        "Pacific/Easter"
+      ]
     },
     {
       "name": {
@@ -8381,7 +8526,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Africa/Algiers"
+      ]
     },
     {
       "name": {
@@ -8584,7 +8732,10 @@
         "format": "#####-####",
         "regex": "^(d{9})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Puerto_Rico"
+      ]
     },
     {
       "name": {
@@ -8788,7 +8939,10 @@
           6.14,
           1.21
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Lome"
+      ]
     },
     {
       "name": {
@@ -8988,7 +9142,10 @@
           -68.92
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Curacao"
+      ]
     },
     {
       "name": {
@@ -9191,7 +9348,10 @@
           32.88,
           13.17
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Tripoli"
+      ]
     },
     {
       "name": {
@@ -9402,7 +9562,10 @@
       "postalCode": {
         "format": "##-###",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Warsaw"
+      ]
     },
     {
       "name": {
@@ -9613,7 +9776,10 @@
       "postalCode": {
         "format": "######",
         "regex": "^(d{6})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Ashgabat"
+      ]
     },
     {
       "name": {
@@ -9833,7 +9999,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Oslo"
+      ]
     },
     {
       "name": {
@@ -10031,7 +10200,10 @@
         "format": "BB#####",
         "regex": "^(?:BB)*(d{5})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Barbados"
+      ]
     },
     {
       "name": {
@@ -10241,7 +10413,21 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "America/Mexico_City",
+        "America/Cancun",
+        "America/Merida",
+        "America/Monterrey",
+        "America/Matamoros",
+        "America/Chihuahua",
+        "America/Ciudad_Juarez",
+        "America/Ojinaga",
+        "America/Mazatlan",
+        "America/Bahia_Banderas",
+        "America/Hermosillo",
+        "America/Tijuana"
+      ]
     },
     {
       "name": {
@@ -10450,7 +10636,10 @@
       "postalCode": {
         "format": "##########",
         "regex": "^(d{10})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Tehran"
+      ]
     },
     {
       "name": {
@@ -10644,7 +10833,10 @@
         "format": "#####",
         "regex": "^((97|98)(4|7|8)d{2})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Indian/Reunion"
+      ]
     },
     {
       "name": {
@@ -10847,7 +11039,10 @@
           41.9,
           12.45
         ]
-      }
+      },
+      "timezoneIds": [
+        "Europe/Vatican"
+      ]
     },
     {
       "name": {
@@ -11073,7 +11268,10 @@
           -19.02,
           -65.26
         ]
-      }
+      },
+      "timezoneIds": [
+        "America/La_Paz"
+      ]
     },
     {
       "name": {
@@ -11285,7 +11483,10 @@
         "format": "@# #@@|@## #@@|@@# #@@|@@## #@@|@#@ #@@|@@#@ #@@|GIR0AA",
         "regex": "^(([A-Z]d{2}[A-Z]{2})|([A-Z]d{3}[A-Z]{2})|([A-Z]{2}d{2}[A-Z]{2})|([A-Z]{2}d{3}[A-Z]{2})|([A-Z]d[A-Z]d[A-Z]{2})|([A-Z]{2}d[A-Z]d[A-Z]{2})|(GIR0AA))$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Europe/Guernsey"
+      ]
     },
     {
       "name": {
@@ -11500,7 +11701,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Africa/Khartoum"
+      ]
     },
     {
       "name": {
@@ -11710,7 +11914,10 @@
           0.32,
           32.55
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Kampala"
+      ]
     },
     {
       "name": {
@@ -11904,7 +12111,10 @@
           -57.85
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Atlantic/Stanley"
+      ]
     },
     {
       "name": {
@@ -12114,7 +12324,10 @@
       "postalCode": {
         "format": "######",
         "regex": "^(d{6})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Bucharest"
+      ]
     },
     {
       "name": {
@@ -12309,7 +12522,10 @@
       "postalCode": {
         "format": "### ###"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/St_Barthelemy"
+      ]
     },
     {
       "name": {
@@ -12502,7 +12718,10 @@
           -62.22
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Montserrat"
+      ]
     },
     {
       "name": {
@@ -12710,7 +12929,21 @@
         "format": "####",
         "regex": "^(d{4})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Australia/Lord_Howe",
+        "Antarctica/Macquarie",
+        "Australia/Hobart",
+        "Australia/Melbourne",
+        "Australia/Sydney",
+        "Australia/Broken_Hill",
+        "Australia/Brisbane",
+        "Australia/Lindeman",
+        "Australia/Adelaide",
+        "Australia/Darwin",
+        "Australia/Perth",
+        "Australia/Eucla"
+      ]
     },
     {
       "name": {
@@ -12934,7 +13167,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Brussels"
+      ]
     },
     {
       "name": {
@@ -13141,7 +13377,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Tbilisi"
+      ]
     },
     {
       "name": {
@@ -13344,7 +13583,10 @@
       "postalCode": {
         "format": "AD###",
         "regex": "^(?:AD)*(d{3})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Andorra"
+      ]
     },
     {
       "name": {
@@ -13550,7 +13792,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Kathmandu"
+      ]
     },
     {
       "name": {
@@ -13765,7 +14010,11 @@
       "postalCode": {
         "format": "######",
         "regex": "^(d{6})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Samarkand",
+        "Asia/Tashkent"
+      ]
     },
     {
       "name": {
@@ -14013,7 +14262,10 @@
           -22.57,
           17.08
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Windhoek"
+      ]
     },
     {
       "name": {
@@ -14223,7 +14475,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Amman"
+      ]
     },
     {
       "name": {
@@ -14422,7 +14677,10 @@
           -68.27
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Kralendijk"
+      ]
     },
     {
       "name": {
@@ -14619,7 +14877,10 @@
           -61.4
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Dominica"
+      ]
     },
     {
       "name": {
@@ -14813,7 +15074,10 @@
           -81.38
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Cayman"
+      ]
     },
     {
       "name": {
@@ -15020,7 +15284,10 @@
           -13.97,
           33.78
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Blantyre"
+      ]
     },
     {
       "name": {
@@ -15224,7 +15491,10 @@
         "format": "@# #@@|@## #@@|@@# #@@|@@## #@@|@#@ #@@|@@#@ #@@|GIR0AA",
         "regex": "^(([A-Z]d{2}[A-Z]{2})|([A-Z]d{3}[A-Z]{2})|([A-Z]{2}d{2}[A-Z]{2})|([A-Z]{2}d{3}[A-Z]{2})|([A-Z]d[A-Z]d[A-Z]{2})|([A-Z]{2}d[A-Z]d[A-Z]{2})|(GIR0AA))$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Europe/Isle_of_Man"
+      ]
     },
     {
       "name": {
@@ -15432,7 +15702,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Podgorica"
+      ]
     },
     {
       "name": {
@@ -15643,7 +15916,10 @@
       "postalCode": {
         "format": "HT####",
         "regex": "^(?:HT)*(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "America/Port-au-Prince"
+      ]
     },
     {
       "name": {
@@ -15837,7 +16113,10 @@
       },
       "startOfWeek": "monday",
       "capitalInfo": {},
-      "capital": []
+      "capital": [],
+      "timezoneIds": [
+        "Asia/Macau"
+      ]
     },
     {
       "name": {
@@ -16037,7 +16316,11 @@
           171.38
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Majuro",
+        "Pacific/Kwajalein"
+      ]
     },
     {
       "name": {
@@ -16243,7 +16526,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "America/Costa_Rica"
+      ]
     },
     {
       "name": {
@@ -16449,7 +16735,10 @@
       "postalCode": {
         "format": "SE-### ##",
         "regex": "^(?:SE)*(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Stockholm"
+      ]
     },
     {
       "name": {
@@ -16657,7 +16946,10 @@
         "format": "FO-###",
         "regex": "^(?:FO)*(d{3})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Atlantic/Faroe"
+      ]
     },
     {
       "name": {
@@ -16868,7 +17160,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Africa/Addis_Ababa"
+      ]
     },
     {
       "name": {
@@ -17074,7 +17369,10 @@
           9.5,
           -13.7
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Conakry"
+      ]
     },
     {
       "name": {
@@ -17276,7 +17574,10 @@
           18.02,
           -63.03
         ]
-      }
+      },
+      "timezoneIds": [
+        "America/Lower_Princes"
+      ]
     },
     {
       "name": {
@@ -17464,7 +17765,10 @@
           -64.93
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/St_Thomas"
+      ]
     },
     {
       "name": {
@@ -17664,7 +17968,13 @@
         "format": "####",
         "regex": "^(d{4})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Nuuk",
+        "America/Danmarkshavn",
+        "America/Scoresbysund",
+        "America/Thule"
+      ]
     },
     {
       "name": {
@@ -17860,7 +18170,10 @@
         "format": "#####",
         "regex": "^(d{5})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Martinique"
+      ]
     },
     {
       "name": {
@@ -18064,7 +18377,10 @@
           18.07,
           -15.97
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Nouakchott"
+      ]
     },
     {
       "name": {
@@ -18273,7 +18589,10 @@
       "postalCode": {
         "format": "######",
         "regex": "^(d{6})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Yerevan"
+      ]
     },
     {
       "name": {
@@ -18476,7 +18795,10 @@
           24.47,
           54.37
         ]
-      }
+      },
+      "timezoneIds": [
+        "Asia/Dubai"
+      ]
     },
     {
       "name": {
@@ -18686,7 +19008,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Yangon"
+      ]
     },
     {
       "name": {
@@ -18892,7 +19217,10 @@
       "postalCode": {
         "format": "CP ####",
         "regex": "^(?:CP)*(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "America/El_Salvador"
+      ]
     },
     {
       "name": {
@@ -19099,7 +19427,10 @@
       "postalCode": {
         "format": "@@####",
         "regex": "^([A-Z]{2}d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Brunei"
+      ]
     },
     {
       "name": {
@@ -19299,7 +19630,10 @@
           6.73
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Africa/Sao_Tome"
+      ]
     },
     {
       "name": {
@@ -19506,7 +19840,10 @@
           6.82,
           -5.27
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Abidjan"
+      ]
     },
     {
       "name": {
@@ -19718,7 +20055,10 @@
           -4.25,
           15.28
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Brazzaville"
+      ]
     },
     {
       "name": {
@@ -19918,7 +20258,10 @@
           13.45,
           -16.57
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Banjul"
+      ]
     },
     {
       "name": {
@@ -20129,7 +20472,10 @@
       "postalCode": {
         "format": "#### ####|####",
         "regex": "^(d{4}(d{4})?)$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Beirut"
+      ]
     },
     {
       "name": {
@@ -20348,7 +20694,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "America/Lima"
+      ]
     },
     {
       "name": {
@@ -20543,7 +20892,10 @@
           -171.22
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Fakaofo"
+      ]
     },
     {
       "name": {
@@ -20756,7 +21108,11 @@
         "format": "####",
         "regex": "^(d{4})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Auckland",
+        "Pacific/Chatham"
+      ]
     },
     {
       "name": {
@@ -20961,7 +21317,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "America/Santo_Domingo"
+      ]
     },
     {
       "name": {
@@ -21170,7 +21529,10 @@
           -3.43,
           29.93
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Bujumbura"
+      ]
     },
     {
       "name": {
@@ -21370,7 +21732,10 @@
         "format": "STHL 1ZZ",
         "regex": "^(STHL1ZZ)$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Atlantic/St_Helena"
+      ]
     },
     {
       "name": {
@@ -21557,7 +21922,10 @@
           96.83
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Indian/Cocos"
+      ]
     },
     {
       "name": {
@@ -21754,7 +22122,10 @@
         "format": "#####",
         "regex": "^(d{5})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Noumea"
+      ]
     },
     {
       "name": {
@@ -21927,7 +22298,19 @@
       "currencies": {},
       "languages": {},
       "capital": [],
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Antarctica/McMurdo",
+        "Antarctica/Casey",
+        "Antarctica/Davis",
+        "Antarctica/DumontDUrville",
+        "Antarctica/Mawson",
+        "Antarctica/Palmer",
+        "Antarctica/Rothera",
+        "Antarctica/Syowa",
+        "Antarctica/Troll",
+        "Antarctica/Vostok"
+      ]
     },
     {
       "name": {
@@ -22137,7 +22520,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Africa/Maputo"
+      ]
     },
     {
       "name": {
@@ -22353,7 +22739,10 @@
       "postalCode": {
         "format": "######",
         "regex": "^(d{6})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Minsk"
+      ]
     },
     {
       "name": {
@@ -22566,7 +22955,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "America/Asuncion"
+      ]
     },
     {
       "name": {
@@ -22779,7 +23171,10 @@
         "format": "@# #@@|@## #@@|@@# #@@|@@## #@@|@#@ #@@|@@#@ #@@|GIR0AA",
         "regex": "^(([A-Z]d{2}[A-Z]{2})|([A-Z]d{3}[A-Z]{2})|([A-Z]{2}d{2}[A-Z]{2})|([A-Z]{2}d{3}[A-Z]{2})|([A-Z]d[A-Z]d[A-Z]{2})|([A-Z]{2}d[A-Z]d[A-Z]{2})|(GIR0AA))$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Europe/Jersey"
+      ]
     },
     {
       "name": {
@@ -22978,7 +23373,10 @@
           -77.35
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Nassau"
+      ]
     },
     {
       "name": {
@@ -23177,7 +23575,10 @@
           25.28,
           51.53
         ]
-      }
+      },
+      "timezoneIds": [
+        "Asia/Qatar"
+      ]
     },
     {
       "name": {
@@ -23388,7 +23789,10 @@
           4.37,
           18.58
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Bangui"
+      ]
     },
     {
       "name": {
@@ -23573,7 +23977,10 @@
           -36.5
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Atlantic/South_Georgia"
+      ]
     },
     {
       "name": {
@@ -23772,7 +24179,10 @@
           -170.7
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Pago_Pago"
+      ]
     },
     {
       "name": {
@@ -23987,7 +24397,11 @@
       "postalCode": {
         "format": "###",
         "regex": "^(d{3})$"
-      }
+      },
+      "timezoneIds": [
+        "Pacific/Port_Moresby",
+        "Pacific/Bougainville"
+      ]
     },
     {
       "name": {
@@ -24203,7 +24617,10 @@
       "postalCode": {
         "format": "@###",
         "regex": "^([A-Z]d{3})$"
-      }
+      },
+      "timezoneIds": [
+        "Africa/Mbabane"
+      ]
     },
     {
       "name": {
@@ -24411,7 +24828,10 @@
         "format": "@@@ ###|@@@ ##",
         "regex": "^([A-Z]{3}d{2}d?)$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Europe/Malta"
+      ]
     },
     {
       "name": {
@@ -24625,7 +25045,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Jerusalem"
+      ]
     },
     {
       "name": {
@@ -24834,7 +25257,10 @@
         "format": "###",
         "regex": "^(d{3})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Indian/Antananarivo"
+      ]
     },
     {
       "name": {
@@ -25036,7 +25462,10 @@
           15.37,
           44.19
         ]
-      }
+      },
+      "timezoneIds": [
+        "Asia/Aden"
+      ]
     },
     {
       "name": {
@@ -25232,7 +25661,10 @@
           167.97
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Norfolk"
+      ]
     },
     {
       "name": {
@@ -25437,7 +25869,10 @@
           27.47,
           89.63
         ]
-      }
+      },
+      "timezoneIds": [
+        "Asia/Thimphu"
+      ]
     },
     {
       "name": {
@@ -25639,7 +26074,10 @@
           6.8,
           -58.15
         ]
-      }
+      },
+      "timezoneIds": [
+        "America/Guyana"
+      ]
     },
     {
       "name": {
@@ -25833,7 +26271,10 @@
         "format": "#####",
         "regex": "^(97500)$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Miquelon"
+      ]
     },
     {
       "name": {
@@ -26055,7 +26496,16 @@
       "postalCode": {
         "format": "######",
         "regex": "^(d{6})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Almaty",
+        "Asia/Qyzylorda",
+        "Asia/Qostanay",
+        "Asia/Aqtobe",
+        "Asia/Aqtau",
+        "Asia/Atyrau",
+        "Asia/Oral"
+      ]
     },
     {
       "name": {
@@ -26248,7 +26698,10 @@
         "format": "####",
         "regex": "^(d{4})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Indian/Christmas"
+      ]
     },
     {
       "name": {
@@ -26475,7 +26928,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Zurich"
+      ]
     },
     {
       "name": {
@@ -26657,7 +27113,11 @@
       "coatOfArms": {},
       "startOfWeek": "monday",
       "capitalInfo": {},
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Midway",
+        "Pacific/Wake"
+      ]
     },
     {
       "name": {
@@ -26875,7 +27335,25 @@
       "postalCode": {
         "format": "#####-###",
         "regex": "^(d{8})$"
-      }
+      },
+      "timezoneIds": [
+        "America/Noronha",
+        "America/Belem",
+        "America/Fortaleza",
+        "America/Recife",
+        "America/Araguaina",
+        "America/Maceio",
+        "America/Bahia",
+        "America/Sao_Paulo",
+        "America/Campo_Grande",
+        "America/Cuiaba",
+        "America/Santarem",
+        "America/Porto_Velho",
+        "America/Boa_Vista",
+        "America/Manaus",
+        "America/Eirunepe",
+        "America/Rio_Branco"
+      ]
     },
     {
       "name": {
@@ -27080,7 +27558,10 @@
           41.32,
           19.82
         ]
-      }
+      },
+      "timezoneIds": [
+        "Europe/Tirane"
+      ]
     },
     {
       "name": {
@@ -27463,7 +27944,10 @@
           -1.95,
           30.05
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Kigali"
+      ]
     },
     {
       "name": {
@@ -27672,7 +28156,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Africa/Dakar"
+      ]
     },
     {
       "name": {
@@ -27873,7 +28360,10 @@
         "format": "#####",
         "regex": "^(d{5})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Asia/Taipei"
+      ]
     },
     {
       "name": {
@@ -28081,7 +28571,10 @@
       "postalCode": {
         "format": "SEOUL ###-###",
         "regex": "^(?:SEOUL)*(d{6})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Seoul"
+      ]
     },
     {
       "name": {
@@ -28293,7 +28786,10 @@
       "postalCode": {
         "format": "@# #@@|@## #@@|@@# #@@|@@## #@@|@#@ #@@|@@#@ #@@|GIR0AA",
         "regex": "^(([A-Z]d{2}[A-Z]{2})|([A-Z]d{3}[A-Z]{2})|([A-Z]{2}d{2}[A-Z]{2})|([A-Z]{2}d{3}[A-Z]{2})|([A-Z]d[A-Z]d[A-Z]{2})|([A-Z]{2}d[A-Z]d[A-Z]{2})|(GIR0AA))$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/London"
+      ]
     },
     {
       "name": {
@@ -28500,7 +28996,10 @@
           12.65,
           -8
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Bamako"
+      ]
     },
     {
       "name": {
@@ -28697,7 +29196,10 @@
           -61
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/St_Lucia"
+      ]
     },
     {
       "name": {
@@ -28906,7 +29408,10 @@
           57.48
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Indian/Mauritius"
+      ]
     },
     {
       "name": {
@@ -29101,7 +29606,10 @@
           36.13,
           -5.35
         ]
-      }
+      },
+      "timezoneIds": [
+        "Europe/Gibraltar"
+      ]
     },
     {
       "name": {
@@ -29313,7 +29821,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Bangkok"
+      ]
     },
     {
       "name": {
@@ -29527,7 +30038,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(?:FI)*(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Helsinki"
+      ]
     },
     {
       "name": {
@@ -29735,7 +30249,10 @@
         "format": "####",
         "regex": "^(d{4})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Asia/Manila"
+      ]
     },
     {
       "name": {
@@ -29938,7 +30455,10 @@
         "format": "####",
         "regex": "^(d{4})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Atlantic/Cape_Verde"
+      ]
     },
     {
       "name": {
@@ -30147,7 +30667,10 @@
       "postalCode": {
         "format": "######",
         "regex": "^(d{6})$"
-      }
+      },
+      "timezoneIds": [
+        "Africa/Lagos"
+      ]
     },
     {
       "name": {
@@ -30352,7 +30875,11 @@
       "postalCode": {
         "format": "######",
         "regex": "^(d{6})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Ulaanbaatar",
+        "Asia/Hovd"
+      ]
     },
     {
       "name": {
@@ -30565,7 +31092,10 @@
           12.1,
           15.03
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Ndjamena"
+      ]
     },
     {
       "name": {
@@ -30775,7 +31305,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Vientiane"
+      ]
     },
     {
       "name": {
@@ -30984,7 +31517,13 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Jakarta",
+        "Asia/Pontianak",
+        "Asia/Makassar",
+        "Asia/Jayapura"
+      ]
     },
     {
       "name": {
@@ -31194,7 +31733,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Africa/Niamey"
+      ]
     },
     {
       "name": {
@@ -31380,7 +31922,10 @@
           15.63
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Arctic/Longyearbyen"
+      ]
     },
     {
       "name": {
@@ -31584,7 +32129,10 @@
         "format": "CP #####",
         "regex": "^(?:CP)*(d{5})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Havana"
+      ]
     },
     {
       "name": {
@@ -31794,7 +32342,10 @@
           168.32
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Efate"
+      ]
     },
     {
       "name": {
@@ -31999,7 +32550,10 @@
         "format": "969##",
         "regex": "^(969d{2})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Guam"
+      ]
     },
     {
       "name": {
@@ -32204,7 +32758,10 @@
           166.92
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Nauru"
+      ]
     },
     {
       "name": {
@@ -32420,7 +32977,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Sarajevo"
+      ]
     },
     {
       "name": {
@@ -32634,7 +33194,11 @@
           31.9,
           35.2
         ]
-      }
+      },
+      "timezoneIds": [
+        "Asia/Gaza",
+        "Asia/Hebron"
+      ]
     },
     {
       "name": {
@@ -32832,7 +33396,10 @@
           -61.52
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Port_of_Spain"
+      ]
     },
     {
       "name": {
@@ -33026,7 +33593,10 @@
           -169.92
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Niue"
+      ]
     },
     {
       "name": {
@@ -33236,7 +33806,10 @@
           17.25,
           -88.77
         ]
-      }
+      },
+      "timezoneIds": [
+        "America/Belize"
+      ]
     },
     {
       "name": {
@@ -33427,7 +34000,10 @@
           -64.62
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Tortola"
+      ]
     },
     {
       "name": {
@@ -33622,7 +34198,10 @@
         "format": "#####",
         "regex": "^(d{5})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Indian/Mayotte"
+      ]
     },
     {
       "name": {
@@ -33826,7 +34405,10 @@
         "format": "#####",
         "regex": "^(d{5})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Indian/Maldives"
+      ]
     },
     {
       "name": {
@@ -34027,7 +34609,10 @@
           8.48,
           -13.23
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Freetown"
+      ]
     },
     {
       "name": {
@@ -34231,7 +34816,10 @@
           4.85,
           31.62
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Juba"
+      ]
     },
     {
       "name": {
@@ -34445,7 +35033,21 @@
       "postalCode": {
         "format": "@####@@@",
         "regex": "^([A-Z]d{4}[A-Z]{3})$"
-      }
+      },
+      "timezoneIds": [
+        "America/Argentina/Buenos_Aires",
+        "America/Argentina/Cordoba",
+        "America/Argentina/Salta",
+        "America/Argentina/Jujuy",
+        "America/Argentina/Tucuman",
+        "America/Argentina/Catamarca",
+        "America/Argentina/La_Rioja",
+        "America/Argentina/San_Juan",
+        "America/Argentina/Mendoza",
+        "America/Argentina/San_Luis",
+        "America/Argentina/Rio_Gallegos",
+        "America/Argentina/Ushuaia"
+      ]
     },
     {
       "name": {
@@ -34660,7 +35262,10 @@
       "postalCode": {
         "format": "######",
         "regex": "^(d{6})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Belgrade"
+      ]
     },
     {
       "name": {
@@ -34866,7 +35471,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "America/Montevideo"
+      ]
     },
     {
       "name": {
@@ -35098,7 +35706,11 @@
           -4.32,
           15.3
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Kinshasa",
+        "Africa/Lubumbashi"
+      ]
     },
     {
       "name": {
@@ -35307,7 +35919,10 @@
       "postalCode": {
         "format": "### ##",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Athens"
+      ]
     },
     {
       "name": {
@@ -35506,7 +36121,10 @@
           42.67,
           21.17
         ]
-      }
+      },
+      "timezoneIds": [
+        "Europe/Belgrade"
+      ]
     },
     {
       "name": {
@@ -35708,7 +36326,10 @@
       "postalCode": {
         "format": "4789#",
         "regex": "^(4789d)$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/San_Marino"
+      ]
     },
     {
       "name": {
@@ -35921,7 +36542,32 @@
       "postalCode": {
         "format": "@#@ #@#",
         "regex": "^([ABCEGHJKLMNPRSTVXY]d[ABCEGHJKLMNPRSTVWXYZ]) ?(d[ABCEGHJKLMNPRSTVWXYZ]d)$ "
-      }
+      },
+      "timezoneIds": [
+        "America/St_Johns",
+        "America/Halifax",
+        "America/Glace_Bay",
+        "America/Moncton",
+        "America/Goose_Bay",
+        "America/Blanc-Sablon",
+        "America/Toronto",
+        "America/Iqaluit",
+        "America/Atikokan",
+        "America/Winnipeg",
+        "America/Resolute",
+        "America/Rankin_Inlet",
+        "America/Regina",
+        "America/Swift_Current",
+        "America/Edmonton",
+        "America/Cambridge_Bay",
+        "America/Inuvik",
+        "America/Vancouver",
+        "America/Creston",
+        "America/Dawson_Creek",
+        "America/Fort_Nelson",
+        "America/Whitehorse",
+        "America/Dawson"
+      ]
     },
     {
       "name": {
@@ -36128,7 +36774,10 @@
           53.32,
           -6.23
         ]
-      }
+      },
+      "timezoneIds": [
+        "Europe/Dublin"
+      ]
     },
     {
       "name": {
@@ -36332,7 +36981,10 @@
           12.37,
           -1.52
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Ouagadougou"
+      ]
     },
     {
       "name": {
@@ -36543,7 +37195,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Skopje"
+      ]
     },
     {
       "name": {
@@ -36748,7 +37403,10 @@
           4.71,
           -74.07
         ]
-      }
+      },
+      "timezoneIds": [
+        "America/Bogota"
+      ]
     },
     {
       "name": {
@@ -36959,7 +37617,10 @@
           43.23
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Indian/Comoro"
+      ]
     },
     {
       "name": {
@@ -37173,7 +37834,10 @@
           -6.16,
           35.75
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Dar_es_Salaam"
+      ]
     },
     {
       "name": {
@@ -37381,7 +38045,10 @@
       "postalCode": {
         "format": "#### @@",
         "regex": "^(d{4}[A-Z]{2})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Amsterdam"
+      ]
     },
     {
       "name": {
@@ -37595,7 +38262,10 @@
       "postalCode": {
         "format": "@@  #####",
         "regex": "^([A-Z]{2}d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Africa/Mogadishu"
+      ]
     },
     {
       "name": {
@@ -37805,7 +38475,11 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Kuala_Lumpur",
+        "Asia/Kuching"
+      ]
     },
     {
       "name": {
@@ -38014,7 +38688,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Sofia"
+      ]
     },
     {
       "name": {
@@ -38215,7 +38892,10 @@
           145.75
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Saipan"
+      ]
     },
     {
       "name": {
@@ -38406,7 +39086,10 @@
         "format": "#####",
         "regex": "^(986d{2})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Wallis"
+      ]
     },
     {
       "name": {
@@ -38610,7 +39293,10 @@
       "postalCode": {
         "format": "###",
         "regex": "^(d{3})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Muscat"
+      ]
     },
     {
       "name": {
@@ -38835,7 +39521,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Paris"
+      ]
     },
     {
       "name": {
@@ -39048,7 +39737,10 @@
           15.33,
           38.93
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Asmara"
+      ]
     },
     {
       "name": {
@@ -39259,7 +39951,10 @@
           3.75,
           8.78
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Malabo"
+      ]
     },
     {
       "name": {
@@ -39466,7 +40161,10 @@
           -8.58,
           125.6
         ]
-      }
+      },
+      "timezoneIds": [
+        "Asia/Dili"
+      ]
     },
     {
       "name": {
@@ -39673,7 +40371,12 @@
       "postalCode": {
         "format": "####-###",
         "regex": "^(d{7})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Lisbon",
+        "Atlantic/Madeira",
+        "Atlantic/Azores"
+      ]
     },
     {
       "name": {
@@ -39880,7 +40583,10 @@
       "postalCode": {
         "format": "@@####",
         "regex": "^([A-Z]{2}d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "America/Tegucigalpa"
+      ]
     },
     {
       "name": {
@@ -40090,7 +40796,10 @@
       "postalCode": {
         "format": "HR-#####",
         "regex": "^(?:HR)*(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Zagreb"
+      ]
     },
     {
       "name": {
@@ -40300,7 +41009,10 @@
           55.45
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Indian/Mahe"
+      ]
     },
     {
       "name": {
@@ -40513,7 +41225,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Istanbul"
+      ]
     },
     {
       "name": {
@@ -40722,7 +41437,12 @@
           172.98
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Tarawa",
+        "Pacific/Kanton",
+        "Pacific/Kiritimati"
+      ]
     },
     {
       "name": {
@@ -40923,7 +41643,10 @@
           5.55,
           -0.22
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Accra"
+      ]
     },
     {
       "name": {
@@ -41125,7 +41848,10 @@
           -175.2
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Tongatapu"
+      ]
     },
     {
       "name": {
@@ -41339,7 +42065,10 @@
       "postalCode": {
         "format": "AZ ####",
         "regex": "^(?:AZ)*(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Baku"
+      ]
     },
     {
       "name": {
@@ -41550,7 +42279,10 @@
           178.42
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Fiji"
+      ]
     },
     {
       "name": {
@@ -41756,7 +42488,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "America/Guatemala"
+      ]
     },
     {
       "name": {
@@ -41971,7 +42706,10 @@
       "postalCode": {
         "format": "######",
         "regex": "^(d{6})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Dushanbe"
+      ]
     },
     {
       "name": {
@@ -42179,7 +42917,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Africa/Cairo"
+      ]
     },
     {
       "name": {
@@ -42383,7 +43124,10 @@
           -171.77
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Apia"
+      ]
     },
     {
       "name": {
@@ -42568,7 +43312,10 @@
           72.4
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Indian/Chagos"
+      ]
     },
     {
       "name": {
@@ -42772,7 +43519,10 @@
         "format": "96940",
         "regex": "^(96940)$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Palau"
+      ]
     },
     {
       "name": {
@@ -42980,7 +43730,10 @@
       "postalCode": {
         "format": "LT-#####",
         "regex": "^(?:LT)*(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Vilnius"
+      ]
     },
     {
       "name": {
@@ -43181,7 +43934,12 @@
         "format": "#####",
         "regex": "^((97|98)7d{2})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Tahiti",
+        "Pacific/Marquesas",
+        "Pacific/Gambier"
+      ]
     },
     {
       "name": {
@@ -43375,7 +44133,10 @@
           -61.85
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Antigua"
+      ]
     },
     {
       "name": {
@@ -43582,7 +44343,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Tallinn"
+      ]
     },
     {
       "name": {
@@ -43796,7 +44560,10 @@
         "format": "######",
         "regex": "^(d{6})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Asia/Singapore"
+      ]
     },
     {
       "name": {
@@ -44002,7 +44769,10 @@
       "postalCode": {
         "format": "###-###-#",
         "regex": "^(d{7})$"
-      }
+      },
+      "timezoneIds": [
+        "America/Managua"
+      ]
     },
     {
       "name": {
@@ -44214,7 +44984,10 @@
           11.58,
           43.15
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Djibouti"
+      ]
     },
     {
       "name": {
@@ -44433,7 +45206,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Luxembourg"
+      ]
     },
     {
       "name": {
@@ -44623,7 +45399,10 @@
         "format": "TKCA 1ZZ",
         "regex": "^(TKCA 1ZZ)$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Grand_Turk"
+      ]
     },
     {
       "name": {
@@ -44821,7 +45600,10 @@
       },
       "postalCode": {
         "format": "### ###"
-      }
+      },
+      "timezoneIds": [
+        "America/Marigot"
+      ]
     },
     {
       "name": {
@@ -45031,7 +45813,12 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Madrid",
+        "Africa/Ceuta",
+        "Atlantic/Canary"
+      ]
     },
     {
       "name": {
@@ -45236,7 +46023,10 @@
           179.22
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Funafuti"
+      ]
     },
     {
       "name": {
@@ -45509,7 +46299,10 @@
           -17.82,
           31.03
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Harare"
+      ]
     },
     {
       "name": {
@@ -45719,7 +46512,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Copenhagen"
+      ]
     },
     {
       "name": {
@@ -45921,7 +46717,10 @@
           -76.79358
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Jamaica"
+      ]
     },
     {
       "name": {
@@ -46145,7 +46944,11 @@
       "postalCode": {
         "format": "######",
         "regex": "^(d{6})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Shanghai",
+        "Asia/Urumqi"
+      ]
     },
     {
       "name": {
@@ -46349,7 +47152,10 @@
           6.48,
           2.62
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Porto-Novo"
+      ]
     },
     {
       "name": {
@@ -46563,7 +47369,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Africa/Nairobi"
+      ]
     },
     {
       "name": {
@@ -46771,7 +47580,10 @@
       "postalCode": {
         "format": "LV-####",
         "regex": "^(?:LV)*(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Riga"
+      ]
     },
     {
       "name": {
@@ -47034,7 +47846,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Africa/Johannesburg"
+      ]
     },
     {
       "name": {
@@ -47254,7 +48069,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Baghdad"
+      ]
     },
     {
       "name": {
@@ -47446,7 +48264,10 @@
           -1.4
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Indian/Kerguelen"
+      ]
     },
     {
       "name": {
@@ -47651,7 +48472,10 @@
           5.83,
           -55.17
         ]
-      }
+      },
+      "timezoneIds": [
+        "America/Paramaribo"
+      ]
     },
     {
       "name": {
@@ -47849,7 +48673,10 @@
           22.267,
           114.188
         ]
-      }
+      },
+      "timezoneIds": [
+        "Asia/Hong_Kong"
+      ]
     },
     {
       "name": {
@@ -48057,7 +48884,10 @@
       "postalCode": {
         "format": "SI- ####",
         "regex": "^(?:SI)*(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Ljubljana"
+      ]
     },
     {
       "name": {
@@ -48269,7 +49099,10 @@
           34.52,
           69.18
         ]
-      }
+      },
+      "timezoneIds": [
+        "Asia/Kabul"
+      ]
     },
     {
       "name": {
@@ -48466,7 +49299,10 @@
           -70.03
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Aruba"
+      ]
     },
     {
       "name": {
@@ -48667,7 +49503,10 @@
         "format": "@@ ##",
         "regex": "^([A-Z]{2}d{2})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Atlantic/Bermuda"
+      ]
     },
     {
       "name": {
@@ -48873,7 +49712,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Dhaka"
+      ]
     },
     {
       "name": {
@@ -49070,7 +49912,10 @@
         "format": "#####",
         "regex": "^((97|98)d{3})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Guadeloupe"
+      ]
     },
     {
       "name": {
@@ -49264,7 +50109,10 @@
           -64.68
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Grenada"
+      ]
     },
     {
       "name": {
@@ -49457,7 +50305,10 @@
           -63.05
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/Anguilla"
+      ]
     },
     {
       "name": {
@@ -49661,7 +50512,10 @@
         "format": "###-####",
         "regex": "^(d{7})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Asia/Tokyo"
+      ]
     },
     {
       "name": {
@@ -49867,7 +50721,10 @@
       "postalCode": {
         "format": "####",
         "regex": "^(d{4})$"
-      }
+      },
+      "timezoneIds": [
+        "Africa/Monrovia"
+      ]
     },
     {
       "name": {
@@ -50070,7 +50927,12 @@
         "format": "#####",
         "regex": "^(d{5})$"
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Pacific/Chuuk",
+        "Pacific/Pohnpei",
+        "Pacific/Kosrae"
+      ]
     },
     {
       "name": {
@@ -50279,7 +51141,10 @@
       "postalCode": {
         "format": "###-###",
         "regex": "^(d{6})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Pyongyang"
+      ]
     },
     {
       "name": {
@@ -50474,7 +51339,10 @@
           19.9
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "Europe/Mariehamn"
+      ]
     },
     {
       "name": {
@@ -50668,7 +51536,10 @@
           -61.22
         ]
       },
-      "borders": []
+      "borders": [],
+      "timezoneIds": [
+        "America/St_Vincent"
+      ]
     },
     {
       "name": {
@@ -50900,7 +51771,35 @@
       "postalCode": {
         "format": "######",
         "regex": "^(d{6})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Kaliningrad",
+        "Europe/Moscow",
+        "Europe/Kirov",
+        "Europe/Volgograd",
+        "Europe/Astrakhan",
+        "Europe/Saratov",
+        "Europe/Ulyanovsk",
+        "Europe/Samara",
+        "Asia/Yekaterinburg",
+        "Asia/Omsk",
+        "Asia/Novosibirsk",
+        "Asia/Barnaul",
+        "Asia/Tomsk",
+        "Asia/Novokuznetsk",
+        "Asia/Krasnoyarsk",
+        "Asia/Irkutsk",
+        "Asia/Chita",
+        "Asia/Yakutsk",
+        "Asia/Khandyga",
+        "Asia/Vladivostok",
+        "Asia/Ust-Nera",
+        "Asia/Magadan",
+        "Asia/Sakhalin",
+        "Asia/Srednekolymsk",
+        "Asia/Kamchatka",
+        "Asia/Anadyr"
+      ]
     },
     {
       "name": {
@@ -51109,7 +52008,10 @@
           -13.28,
           27.14
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/El_Aaiun"
+      ]
     },
     {
       "name": {
@@ -51313,7 +52215,10 @@
           -8.83,
           13.22
         ]
-      }
+      },
+      "timezoneIds": [
+        "Africa/Luanda"
+      ]
     },
     {
       "name": {
@@ -51516,7 +52421,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Asia/Kuwait"
+      ]
     },
     {
       "name": {
@@ -51727,7 +52635,10 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Africa/Lusaka"
+      ]
     },
     {
       "name": {
@@ -51940,7 +52851,11 @@
       "postalCode": {
         "format": "#####",
         "regex": "^(d{5})$"
-      }
+      },
+      "timezoneIds": [
+        "Europe/Berlin",
+        "Europe/Busingen"
+      ]
     }
   ]
 }

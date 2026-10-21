@@ -35,7 +35,7 @@ const Text = ({
   };
 
   const marginTopPresets = mt !== undefined ? {marginTop: mt} : {};
-  const marginBottomPresets = mb !== undefined ? {marginBottom: mt} : {};
+  const marginBottomPresets = mb !== undefined ? {marginBottom: mb} : {};
 
   const textStyle = StyleSheet.flatten([
     textColorPreset,
