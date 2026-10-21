@@ -13,12 +13,7 @@ import {RouteProp} from '@react-navigation/native';
 
 import {CountryDetailsItem} from '@services/api';
 
-import {
-  HomeScreen,
-  FavouriteScreen,
-  SettingScreen,
-  DetailScreen,
-} from '@screens';
+import {HomeScreen, SettingScreen, DetailScreen} from '@screens';
 
 export type PrimaryParamList = {
   HomeScreen: undefined;
@@ -26,7 +21,6 @@ export type PrimaryParamList = {
   DetailScreen: {
     selectedCountry: CountryDetailsItem;
   };
-  FavouriteScreen: undefined;
   SettingScreen: undefined;
 };
 
@@ -52,7 +46,6 @@ const PrimaryNavigator: FunctionComponent = () => {
         initialRouteName={'HomeScreen'}>
         <>
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
-          <Stack.Screen name="FavouriteScreen" component={FavouriteScreen} />
           <Stack.Screen name="SettingScreen" component={SettingScreen} />
           <Stack.Screen name="DetailScreen" component={DetailScreen} />
         </>

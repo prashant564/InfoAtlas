@@ -5,11 +5,11 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import {useAppTheme} from '@themes/getTheme';
 import HomePage from './home.page';
-import {FavouriteScreen, SettingScreen} from '@screens';
+import {MyWorldScreen, SettingScreen} from '@screens';
 
 export type HomeScreensList = {
   Home: undefined;
-  Favourites: undefined;
+  MyWorld: undefined;
   Settings: undefined;
 };
 
@@ -37,11 +37,12 @@ const HomeScreen: FunctionComponent = () => {
         }}
       />
       <HomeTabs.Screen
-        name="Favourites"
-        component={FavouriteScreen}
+        name="MyWorld"
+        component={MyWorldScreen}
         options={{
+          title: 'My World',
           tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="heart" color={color} size={24} />
+            <MaterialCommunityIcons name="earth" color={color} size={24} />
           ),
         }}
       />

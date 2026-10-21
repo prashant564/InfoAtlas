@@ -1,12 +1,15 @@
 import React, {useState} from 'react';
 import {Pressable} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {Image, Text} from '@components';
 
 import {PrimaryParamList} from '@navigation';
 
 import {CountryDetailsItem} from '@services/api';
+
+import {useAppBoundStore} from '@store/mainStore';
 
 import homePageStyles from './styles';
 import {useAppTheme} from '@themes';
@@ -18,7 +21,12 @@ export type CountryListItem = {
 const CountryListItem = ({item}: CountryListItem) => {
   const {theme} = useAppTheme();
   const navigation = useNavigation<NavigationProp<PrimaryParamList>>();
-  const {pressable, countryNameText, flagEmojiText} = homePageStyles(theme);
+  const {pressable, countryNameText, flagEmojiText, statusBadge} =
+    homePageStyles(theme);
+
+  const status = useAppBoundStore(
+    state => state.travelEntries[item.cca3]?.status,
+  );
 
   // Tracked per URI (not a boolean) because FlashList recycles this
   // component for other countries.
@@ -51,6 +59,15 @@ const CountryListItem = ({item}: CountryListItem) => {
       <Text variant="bodyMedium" style={countryNameText} numberOfLines={2}>
         {item.name.common}
       </Text>
+      {status && (
+        <MaterialCommunityIcons
+          name={status === 'visited' ? 'check-circle' : 'star'}
+          size={18}
+          color={theme.appColors.miscBrown}
+          style={statusBadge}
+          accessibilityLabel={status === 'visited' ? 'Visited' : 'On wishlist'}
+        />
+      )}
     </Pressable>
   );
 };

@@ -20,6 +20,9 @@ export const DetailScreenStyles = (theme: ThemeType) => {
       paddingHorizontal: 16,
       marginTop: Platform.OS === 'android' ? 8 : 0,
     },
+    headerSideSpacer: {
+      width: 40,
+    },
     headerTitle: {
       flex: 1,
       textAlign: 'center' as 'center',

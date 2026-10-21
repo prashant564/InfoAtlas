@@ -11,6 +11,7 @@ import {useAppTheme} from '@themes';
 
 import DetailHeader from './detail.header';
 import DetailHero from './detail.hero';
+import DetailTravelStatus from './detail.travelStatus';
 import DetailActions from './detail.actions';
 import DetailLocalTime from './detail.localTime';
 import DetailFacts from './detail.facts';
@@ -40,6 +41,7 @@ const DetailScreen = () => {
         <View style={mainContainer}>
           <View style={fullWidthContainer}>
             <DetailHero selectedCountry={selectedCountry} />
+            <DetailTravelStatus selectedCountry={selectedCountry} />
             <DetailActions selectedCountry={selectedCountry} />
             <DetailLocalTime selectedCountry={selectedCountry} />
             <DetailFacts selectedCountry={selectedCountry} />

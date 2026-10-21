@@ -7,23 +7,23 @@ import {
   createCountriesSlice,
   initialCountriesState,
 
-  //favCountries
-  FavCountriesState,
-  createFavCountriesSlice,
-  initialFavCountriesState,
+  //travel
+  TravelState,
+  createTravelSlice,
+  initialTravelState,
 } from './stores';
 
-export type AppState = CountriesState & FavCountriesState;
+export type AppState = CountriesState & TravelState;
 
 export const initialAppState = {
   ...initialCountriesState,
-  ...initialFavCountriesState,
+  ...initialTravelState,
 };
 
 export const useAppBoundStore = createWithEqualityFn<AppState>()(
   (...a) => ({
     ...createCountriesSlice(...a),
-    ...createFavCountriesSlice(...a),
+    ...createTravelSlice(...a),
   }),
   shallow,
 );

@@ -37,10 +37,10 @@ export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
 const App = () => {
   const openedOnce = useRef(false);
 
-  const {__fetchAllCountriesDetails, __fetchAllFavCountriesDetails} =
+  const {__fetchAllCountriesDetails, __loadTravelEntries} =
     useAppBoundStore(state => ({
       __fetchAllCountriesDetails: state.__fetchAllCountriesDetails,
-      __fetchAllFavCountriesDetails: state.__fetchAllFavCountriesDetails,
+      __loadTravelEntries: state.__loadTravelEntries,
     }));
 
   useBackButtonHandler(canExit);
@@ -53,14 +53,14 @@ const App = () => {
     RNBootSplash.hide({fade: true});
 
     __fetchAllCountriesDetails();
-    __fetchAllFavCountriesDetails();
+    __loadTravelEntries();
 
     load('openedOnce').then(res => {
       if (res === 'true') {
         openedOnce.current = true;
       }
     });
-  }, [__fetchAllCountriesDetails, __fetchAllFavCountriesDetails]);
+  }, [__fetchAllCountriesDetails, __loadTravelEntries]);
 
   return <RootNavigator onStateChange={onNavigationStateChange} />;
 };

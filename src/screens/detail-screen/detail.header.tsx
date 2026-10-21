@@ -8,8 +8,6 @@ import {useAppTheme} from '@themes';
 
 import {CountryDetailsItem} from '@services/api';
 
-import {useAppBoundStore} from '@store/mainStore';
-
 import {DetailScreenStyles} from './styles';
 
 export type DetailHeaderProps = {
@@ -20,30 +18,10 @@ const DetailHeader = ({selectedCountry}: DetailHeaderProps) => {
   const {theme} = useAppTheme();
   const navigation = useNavigation();
 
-  const {flag, name, cca3} = selectedCountry;
+  const {flag, name} = selectedCountry;
 
-  const {
-    isCountryFavorite,
-    __addCountryToFavorties,
-    __removeCountryFromFavorties,
-  } = useAppBoundStore(state => ({
-    isCountryFavorite: state.favCountryCodes.includes(cca3),
-    __addCountryToFavorties: state.__addCountryToFavorties,
-    __removeCountryFromFavorties: state.__removeCountryFromFavorties,
-  }));
-
-  const icon = isCountryFavorite ? 'cards-heart' : 'cards-heart-outline';
-
-  const {rowItemContainer, headerContainer, headerTitle} =
+  const {rowItemContainer, headerContainer, headerTitle, headerSideSpacer} =
     DetailScreenStyles(theme);
-
-  const handleAddOrRemoveFromFavPress = () => {
-    if (isCountryFavorite) {
-      __removeCountryFromFavorties(cca3);
-    } else {
-      __addCountryToFavorties(selectedCountry);
-    }
-  };
 
   return (
     <View style={headerContainer}>
@@ -65,11 +43,8 @@ const DetailHeader = ({selectedCountry}: DetailHeaderProps) => {
           children={`${flag} ${name.common}`}
           numberOfLines={1}
         />
-        <Pressable
-          style={({pressed}) => [{opacity: pressed ? 0.5 : 1}]}
-          onPress={handleAddOrRemoveFromFavPress}>
-          <Icon icon={icon} color={theme.colors.inactiveText} size="md" />
-        </Pressable>
+        {/* Balances the back button so the title stays centred */}
+        <View style={headerSideSpacer} />
       </View>
     </View>
   );
