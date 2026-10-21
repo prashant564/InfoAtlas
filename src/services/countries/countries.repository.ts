@@ -52,28 +52,46 @@ export const loadLocalCountries = async (): Promise<CountriesDataset> => {
   return withSortedCountries(bundledDataset);
 };
 
+export type CountriesUpdateResult =
+  | {kind: 'updated'; dataset: CountriesDataset}
+  | {kind: 'up-to-date'}
+  | {kind: 'failed'};
+
 /**
  * Downloads and caches the published dataset if it is newer than
- * `currentVersion`. Resolves to null when there is nothing newer or
- * anything goes wrong, so callers can keep showing local data.
+ * `currentVersion`, and says why when it doesn't.
+ */
+export const checkForCountriesUpdate = async (
+  currentVersion: number,
+): Promise<CountriesUpdateResult> => {
+  const manifest = await getDataManifest();
+  if (manifest.kind !== 'ok') {
+    return {kind: 'failed'};
+  }
+  if (manifest.data.version <= currentVersion) {
+    return {kind: 'up-to-date'};
+  }
+
+  const dataset = await getCountriesDataset();
+  if (dataset.kind !== 'ok' || !isValidDataset(dataset.data)) {
+    return {kind: 'failed'};
+  }
+  // A CDN can briefly serve an old file behind a newer manifest.
+  if (dataset.data.version <= currentVersion) {
+    return {kind: 'up-to-date'};
+  }
+
+  await save(COUNTRIES_DATASET_KEY, dataset.data);
+  return {kind: 'updated', dataset: withSortedCountries(dataset.data)};
+};
+
+/**
+ * Like checkForCountriesUpdate, but resolves to null when there is nothing
+ * newer or anything goes wrong, so callers can keep showing local data.
  */
 export const fetchNewerCountries = async (
   currentVersion: number,
 ): Promise<CountriesDataset | null> => {
-  const manifest = await getDataManifest();
-  if (manifest.kind !== 'ok' || manifest.data.version <= currentVersion) {
-    return null;
-  }
-
-  const dataset = await getCountriesDataset();
-  if (
-    dataset.kind !== 'ok' ||
-    !isValidDataset(dataset.data) ||
-    dataset.data.version <= currentVersion
-  ) {
-    return null;
-  }
-
-  await save(COUNTRIES_DATASET_KEY, dataset.data);
-  return withSortedCountries(dataset.data);
+  const result = await checkForCountriesUpdate(currentVersion);
+  return result.kind === 'updated' ? result.dataset : null;
 };

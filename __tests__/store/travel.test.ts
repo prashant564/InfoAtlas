@@ -114,6 +114,15 @@ describe('Travel Slice', () => {
     });
   });
 
+  test('__clearTravelEntries removes everything and saves', async () => {
+    state.travelEntries = {
+      IND: {status: 'visited', updatedAt: '2026-01-01'},
+    };
+    await slice.__clearTravelEntries();
+    expect(state.travelEntries).toEqual({});
+    expect(mockSave).toHaveBeenCalledWith('travelEntries', {});
+  });
+
   describe('__setTravelStatus', () => {
     test('sets a status and persists it', async () => {
       await slice.__setTravelStatus('IND', 'visited');

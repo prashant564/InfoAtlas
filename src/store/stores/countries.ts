@@ -1,7 +1,12 @@
 import type {StateCreator} from 'zustand';
 
 import {CountryDetailsItem} from '@services/api';
-import {fetchNewerCountries, loadLocalCountries} from '@services/countries';
+import {
+  CountriesUpdateResult,
+  checkForCountriesUpdate,
+  fetchNewerCountries,
+  loadLocalCountries,
+} from '@services/countries';
 
 import {AppState} from '@store/mainStore';
 
@@ -10,13 +15,18 @@ import {devLogger} from '@utils/logger';
 export type CountriesState = {
   allCountryDetailsList: CountryDetailsItem[];
   countriesDataVersion: number;
+  /** Publish date of the dataset in use (YYYY-MM-DD). */
+  countriesDataUpdatedAt: string | null;
   isCountriesLoaded: boolean;
   __fetchAllCountriesDetails: () => Promise<void>;
+  /** A user-initiated check, e.g. from Settings. */
+  __checkForCountriesUpdate: () => Promise<CountriesUpdateResult['kind']>;
 };
 
 export const initialCountriesState = {
   allCountryDetailsList: [],
   countriesDataVersion: 0,
+  countriesDataUpdatedAt: null,
   isCountriesLoaded: false,
 };
 
@@ -25,7 +35,7 @@ export const createCountriesSlice: StateCreator<
   [],
   [],
   CountriesState
-> = set => ({
+> = (set, get) => ({
   ...initialCountriesState,
   __fetchAllCountriesDetails: async () => {
     try {
@@ -34,6 +44,7 @@ export const createCountriesSlice: StateCreator<
       set({
         allCountryDetailsList: local.countries,
         countriesDataVersion: local.version,
+        countriesDataUpdatedAt: local.updatedAt ?? null,
         isCountriesLoaded: true,
       });
 
@@ -42,10 +53,27 @@ export const createCountriesSlice: StateCreator<
         set({
           allCountryDetailsList: newer.countries,
           countriesDataVersion: newer.version,
+          countriesDataUpdatedAt: newer.updatedAt ?? null,
         });
       }
     } catch (error) {
       devLogger('__fetchAllCountriesDetails', error, 'fail');
+    }
+  },
+  __checkForCountriesUpdate: async () => {
+    try {
+      const result = await checkForCountriesUpdate(get().countriesDataVersion);
+      if (result.kind === 'updated') {
+        set({
+          allCountryDetailsList: result.dataset.countries,
+          countriesDataVersion: result.dataset.version,
+          countriesDataUpdatedAt: result.dataset.updatedAt ?? null,
+        });
+      }
+      return result.kind;
+    } catch (error) {
+      devLogger('__checkForCountriesUpdate', error, 'fail');
+      return 'failed';
     }
   },
 });

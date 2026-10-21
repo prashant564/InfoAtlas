@@ -1,5 +1,6 @@
 import {
   bundledDataset,
+  checkForCountriesUpdate,
   fetchNewerCountries,
   isValidDataset,
   loadLocalCountries,
@@ -149,6 +150,32 @@ describe('countries repository', () => {
 
       expect(await fetchNewerCountries(1)).toBeNull();
       expect(mockSave).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('checkForCountriesUpdate', () => {
+    test('tells "up to date" apart from a failed check', async () => {
+      mockManifest.mockResolvedValueOnce({kind: 'ok', data: {version: 1}});
+      expect(await checkForCountriesUpdate(1)).toEqual({kind: 'up-to-date'});
+
+      mockManifest.mockResolvedValueOnce({kind: 'cannot-connect'});
+      expect(await checkForCountriesUpdate(1)).toEqual({kind: 'failed'});
+
+      mockManifest.mockResolvedValueOnce({kind: 'ok', data: {version: 2}});
+      mockDataset.mockResolvedValueOnce({kind: 'bad-data'});
+      expect(await checkForCountriesUpdate(1)).toEqual({kind: 'failed'});
+    });
+
+    test('returns the newer dataset', async () => {
+      mockManifest.mockResolvedValueOnce({kind: 'ok', data: {version: 2}});
+      mockDataset.mockResolvedValueOnce({
+        kind: 'ok',
+        data: datasetWithVersion(2),
+      });
+
+      const result = await checkForCountriesUpdate(1);
+      expect(result.kind).toBe('updated');
+      expect(mockSave).toHaveBeenCalledTimes(1);
     });
   });
 });

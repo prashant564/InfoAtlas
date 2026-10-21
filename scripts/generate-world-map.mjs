@@ -4,36 +4,49 @@
  * country, keyed by cca3, projected and simplified at build time so the app
  * only has to draw strings.
  *
- * Source: Natural Earth 1:50m (world-atlas), matched to data/countries.json
- * by ISO numeric code (ccn3).
+ * Source: Natural Earth 1:10m Admin 0 countries, India point of view
+ * (borders as recognised by the Government of India: all of Jammu &
+ * Kashmir, Ladakh incl. Aksai Chin, and Arunachal Pradesh in India). It is
+ * downloaded once into node_modules/.cache and matched to
+ * data/countries.json by ISO code.
  *
  * Usage: yarn map:generate
  */
 import fs from 'fs';
 import path from 'path';
+import {execFileSync} from 'child_process';
 import {fileURLToPath} from 'url';
-import {geoNaturalEarth1, geoPath, geoCentroid} from 'd3-geo';
+import {geoArea, geoNaturalEarth1, geoPath, geoCentroid} from 'd3-geo';
+import shapefile from 'shapefile';
+import {topology} from 'topojson-server';
 import {feature, merge} from 'topojson-client';
 import {presimplify, quantile, simplify} from 'topojson-simplify';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUTPUT = path.join(ROOT, 'src/components/WorldMap/worldMap.json');
 
+const SOURCE_NAME = 'ne_10m_admin_0_countries_ind';
+const SOURCE_URL = `https://naciscdn.org/naturalearth/10m/cultural/${SOURCE_NAME}.zip`;
+const SOURCE_VERSION = '5.1.1';
+const CACHE_DIR = path.join(ROOT, 'node_modules/.cache/natural-earth');
+
 const WIDTH = 1000;
 // Coordinates are rounded to 1 decimal: 0.1 units is under a point even
 // at the maximum zoom on a phone.
 const PRECISION = 10;
-// Fraction of the least significant points dropped by simplification.
-const SIMPLIFY_QUANTILE = 0.35;
+// Fraction of points kept by simplification (the 1:10m source is far more
+// detailed than a phone map needs).
+const SIMPLIFY_KEEP = 0.05;
+// Islands smaller than this (in square map units) are dropped, unless they
+// are a country's largest piece.
+const MIN_POLYGON_AREA = 0.15;
 // Shapes smaller than this (in map units) are too small to see or tap,
 // so they also get a dot.
 const MIN_SHAPE_SIZE = 4;
 
-// Natural Earth features without an ISO code.
+// Natural Earth features without a usable ISO code.
 const FEATURE_NAME_TO_CCA3 = {
-  Kosovo: 'UNK',
-  Somaliland: 'SOM',
-  'N. Cyprus': 'CYP',
+  'Guantanamo Bay USNB': 'CUB',
 };
 
 // Overseas regions Natural Earth includes in their parent's shape. Polygons
@@ -49,12 +62,12 @@ const SPLITS = {
   },
   NOR: {
     SJM: [-10, 70.5, 35, 82],
+    BVT: [3, -54.7, 3.7, -54.2],
   },
   NLD: {
     BES: [-69, 11.5, -62.5, 18],
   },
-  // "Indian Ocean Ter." in Natural Earth.
-  IOT_AU: {
+  AUS: {
     CXR: [105, -11, 106, -10],
     CCK: [96, -12.5, 97.5, -11.5],
   },
@@ -103,42 +116,75 @@ const compactPathContext = () => {
   };
 };
 
-const main = () => {
-  const topology = JSON.parse(
-    fs.readFileSync(
-      path.join(ROOT, 'node_modules/world-atlas/countries-50m.json'),
-      'utf8',
-    ),
-  );
+/** Downloads and unzips the source once; returns the .shp path. */
+const ensureSource = () => {
+  const shp = path.join(CACHE_DIR, `${SOURCE_NAME}.shp`);
+  const versionFile = path.join(CACHE_DIR, `${SOURCE_NAME}.VERSION.txt`);
+  if (!fs.existsSync(shp)) {
+    fs.mkdirSync(CACHE_DIR, {recursive: true});
+    const zip = path.join(CACHE_DIR, `${SOURCE_NAME}.zip`);
+    console.log(`Downloading ${SOURCE_URL}`);
+    execFileSync('curl', ['-fsSL', '-o', zip, SOURCE_URL]);
+    execFileSync('unzip', ['-o', '-q', zip, '-d', CACHE_DIR]);
+  }
+  const version = fs.readFileSync(versionFile, 'utf8').trim();
+  if (version !== SOURCE_VERSION) {
+    throw new Error(
+      `Expected Natural Earth ${SOURCE_VERSION}, got ${version}. Review the borders, then update SOURCE_VERSION.`,
+    );
+  }
+  return shp;
+};
+
+const main = async () => {
+  const shp = ensureSource();
+  const source = await shapefile.read(shp, shp.replace(/\.shp$/, '.dbf'), {
+    encoding: 'utf-8',
+  });
   const {countries} = JSON.parse(
     fs.readFileSync(path.join(ROOT, 'data/countries.json'), 'utf8'),
   );
   const ccn3ToCca3 = new Map(
     countries.filter(c => c.ccn3).map(c => [c.ccn3, c.cca3]),
   );
+  const datasetCodes = new Set(countries.map(c => c.cca3));
 
+  // Tag each feature with its cca3 (null: disputed or unclaimed land that
+  // is drawn but not tracked, e.g. Bir Tawil).
+  const features = source.features.map(f => {
+    const p = f.properties;
+    const name = String(p.NAME).trim();
+    const ccn3 = String(p.ISO_N3_EH).padStart(3, '0');
+    const iso3 = String(p.ISO_A3_EH).trim();
+    const code =
+      FEATURE_NAME_TO_CCA3[name] ??
+      ccn3ToCca3.get(ccn3) ??
+      (datasetCodes.has(iso3) ? iso3 : null);
+    return {...f, properties: {name, code}};
+  });
+
+  const topo = topology(
+    {countries: {type: 'FeatureCollection', features}},
+    1e5,
+  );
+  const presimplified = presimplify(topo);
   const simplified = simplify(
-    presimplify(topology),
-    quantile(presimplify(topology), SIMPLIFY_QUANTILE),
+    presimplified,
+    quantile(presimplified, SIMPLIFY_KEEP),
   );
   const object = simplified.objects.countries;
 
-  // Group the topology's geometries by country, merging the parts that
-  // belong together (e.g. Somaliland into Somalia) along shared borders.
+  // Group geometries by country and merge the parts that belong together
+  // (e.g. Australia and its external territories) along shared borders.
   const groups = new Map();
   const neutral = [];
   for (const geometry of object.geometries) {
-    const name = geometry.properties.name;
-    const cca3 =
-      name === 'Indian Ocean Ter.'
-        ? 'IOT_AU'
-        : FEATURE_NAME_TO_CCA3[name] ?? ccn3ToCca3.get(geometry.id);
-    if (!cca3) {
-      // Disputed areas (e.g. Siachen Glacier) are drawn but not tracked.
+    const {code} = geometry.properties;
+    if (!code) {
       neutral.push(geometry);
       continue;
     }
-    groups.set(cca3, [...(groups.get(cca3) ?? []), geometry]);
+    groups.set(code, [...(groups.get(code) ?? []), geometry]);
   }
 
   const shapes = new Map();
@@ -168,11 +214,7 @@ const main = () => {
         kept.push(polygon);
       }
     }
-    if (parent === 'IOT_AU') {
-      shapes.delete(parent);
-    } else {
-      shape.coordinates = kept;
-    }
+    shape.coordinates = kept;
   }
 
   const land = {
@@ -181,6 +223,34 @@ const main = () => {
   };
   const projection = geoNaturalEarth1().fitWidth(WIDTH, land);
   const height = Math.ceil(geoPath(projection).bounds(land)[1][1]);
+  const projectedArea = polygon =>
+    geoPath(projection).area({type: 'Polygon', coordinates: polygon});
+
+  // d3 reads a ring's winding to tell inside from outside; simplification
+  // can flip a tiny ring, which would then cover the whole globe.
+  const rewound = polygon =>
+    geoArea({type: 'Polygon', coordinates: polygon}) > 2 * Math.PI
+      ? polygon.map(ring => [...ring].reverse())
+      : polygon;
+
+  // Normalises to a MultiPolygon, fixes winding and drops specks of islands
+  // nobody could see, keeping each country's largest piece so nothing
+  // disappears entirely.
+  const cleaned = geometry => {
+    const polygons = (
+      geometry.type === 'Polygon'
+        ? [geometry.coordinates]
+        : geometry.coordinates
+    ).map(rewound);
+    const areas = polygons.map(projectedArea);
+    const largest = Math.max(...areas);
+    return {
+      type: 'MultiPolygon',
+      coordinates: polygons.filter(
+        (_, i) => areas[i] >= MIN_POLYGON_AREA || areas[i] === largest,
+      ),
+    };
+  };
 
   const toPath = geometry => {
     const context = compactPathContext();
@@ -192,17 +262,20 @@ const main = () => {
     width: WIDTH,
     height,
     shapes: [],
-    neutral: neutral.map(g => toPath(feature(simplified, g))).join(''),
+    neutral: neutral
+      .map(g => toPath(cleaned(feature(simplified, g).geometry)))
+      .join(''),
     points: {},
   };
 
   const byCca3 = new Map(countries.map(c => [c.cca3, c]));
-  for (const [cca3, geometry] of [...shapes].sort(([a], [b]) =>
+  for (const [cca3, shape] of [...shapes].sort(([a], [b]) =>
     a.localeCompare(b),
   )) {
     if (!byCca3.has(cca3)) {
       throw new Error(`${cca3} is on the map but not in the dataset.`);
     }
+    const geometry = cleaned(shape);
     const d = toPath(geometry);
     if (!d) {
       continue;
@@ -216,8 +289,9 @@ const main = () => {
     }
   }
 
-  // Countries with no shape at all (tiny islands) are drawn as dots at
-  // their coordinates.
+  // Countries with no shape of their own (tiny islands, and places India
+  // does not recognise as separate, e.g. Kosovo) are drawn as dots at
+  // their coordinates, so they can still be tracked.
   const drawn = new Set(output.shapes.map(shape => shape.id));
   const missing = [];
   for (const country of countries) {
@@ -245,4 +319,7 @@ const main = () => {
   );
 };
 
-main();
+main().catch(error => {
+  console.error(error);
+  process.exit(1);
+});

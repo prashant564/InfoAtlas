@@ -35,13 +35,18 @@ curl https://purge.jsdelivr.net/gh/prashant564/InfoAtlas@main/data/countries.jso
 ## World map
 
 The My World map (`src/components/WorldMap/worldMap.json`) is generated
-from Natural Earth shapes, matched to `countries.json` by `ccn3`. If you
-add or remove a country, regenerate it and commit the result:
+from Natural Earth's 1:10m countries, **India point of view**: borders as
+recognised by the Government of India (all of Jammu & Kashmir and Ladakh,
+including Gilgit-Baltistan and Aksai Chin, and Arunachal Pradesh are part
+of India; Kosovo and Western Sahara are not drawn separately and appear
+as dots). Shapes are matched to `countries.json` by ISO code. If you add
+or remove a country, regenerate it and commit the result:
 
 ```sh
 yarn map:generate
 ```
 
+The source is downloaded once into `node_modules/.cache/natural-earth`.
 Countries without a shape (tiny islands) are drawn as dots at their
 `latlng`. `__tests__/components/worldMapData.test.ts` fails if a country
 in the bundled dataset can't be found on the map.
