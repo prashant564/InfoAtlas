@@ -1,10 +1,10 @@
 import {View} from 'react-native';
-import React, {memo} from 'react';
+import React, {memo, useState} from 'react';
 import {useRoute} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Card} from 'react-native-paper';
 
-import {Screen} from '@components';
+import {Screen, Text} from '@components';
 
 import {DetailScreenRouteProp} from '@navigation';
 
@@ -22,10 +22,17 @@ const DetailScreen = () => {
   const route = useRoute<DetailScreenRouteProp>();
   const {top} = useSafeAreaInsets();
 
-  const {flags, translations} = route.params.selectedCountry;
+  const {flag, flags, translations} = route.params.selectedCountry;
 
-  const {outerContainer, mainContainer, fullWidthContainer} =
-    DetailScreenStyles(theme);
+  const [flagFailed, setFlagFailed] = useState(!flags?.png);
+
+  const {
+    outerContainer,
+    mainContainer,
+    fullWidthContainer,
+    flagEmojiCover,
+    flagEmojiText,
+  } = DetailScreenStyles(theme);
 
   return (
     <View style={[outerContainer, {top}]}>
@@ -37,7 +44,17 @@ const DetailScreen = () => {
         <View style={mainContainer}>
           <View style={fullWidthContainer}>
             <Card>
-              <Card.Cover source={{uri: flags?.png}} resizeMethod="resize" />
+              {flagFailed ? (
+                <Card.Content style={flagEmojiCover}>
+                  <Text style={flagEmojiText}>{flag}</Text>
+                </Card.Content>
+              ) : (
+                <Card.Cover
+                  source={{uri: flags?.png}}
+                  resizeMethod="resize"
+                  onError={() => setFlagFailed(true)}
+                />
+              )}
             </Card>
             {/**
              * General Information

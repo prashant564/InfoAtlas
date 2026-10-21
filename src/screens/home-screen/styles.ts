@@ -27,6 +27,10 @@ const homePageStyles = (theme: ThemeType) => {
       backgroundColor: theme.colors.surface,
       borderRadius: 16,
     },
+    flagEmojiText: {
+      fontSize: 36,
+      lineHeight: 48,
+    },
     countryNameText: {
       marginTop: 8,
       textAlign: 'center' as 'center',

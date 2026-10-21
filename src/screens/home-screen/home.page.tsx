@@ -1,18 +1,16 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {TextInput, View} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import {FlashList} from '@shopify/flash-list';
 
 import {Screen, SearchBar} from '@components';
 import {Else, If, Then} from '@components/Conditionals';
+import {EmptyUIView} from '@components/EmptyUIView';
 
 import {useAppBoundStore} from '@store/mainStore';
 
 import {useAppTheme} from '@themes';
 
-import {CountryDetailsItem} from '@services/api';
-
-import {debounce} from '@utils/utils';
+import {useCountrySearch} from '@utils/countrySearch';
 import {DUMMY_SKELETON_ARRAY} from '@utils/constants';
 
 import CountryListItem from './home.countryListItem';
@@ -21,64 +19,27 @@ import {SkeletonLoader} from './home.skeletonLoader';
 import homePageStyles from './styles';
 
 const HomePage = () => {
-  const [filteredCountryList, setFilteredCountryList] = useState<
-    CountryDetailsItem[]
-  >([]);
-
   const {theme} = useAppTheme();
 
   const searchInputRef = useRef<TextInput>(null);
 
-  const {__fetchAllCountriesDetails, allCountryDetailsList} = useAppBoundStore(
+  const {allCountryDetailsList, isCountriesLoaded} = useAppBoundStore(
     state => ({
-      __fetchAllCountriesDetails: state.__fetchAllCountriesDetails,
       allCountryDetailsList: state.allCountryDetailsList,
+      isCountriesLoaded: state.isCountriesLoaded,
     }),
+  );
+
+  const {results, onChangeSearch, clearSearch} = useCountrySearch(
+    allCountryDetailsList,
   );
 
   const {outerContainer, mainContainer, flashListContainer} =
     homePageStyles(theme);
 
-  useEffect(() => {
-    setFilteredCountryList(allCountryDetailsList);
-  }, [allCountryDetailsList]);
-
-  useEffect(() => {
-    __fetchAllCountriesDetails();
-  }, []);
-
-  const filterAndUpdateCountryList = debounce(query => {
-    const searchedText = query.replace(/[^a-zA-Z0-9 ]/g, '').toLowerCase();
-    if (searchedText == null || searchedText === '') {
-      resetCountriesList();
-    } else {
-      const updatedList = allCountryDetailsList.filter(countryItem => {
-        const {name} = countryItem;
-        const {common, official} = name;
-        return (
-          common.toLowerCase().startsWith(searchedText) ||
-          official.toLowerCase().startsWith(searchedText)
-        );
-      });
-      setFilteredCountryList(updatedList);
-    }
-  }, 250);
-
-  const resetCountriesList = () => {
-    setFilteredCountryList(allCountryDetailsList);
-  };
-
-  const resetSearchBar = () => {
-    searchInputRef.current?.clear();
-  };
-
-  const onChangeSearch = (query: string) => {
-    filterAndUpdateCountryList(query);
-  };
-
   const handleOnClosePressed = () => {
-    resetCountriesList();
-    resetSearchBar();
+    searchInputRef.current?.clear();
+    clearSearch();
   };
 
   return (
@@ -95,7 +56,7 @@ const HomePage = () => {
             searchInputRef={searchInputRef}
             handleOnClosePressed={handleOnClosePressed}
           />
-          <If condition={filteredCountryList.length === 0}>
+          <If condition={!isCountriesLoaded}>
             <Then>
               <View style={flashListContainer}>
                 <FlashList
@@ -113,14 +74,17 @@ const HomePage = () => {
             <Else>
               <View style={flashListContainer}>
                 <FlashList
-                  data={filteredCountryList}
+                  data={results}
                   renderItem={({item}) => {
                     return <CountryListItem item={item} />;
                   }}
                   estimatedItemSize={12}
                   showsVerticalScrollIndicator={false}
-                  keyExtractor={item => item.name.official?.toString()}
+                  keyExtractor={item => item.cca3}
                   numColumns={2}
+                  ListEmptyComponent={
+                    <EmptyUIView msg={'No countries match your search.'} />
+                  }
                 />
               </View>
             </Else>

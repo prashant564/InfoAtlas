@@ -1,83 +1,44 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {TextInput, View} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import {useIsFocused} from '@react-navigation/native';
+import React, {useMemo, useRef} from 'react';
 import {FlashList} from '@shopify/flash-list';
 
 import {Screen, SearchBar} from '@components';
+import {EmptyUIView} from '@components/EmptyUIView';
 
 import {useAppTheme} from '@themes';
 
 import {useAppBoundStore} from '@store/mainStore';
+import {getFavCountries} from '@store/stores/favCountries';
 
-import {CountryDetailsItem} from '@services/api';
-
-import {debounce} from '@utils/utils';
+import {useCountrySearch} from '@utils/countrySearch';
 
 import homePageStyles from '@screens/home-screen/styles';
 import CountryListItem from '@screens/home-screen/home.countryListItem';
-import {EmptyUIView} from '@components/EmptyUIView';
 
-const HomePage = () => {
-  const [filteredCountryList, setFilteredCountryList] = useState<
-    CountryDetailsItem[]
-  >([]);
-
+const FavouritesPage = () => {
   const {theme} = useAppTheme();
-  const isFocused = useIsFocused();
 
   const searchInputRef = useRef<TextInput>(null);
 
-  const {favCountriesList, __fetchAllFavCountriesDetails} = useAppBoundStore(
-    state => ({
-      favCountriesList: state.favCountriesList,
-      __fetchAllFavCountriesDetails: state.__fetchAllFavCountriesDetails,
-    }),
+  const {allCountryDetailsList, favCountryCodes} = useAppBoundStore(state => ({
+    allCountryDetailsList: state.allCountryDetailsList,
+    favCountryCodes: state.favCountryCodes,
+  }));
+
+  const favCountriesList = useMemo(
+    () => getFavCountries(allCountryDetailsList, favCountryCodes),
+    [allCountryDetailsList, favCountryCodes],
   );
+
+  const {query, results, onChangeSearch, clearSearch} =
+    useCountrySearch(favCountriesList);
 
   const {outerContainer, mainContainer, flashListContainer} =
     homePageStyles(theme);
 
-  useEffect(() => {
-    setFilteredCountryList(favCountriesList);
-  }, [favCountriesList]);
-
-  useEffect(() => {
-    isFocused && __fetchAllFavCountriesDetails();
-  }, [isFocused]);
-
-  const filterAndUpdateCountryList = debounce(query => {
-    const searchedText = query.replace(/[^a-zA-Z0-9 ]/g, '').toLowerCase();
-    if (searchedText == null || searchedText === '') {
-      resetCountriesList();
-    } else {
-      const updatedList = favCountriesList.filter(countryItem => {
-        const {name} = countryItem;
-        const {common, official} = name;
-        return (
-          common.toLowerCase().startsWith(searchedText) ||
-          official.toLowerCase().startsWith(searchedText)
-        );
-      });
-      setFilteredCountryList(updatedList);
-    }
-  }, 250);
-
-  const resetCountriesList = () => {
-    setFilteredCountryList(favCountriesList);
-  };
-
-  const resetSearchBar = () => {
-    searchInputRef.current?.clear();
-  };
-
-  const onChangeSearch = (query: string) => {
-    filterAndUpdateCountryList(query);
-  };
-
   const handleOnClosePressed = () => {
-    resetCountriesList();
-    resetSearchBar();
+    searchInputRef.current?.clear();
+    clearSearch();
   };
 
   return (
@@ -96,16 +57,22 @@ const HomePage = () => {
           />
           <View style={flashListContainer}>
             <FlashList
-              data={filteredCountryList}
+              data={results}
               renderItem={({item}) => {
                 return <CountryListItem item={item} />;
               }}
               estimatedItemSize={12}
               showsVerticalScrollIndicator={false}
-              keyExtractor={item => item.name.official?.toString()}
+              keyExtractor={item => item.cca3}
               numColumns={2}
               ListEmptyComponent={
-                <EmptyUIView msg={'No favourite countries saved.'} />
+                <EmptyUIView
+                  msg={
+                    query !== '' && favCountriesList.length > 0
+                      ? 'No favourites match your search.'
+                      : 'No favourite countries saved.'
+                  }
+                />
               }
             />
           </View>
@@ -115,4 +82,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default FavouritesPage;

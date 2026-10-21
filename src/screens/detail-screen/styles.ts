@@ -39,7 +39,7 @@ export const DetailScreenStyles = (theme: ThemeType) => {
     },
     leftAlignItemContainer: {
       flex: 1,
-      alignItems: 'fcente' as 'flex-start',
+      alignItems: 'flex-start' as 'flex-start',
     },
     divider: {
       backgroundColor: theme.appColors.white__a5,
@@ -62,6 +62,15 @@ export const DetailScreenStyles = (theme: ThemeType) => {
       padding: 16,
       borderRadius: 16,
       marginTop: 16,
+    },
+    flagEmojiCover: {
+      height: 195,
+      alignItems: 'center' as 'center',
+      justifyContent: 'center' as 'center',
+    },
+    flagEmojiText: {
+      fontSize: 120,
+      lineHeight: 150,
     },
     flatListStyle: {
       marginTop: 8,

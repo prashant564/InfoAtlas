@@ -1,6 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {Pressable, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 
 import {Icon, Text} from '@components';
@@ -8,9 +7,6 @@ import {Icon, Text} from '@components';
 import {useAppTheme} from '@themes';
 
 import {CountryDetailsItem} from '@services/api';
-
-import {load} from '@utils/storageUtils';
-import {FAV_COUTRIES_NAME_LIST_KEY} from '@utils/constants';
 
 import {useAppBoundStore} from '@store/mainStore';
 
@@ -24,57 +20,28 @@ const DetailHeader = ({selectedCountry}: DetailHeaderProps) => {
   const {theme} = useAppTheme();
   const navigation = useNavigation();
 
-  const [icon, setIcon] = useState('cards-heart-outline');
-  const [isCountryFavorite, setIsCountryFavorite] = useState<boolean>(false);
+  const {flag, name, cca3} = selectedCountry;
 
   const {
+    isCountryFavorite,
     __addCountryToFavorties,
     __removeCountryFromFavorties,
-    __fetchAllFavCountriesDetails,
   } = useAppBoundStore(state => ({
+    isCountryFavorite: state.favCountryCodes.includes(cca3),
     __addCountryToFavorties: state.__addCountryToFavorties,
     __removeCountryFromFavorties: state.__removeCountryFromFavorties,
-    __fetchAllFavCountriesDetails: state.__fetchAllFavCountriesDetails,
   }));
 
-  const {flag, name} = selectedCountry;
+  const icon = isCountryFavorite ? 'cards-heart' : 'cards-heart-outline';
 
   const {rowItemContainer, headerContainer, headerTitle} =
     DetailScreenStyles(theme);
 
-  useEffect(() => {
-    setIcon(isCountryFavorite ? 'cards-heart' : 'cards-heart-outline');
-  }, [isCountryFavorite]);
-
-  useEffect(() => {
-    load(FAV_COUTRIES_NAME_LIST_KEY).then(async res => {
-      if (res !== null) {
-        if (res.includes(name.common)) {
-          setIsCountryFavorite(true);
-        }
-      }
-    });
-  }, []);
-
-  const removeFromFavorites = async () => {
-    __removeCountryFromFavorties(name.common);
-    __fetchAllFavCountriesDetails();
-    setIsCountryFavorite(false);
-    setIcon('cards-heart-outline');
-  };
-
-  const addToFavorties = async () => {
-    __addCountryToFavorties(selectedCountry);
-    __fetchAllFavCountriesDetails();
-    setIsCountryFavorite(true);
-    setIcon('cards-heart');
-  };
-
   const handleAddOrRemoveFromFavPress = () => {
     if (isCountryFavorite) {
-      removeFromFavorites();
+      __removeCountryFromFavorties(cca3);
     } else {
-      addToFavorties();
+      __addCountryToFavorties(selectedCountry);
     }
   };
 
