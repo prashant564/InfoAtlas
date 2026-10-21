@@ -102,6 +102,10 @@ export type CountryDetailsItem = {
   population: number;
   car: Car;
   timezones?: string[];
+  /**
+   * IANA ids (e.g. "Europe/London") added by scripts/add-timezone-ids.js.
+   */
+  timezoneIds?: string[];
   continents?: string[];
   flags?: Flags;
   coatOfArms?: CoatOfArms;

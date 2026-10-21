@@ -4,7 +4,7 @@ import {View, FlatList} from 'react-native';
 
 import {Translation} from '@services/api';
 import {Text} from '@components';
-import {Button, Divider, Surface} from 'react-native-paper';
+import {Button, Surface} from 'react-native-paper';
 import {DetailScreenStyles} from './styles';
 import {useAppTheme} from '@themes';
 
@@ -37,13 +37,16 @@ const DetailTranslationList = ({translations}: DetailTranslationList) => {
     </Button>
   );
 
-  const {fullWidthContainer, divider, surface, flatListStyle} =
+  const {fullWidthContainer, sectionTitle, surface, flatListStyle} =
     DetailScreenStyles(theme);
 
   return (
     <View style={fullWidthContainer}>
-      <Text variant={'headlineSmall'} children={'Translations'} mt={16} />
-      <Divider style={divider} bold />
+      <Text
+        variant={'titleLarge'}
+        style={sectionTitle}
+        children={'Translations'}
+      />
       <FlatList
         data={keys}
         renderItem={renderItem}

@@ -1,19 +1,20 @@
 import {View} from 'react-native';
-import React, {memo, useState} from 'react';
+import React, {memo} from 'react';
 import {useRoute} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {Card} from 'react-native-paper';
 
-import {Screen, Text} from '@components';
+import {Screen} from '@components';
 
 import {DetailScreenRouteProp} from '@navigation';
 
 import {useAppTheme} from '@themes';
 
 import DetailHeader from './detail.header';
-import DetailGeneralInfoSection from './detail.generalInfo';
+import DetailHero from './detail.hero';
+import DetailLocalTime from './detail.localTime';
+import DetailFacts from './detail.facts';
+import DetailBorders from './detail.borders';
 import DetailTranslationList from './detail.translation';
-import DetailAdditionalInfoSection from './detail.additionalInfo';
 
 import {DetailScreenStyles} from './styles';
 
@@ -22,55 +23,26 @@ const DetailScreen = () => {
   const route = useRoute<DetailScreenRouteProp>();
   const {top} = useSafeAreaInsets();
 
-  const {flag, flags, translations} = route.params.selectedCountry;
+  const {selectedCountry} = route.params;
 
-  const [flagFailed, setFlagFailed] = useState(!flags?.png);
-
-  const {
-    outerContainer,
-    mainContainer,
-    fullWidthContainer,
-    flagEmojiCover,
-    flagEmojiText,
-  } = DetailScreenStyles(theme);
+  const {outerContainer, mainContainer, fullWidthContainer} =
+    DetailScreenStyles(theme);
 
   return (
     <View style={[outerContainer, {top}]}>
-      <DetailHeader selectedCountry={route.params.selectedCountry} />
+      <DetailHeader selectedCountry={selectedCountry} />
       <Screen
         preset="scroll"
         statusBarBg={theme.colors.background}
         statusBar="light-content">
         <View style={mainContainer}>
           <View style={fullWidthContainer}>
-            <Card>
-              {flagFailed ? (
-                <Card.Content style={flagEmojiCover}>
-                  <Text style={flagEmojiText}>{flag}</Text>
-                </Card.Content>
-              ) : (
-                <Card.Cover
-                  source={{uri: flags?.png}}
-                  resizeMethod="resize"
-                  onError={() => setFlagFailed(true)}
-                />
-              )}
-            </Card>
-            {/**
-             * General Information
-             */}
-            <DetailGeneralInfoSection
-              selectedCountry={route.params.selectedCountry}
-            />
-            {/**
-             * Translations
-             */}
-            <DetailTranslationList translations={translations} />
-            {/**
-             * Additional Details
-             */}
-            <DetailAdditionalInfoSection
-              selectedCountry={route.params.selectedCountry}
+            <DetailHero selectedCountry={selectedCountry} />
+            <DetailLocalTime selectedCountry={selectedCountry} />
+            <DetailFacts selectedCountry={selectedCountry} />
+            <DetailBorders selectedCountry={selectedCountry} />
+            <DetailTranslationList
+              translations={selectedCountry.translations}
             />
           </View>
         </View>
