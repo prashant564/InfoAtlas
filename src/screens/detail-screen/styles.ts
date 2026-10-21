@@ -32,11 +32,6 @@ export const DetailScreenStyles = (theme: ThemeType) => {
     fullWidthContainer: {
       width: '100%' as '100%',
     },
-    surface: {
-      padding: 16,
-      borderRadius: 16,
-      marginTop: 16,
-    },
     flagEmojiCover: {
       height: 195,
       alignItems: 'center' as 'center',
@@ -99,6 +94,51 @@ export const DetailScreenStyles = (theme: ThemeType) => {
       marginLeft: 8,
     },
     /**
+     * Actions
+     */
+    actionsRow: {
+      flexDirection: 'row' as 'row',
+      marginTop: 16,
+      marginHorizontal: -4,
+    },
+    actionButton: {
+      flex: 1,
+      marginHorizontal: 4,
+    },
+    /**
+     * Coat of arms
+     */
+    coatOfArmsCard: {
+      alignItems: 'center' as 'center',
+      padding: 16,
+      borderRadius: 16,
+    },
+    coatOfArmsImage: {
+      width: '100%' as '100%',
+      height: 160,
+    },
+    /**
+     * Translations
+     */
+    translationsCard: {
+      paddingHorizontal: 16,
+      paddingTop: 4,
+      paddingBottom: 4,
+      borderRadius: 16,
+    },
+    translationRow: {
+      flexDirection: 'row' as 'row',
+      paddingVertical: 10,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.appColors.white__a1,
+    },
+    translationLanguage: {
+      width: 96,
+    },
+    translationNames: {
+      flex: 1,
+    },
+    /**
      * Facts grid
      */
     factsCard: {
@@ -112,9 +152,6 @@ export const DetailScreenStyles = (theme: ThemeType) => {
       width: '50%' as '50%',
       paddingTop: 16,
       paddingRight: 8,
-    },
-    flatListStyle: {
-      marginTop: 8,
     },
   };
 };
