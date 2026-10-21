@@ -32,6 +32,7 @@ export type TravelState = {
     cca3: string,
     status: TravelStatus | null,
   ) => Promise<void>;
+  __clearTravelEntries: () => Promise<void>;
 };
 
 export const initialTravelState = {
@@ -96,6 +97,10 @@ export const createTravelSlice: StateCreator<AppState, [], [], TravelState> = (
     }
     set({travelEntries});
     await save(TRAVEL_ENTRIES_KEY, travelEntries);
+  },
+  __clearTravelEntries: async () => {
+    set({travelEntries: {}});
+    await save(TRAVEL_ENTRIES_KEY, {});
   },
 });
 
