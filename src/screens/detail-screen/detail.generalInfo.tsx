@@ -8,7 +8,12 @@ import {useAppTheme} from '@themes';
 
 import {CountryDetailsItem} from '@services/api';
 
-import {formatNumberWithCommas, getCurrencyString} from '@utils/utils';
+import {
+  formatNumberWithCommas,
+  getCurrencyString,
+  joinOrNotAvailable,
+} from '@utils/utils';
+import {NOT_AVAILABLE} from '@utils/constants';
 
 import {DetailScreenStyles} from './styles';
 
@@ -33,15 +38,13 @@ const DetailGeneralInfoSection = ({
     timezones,
   } = selectedCountry;
 
-  const allLanguagesString =
-    languages !== undefined
-      ? Object.keys(languages).join(', ').toUpperCase()
-      : 'NaN';
+  const capitalString = joinOrNotAvailable(capital);
+  const allLanguagesString = joinOrNotAvailable(Object.values(languages ?? {}));
   const currencyString = getCurrencyString(currencies);
-  const groupedTimeZones = timezones?.join(' ');
+  const groupedTimeZones = joinOrNotAvailable(timezones);
   const carRules = car?.signs?.length
     ? `${car.signs[0]} - ${car.side}`
-    : car?.side || 'NaN';
+    : car?.side || NOT_AVAILABLE;
 
   const {fullFlexContainer, rowItemContainer, leftAlignItemContainer, divider} =
     DetailScreenStyles(theme);
@@ -63,10 +66,7 @@ const DetailGeneralInfoSection = ({
             children={'Capital'}
             mt={8}
           />
-          <Text
-            variant={'bodyLarge'}
-            children={capital !== undefined ? capital[0] : 'NaN'}
-          />
+          <Text variant={'bodyLarge'} children={capitalString} />
         </View>
         <View style={leftAlignItemContainer}>
           <Text
@@ -75,10 +75,7 @@ const DetailGeneralInfoSection = ({
             children={'Region'}
             mt={8}
           />
-          <Text
-            variant={'bodyLarge'}
-            children={region !== undefined ? region : 'NaN'}
-          />
+          <Text variant={'bodyLarge'} children={region || NOT_AVAILABLE} />
         </View>
       </View>
       <View style={rowItemContainer}>
@@ -89,10 +86,7 @@ const DetailGeneralInfoSection = ({
             children={'Subregion'}
             mt={16}
           />
-          <Text
-            variant={'bodyLarge'}
-            children={subregion !== undefined ? subregion : 'NaN'}
-          />
+          <Text variant={'bodyLarge'} children={subregion || NOT_AVAILABLE} />
         </View>
         <View style={leftAlignItemContainer}>
           <Text

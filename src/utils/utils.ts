@@ -1,5 +1,7 @@
 import {CurrencyItem} from '@services/api';
 
+import {NOT_AVAILABLE} from './constants';
+
 type Procedure = (...args: any[]) => void;
 
 export const debounce = <F extends Procedure>(
@@ -33,25 +35,25 @@ export const formatNumberWithCommas = (num: number): string => {
 
 export const getCurrencyString = (currencies?: {
   [key: string]: CurrencyItem;
-}): string => {
-  if (!currencies) {
-    return 'NaN';
-  }
+}): string =>
+  joinOrNotAvailable(
+    Object.values(currencies ?? {}).map(currency =>
+      `${currency?.symbol || ''} ${currency?.name || ''}`.trim(),
+    ),
+  );
 
-  const currencyKeys = Object.keys(currencies);
-
-  if (currencyKeys.length === 0) {
-    return 'NaN';
-  }
-
-  const currencyKey = currencyKeys[0];
-  const currency = currencies[currencyKey];
-  if (!currency) {
-    return 'NaN';
-  }
-
-  const symbol = currency.symbol || '';
-  const name = currency.name || '';
-  const result = `${symbol} ${name}`.trim();
-  return result || 'NaN';
+/**
+ * Joins the non-empty values, or returns the "not available" placeholder.
+ */
+export const joinOrNotAvailable = (
+  values?: (string | undefined | null)[],
+  separator: string = ', ',
+): string => {
+  const present = (values ?? []).filter(
+    (value): value is string => typeof value === 'string' && value !== '',
+  );
+  return present.length > 0 ? present.join(separator) : NOT_AVAILABLE;
 };
+
+export const formatYesNo = (value?: boolean): string =>
+  value === undefined ? NOT_AVAILABLE : value ? 'Yes' : 'No';

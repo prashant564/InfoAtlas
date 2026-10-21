@@ -56,8 +56,24 @@ export type FetchResponse<T> =
   | {kind: 'ok'; data: FetchRequestResponse<T>}
   | GeneralApiProblem;
 
-export type AllCountriesResponse =
-  | {kind: 'ok'; data: CountryDetailsItem[]}
+export type DataManifest = {
+  version: number;
+  updatedAt: string;
+  count: number;
+};
+
+export type CountriesDataset = {
+  version: number;
+  updatedAt: string;
+  countries: CountryDetailsItem[];
+};
+
+export type DataManifestResponse =
+  | {kind: 'ok'; data: DataManifest}
+  | GeneralApiProblem;
+
+export type CountriesDatasetResponse =
+  | {kind: 'ok'; data: unknown}
   | GeneralApiProblem;
 
 export type CountryDetailsItem = {
@@ -65,7 +81,7 @@ export type CountryDetailsItem = {
   tld?: string[];
   cca2?: string;
   ccn3?: string;
-  cca3?: string;
+  cca3: string;
   independent?: boolean;
   status?: string;
   unMember: boolean;

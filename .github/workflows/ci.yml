@@ -25,6 +25,9 @@ jobs:
       - name: Run Lint
         run: npm run lint
 
+      - name: Validate Countries Dataset
+        run: npm run data:check
+
       - name: Run Tests
         run: npm test
 

@@ -1,6 +1,7 @@
 import type {StateCreator} from 'zustand';
 
-import {CountryDetailsItem, getAllCountriesData} from '@services/api';
+import {CountryDetailsItem} from '@services/api';
+import {fetchNewerCountries, loadLocalCountries} from '@services/countries';
 
 import {AppState} from '@store/mainStore';
 
@@ -8,11 +9,15 @@ import {devLogger} from '@utils/logger';
 
 export type CountriesState = {
   allCountryDetailsList: CountryDetailsItem[];
-  __fetchAllCountriesDetails: () => void;
+  countriesDataVersion: number;
+  isCountriesLoaded: boolean;
+  __fetchAllCountriesDetails: () => Promise<void>;
 };
 
 export const initialCountriesState = {
   allCountryDetailsList: [],
+  countriesDataVersion: 0,
+  isCountriesLoaded: false,
 };
 
 export const createCountriesSlice: StateCreator<
@@ -24,19 +29,31 @@ export const createCountriesSlice: StateCreator<
   ...initialCountriesState,
   __fetchAllCountriesDetails: async () => {
     try {
-      const res = await getAllCountriesData();
-      if (res.kind === 'ok') {
-        const allCountryDetailsList = res.data || [];
+      // Show local data straight away, then upgrade in the background.
+      const local = await loadLocalCountries();
+      set({
+        allCountryDetailsList: local.countries,
+        countriesDataVersion: local.version,
+        isCountriesLoaded: true,
+      });
+
+      const newer = await fetchNewerCountries(local.version);
+      if (newer) {
         set({
-          allCountryDetailsList,
+          allCountryDetailsList: newer.countries,
+          countriesDataVersion: newer.version,
         });
       }
     } catch (error) {
-      devLogger(
-        'getAllCountriesData in __fetchAllCountriesDetails',
-        error,
-        'fail',
-      );
+      devLogger('__fetchAllCountriesDetails', error, 'fail');
     }
   },
 });
+
+/**
+ * Maps a cca3 code to its country, e.g. to resolve `borders`.
+ */
+export const getCountriesByCode = (
+  countries: CountryDetailsItem[],
+): Record<string, CountryDetailsItem> =>
+  Object.fromEntries(countries.map(country => [country.cca3, country]));

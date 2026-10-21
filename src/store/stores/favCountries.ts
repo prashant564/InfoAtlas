@@ -5,21 +5,44 @@ import {CountryDetailsItem} from '@services/api';
 import {AppState} from '@store/mainStore';
 
 import {devLogger} from '@utils/logger';
-import {load, save} from '@utils/storageUtils';
+import {load, remove, save} from '@utils/storageUtils';
 import {
   FAV_COUNTRIES_LIST_KEY,
+  FAV_COUNTRY_CODES_KEY,
   FAV_COUTRIES_NAME_LIST_KEY,
 } from '@utils/constants';
 
 export type FavCountriesState = {
-  favCountriesList: CountryDetailsItem[];
-  __fetchAllFavCountriesDetails: () => void;
-  __addCountryToFavorties: (selectedCountry: CountryDetailsItem) => void;
-  __removeCountryFromFavorties: (countryName: string) => void;
+  favCountryCodes: string[];
+  __fetchAllFavCountriesDetails: () => Promise<void>;
+  __addCountryToFavorties: (
+    selectedCountry: CountryDetailsItem,
+  ) => Promise<void>;
+  __removeCountryFromFavorties: (cca3: string) => Promise<void>;
 };
 
 export const initialFavCountriesState = {
-  favCountriesList: [],
+  favCountryCodes: [],
+};
+
+/**
+ * v1.1.0 and earlier stored full country objects plus a parallel list of
+ * names. Convert them to cca3 codes once and drop the old keys.
+ */
+const migrateLegacyFavourites = async (): Promise<string[]> => {
+  const legacyList: CountryDetailsItem[] | null = await load(
+    FAV_COUNTRIES_LIST_KEY,
+  );
+  const codes = (legacyList ?? [])
+    .map(country => country?.cca3)
+    .filter((code): code is string => typeof code === 'string');
+  const uniqueCodes = [...new Set(codes)];
+
+  await save(FAV_COUNTRY_CODES_KEY, uniqueCodes);
+  await remove(FAV_COUNTRIES_LIST_KEY);
+  await remove(FAV_COUTRIES_NAME_LIST_KEY);
+
+  return uniqueCodes;
 };
 
 export const createFavCountriesSlice: StateCreator<
@@ -27,71 +50,45 @@ export const createFavCountriesSlice: StateCreator<
   [],
   [],
   FavCountriesState
-> = set => ({
+> = (set, get) => ({
   ...initialFavCountriesState,
   __fetchAllFavCountriesDetails: async () => {
     try {
-      const res = await load(FAV_COUNTRIES_LIST_KEY);
-      if (res !== null) {
-        set({
-          favCountriesList: res,
-        });
-      }
+      const saved: string[] | null = await load(FAV_COUNTRY_CODES_KEY);
+      const favCountryCodes = Array.isArray(saved)
+        ? saved
+        : await migrateLegacyFavourites();
+      set({favCountryCodes});
     } catch (error) {
-      devLogger(
-        'favCountryList __fetchAllFavCountriesDetails: Error processing fav countries list',
-        error,
-        'fail',
-      );
+      devLogger('__fetchAllFavCountriesDetails', error, 'fail');
     }
   },
   __addCountryToFavorties: async (selectedCountry: CountryDetailsItem) => {
-    try {
-      const {name} = selectedCountry;
-      const favCountriesNameList = await load(FAV_COUTRIES_NAME_LIST_KEY);
-      if (favCountriesNameList !== null) {
-        let updatedList = [...favCountriesNameList, name.common];
-        await save(FAV_COUTRIES_NAME_LIST_KEY, updatedList);
-      } else {
-        let newList = [name.common];
-        await save(FAV_COUTRIES_NAME_LIST_KEY, newList);
-      }
-
-      const favCountriesList = await load(FAV_COUNTRIES_LIST_KEY);
-      if (favCountriesList !== null) {
-        let updatedList = [...favCountriesList, selectedCountry];
-        await save(FAV_COUNTRIES_LIST_KEY, updatedList);
-      } else {
-        let newList = [selectedCountry];
-        await save(FAV_COUNTRIES_LIST_KEY, newList);
-      }
-    } catch (error) {
-      devLogger('favCountryList in __addCountryToFavorties', error, 'fail');
+    const {favCountryCodes} = get();
+    if (favCountryCodes.includes(selectedCountry.cca3)) {
+      return;
     }
+    const updatedCodes = [...favCountryCodes, selectedCountry.cca3];
+    set({favCountryCodes: updatedCodes});
+    await save(FAV_COUNTRY_CODES_KEY, updatedCodes);
   },
-  __removeCountryFromFavorties: async (countryName: string) => {
-    try {
-      const favCountriesNameList = await load(FAV_COUTRIES_NAME_LIST_KEY);
-      if (favCountriesNameList !== null) {
-        let filteredList = favCountriesNameList.filter(
-          (item: string) => item !== countryName,
-        );
-        await save(FAV_COUTRIES_NAME_LIST_KEY, filteredList);
-      }
-
-      const favCountriesList = await load(FAV_COUNTRIES_LIST_KEY);
-      if (favCountriesList !== null) {
-        let filteredList = favCountriesList.filter(
-          (country: CountryDetailsItem) => country.name.common !== countryName,
-        );
-        await save(FAV_COUNTRIES_LIST_KEY, filteredList);
-      }
-    } catch (error) {
-      devLogger(
-        'favCountryList in __removeCountryFromFavorties',
-        error,
-        'fail',
-      );
-    }
+  __removeCountryFromFavorties: async (cca3: string) => {
+    const updatedCodes = get().favCountryCodes.filter(code => code !== cca3);
+    set({favCountryCodes: updatedCodes});
+    await save(FAV_COUNTRY_CODES_KEY, updatedCodes);
   },
 });
+
+/**
+ * Favourite countries in the order they were added. All countries ship
+ * with the app, so this works offline.
+ */
+export const getFavCountries = (
+  countries: CountryDetailsItem[],
+  favCountryCodes: string[],
+): CountryDetailsItem[] => {
+  const byCode = new Map(countries.map(country => [country.cca3, country]));
+  return favCountryCodes
+    .map(code => byCode.get(code))
+    .filter((country): country is CountryDetailsItem => country !== undefined);
+};

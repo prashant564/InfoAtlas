@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Pressable} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 
@@ -18,7 +18,13 @@ export type CountryListItem = {
 const CountryListItem = ({item}: CountryListItem) => {
   const {theme} = useAppTheme();
   const navigation = useNavigation<NavigationProp<PrimaryParamList>>();
-  const {pressable, countryNameText} = homePageStyles(theme);
+  const {pressable, countryNameText, flagEmojiText} = homePageStyles(theme);
+
+  // Tracked per URI (not a boolean) because FlashList recycles this
+  // component for other countries.
+  const flagUri = item.flags?.png || '';
+  const [failedFlagUri, setFailedFlagUri] = useState<string | null>(null);
+  const showEmojiFlag = flagUri === '' || failedFlagUri === flagUri;
 
   return (
     <Pressable
@@ -33,7 +39,15 @@ const CountryListItem = ({item}: CountryListItem) => {
           selectedCountry: item,
         });
       }}>
-      <Image source={{uri: item.flags?.png || ''}} size={'lg'} />
+      {showEmojiFlag ? (
+        <Text style={flagEmojiText}>{item.flag}</Text>
+      ) : (
+        <Image
+          source={{uri: flagUri}}
+          size={'lg'}
+          onError={() => setFailedFlagUri(flagUri)}
+        />
+      )}
       <Text variant="bodyMedium" style={countryNameText} numberOfLines={2}>
         {item.name.common}
       </Text>

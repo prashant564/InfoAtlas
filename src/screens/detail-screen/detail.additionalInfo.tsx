@@ -1,5 +1,5 @@
 import {View} from 'react-native';
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Divider} from 'react-native-paper';
 
 import {Text} from '@components';
@@ -8,7 +8,11 @@ import {useAppTheme} from '@themes';
 
 import {CountryDetailsItem} from '@services/api';
 
-import {formatNumberWithCommas} from '@utils/utils';
+import {useAppBoundStore} from '@store/mainStore';
+import {getCountriesByCode} from '@store/stores/countries';
+
+import {formatYesNo, joinOrNotAvailable} from '@utils/utils';
+import {NOT_AVAILABLE} from '@utils/constants';
 
 import {DetailScreenStyles} from './styles';
 
@@ -21,11 +25,20 @@ const DetailAdditionalInfoSection = ({
 }: DetailAdditionalInfoSectionProps) => {
   const {theme} = useAppTheme();
 
-  const {borders, independent, unMember, fifa, population, startOfWeek} =
+  const {borders, independent, unMember, fifa, landlocked, startOfWeek} =
     selectedCountry;
 
-  const groupedBordersString =
-    borders !== undefined ? borders.join(', ') : 'NaN';
+  const allCountryDetailsList = useAppBoundStore(
+    state => state.allCountryDetailsList,
+  );
+  const countriesByCode = useMemo(
+    () => getCountriesByCode(allCountryDetailsList),
+    [allCountryDetailsList],
+  );
+
+  const groupedBordersString = joinOrNotAvailable(
+    (borders ?? []).map(code => countriesByCode[code]?.name.common ?? code),
+  );
 
   const {
     fullFlexContainer,
@@ -47,12 +60,7 @@ const DetailAdditionalInfoSection = ({
             children={'Independent'}
             mt={8}
           />
-          <Text
-            variant={'bodyLarge'}
-            children={
-              independent !== undefined ? (independent ? 'Yes' : 'No') : 'NaN'
-            }
-          />
+          <Text variant={'bodyLarge'} children={formatYesNo(independent)} />
         </View>
         <View style={leftAlignItemContainer}>
           <Text
@@ -61,7 +69,7 @@ const DetailAdditionalInfoSection = ({
             children={'UN Member'}
             mt={8}
           />
-          <Text variant={'bodyLarge'} children={unMember ? 'Yes' : 'No'} />
+          <Text variant={'bodyLarge'} children={formatYesNo(unMember)} />
         </View>
       </View>
       <View style={rowItemContainer}>
@@ -72,10 +80,7 @@ const DetailAdditionalInfoSection = ({
             children={'Fifa'}
             mt={16}
           />
-          <Text
-            variant={'bodyLarge'}
-            children={fifa !== undefined ? fifa : 'NaN'}
-          />
+          <Text variant={'bodyLarge'} children={fifa || NOT_AVAILABLE} />
         </View>
         <View style={leftAlignItemContainer}>
           <Text
@@ -84,10 +89,7 @@ const DetailAdditionalInfoSection = ({
             children={'Landlocked'}
             mt={16}
           />
-          <Text
-            variant={'bodyLarge'}
-            children={formatNumberWithCommas(population)}
-          />
+          <Text variant={'bodyLarge'} children={formatYesNo(landlocked)} />
         </View>
       </View>
       <View style={bottomRowItemContainer}>
@@ -107,7 +109,10 @@ const DetailAdditionalInfoSection = ({
             children={'Start of Week'}
             mt={16}
           />
-          <Text variant={'bodyLarge'} children={startOfWeek?.toUpperCase()} />
+          <Text
+            variant={'bodyLarge'}
+            children={startOfWeek?.toUpperCase() || NOT_AVAILABLE}
+          />
         </View>
       </View>
     </View>
