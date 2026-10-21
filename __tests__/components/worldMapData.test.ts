@@ -24,9 +24,24 @@ describe('world map data', () => {
   });
 
   test('keeps overseas regions separate from their parent', () => {
-    ['GUF', 'REU', 'SJM', 'BES', 'FRA', 'NOR', 'NLD'].forEach(id => {
-      expect(shapeIds).toContain(id);
+    ['GUF', 'REU', 'SJM', 'BES', 'CXR', 'FRA', 'NOR', 'NLD', 'AUS'].forEach(
+      id => {
+        expect(shapeIds).toContain(id);
+      },
+    );
+  });
+
+  // The map uses Natural Earth's India point of view.
+  test('follows the borders recognised by India', () => {
+    // Not recognised as separate countries: drawn as part of Serbia and
+    // Morocco, and tracked as dots.
+    ['UNK', 'ESH'].forEach(id => {
+      expect(shapeIds).not.toContain(id);
+      expect(worldMap.points).toHaveProperty(id);
     });
+    // Only specks such as Bir Tawil are left unassigned; Siachen and the
+    // rest of Jammu & Kashmir belong to India.
+    expect(worldMap.neutral.length).toBeLessThan(1000);
   });
 
   test('dots sit inside the map', () => {
